@@ -1,0 +1,353 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String    @id @default(cuid())
+  username      String?   @unique
+  email         String?   @unique
+  emailVerified DateTime?
+  image         String?
+  password      String?
+  Session       Session[]
+  Account       Account?
+  // // Optional for WebAuthn support
+  // Authenticator Authenticator[]
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  type_created            Type[]           @relation("created_user_type")
+  type_updated            Type[]           @relation("updated_user_type")
+  transmition_created     Transmition[]    @relation("created_user_transmition")
+  transmition_updated     Transmition[]    @relation("updated_user_transmition")
+  color_created           Color[]          @relation("created_user_color")
+  color_updated           Color[]          @relation("updated_user_color")
+  fuel_created            Fuel[]           @relation("created_user_fuel")
+  fuel_updated            Fuel[]           @relation("updated_user_fuel")
+  product_created         Product[]        @relation("created_user_product")
+  product_updated         Product[]        @relation("updated_user_product")
+  product_color_created   ProductColor[]   @relation("created_user_product_color")
+  product_color_updated   ProductColor[]   @relation("updated_user_product_color")
+  product_model_created   ProductModel[]   @relation("created_user_product_model")
+  product_model_updated   ProductModel[]   @relation("updated_user_product_model")
+  model_machine_created   ModelMachine[]   @relation("created_user_model_machine")
+  model_machine_updated   ModelMachine[]   @relation("updated_user_model_machine")
+  model_dimention_created ModelDimention[] @relation("created_user_model_dimention")
+  model_dimention_updated ModelDimention[] @relation("updated_user_model_dimention")
+  model_chasis_created    ModelChasis[]    @relation("created_user_model_chasis")
+  model_chasis_updated    ModelChasis[]    @relation("updated_user_model_chasis")
+  price_created           Price[]          @relation("created_user_price")
+  price_updated           Price[]          @relation("updated_user_price")
+  price_detail_created    PriceDetail[]    @relation("created_user_price_detail")
+  price_detail_updated    PriceDetail[]    @relation("updated_user_price_detail")
+  Authenticator           Authenticator[]
+
+  @@map("user")
+}
+
+model Account {
+  id                       String  @id @default(cuid())
+  userId                   String  @unique
+  type                     String
+  provider                 String
+  providerAccountId        String
+  refresh_token            String? @db.Text
+  access_token             String? @db.Text
+  expires_at               Int?
+  token_type               String?
+  scope                    String?
+  id_token                 String? @db.Text
+  session_state            String?
+  refresh_token_expires_in Int?
+  user                     User?   @relation(fields: [userId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([provider, providerAccountId])
+  @@index([userId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId])
+}
+
+model VerificationToken {
+  identifier String
+  token      String
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
+// Optional for WebAuthn support
+model Authenticator {
+  id                   String  @id @default(cuid())
+  credentialID         String  @unique
+  userId               String
+  providerAccountId    String
+  credentialPublicKey  String
+  counter              Int
+  credentialDeviceType String
+  credentialBackedUp   Boolean
+  transports           String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Type {
+  id        String   @id @default(cuid())
+  name      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  createdBy String?
+  updatedBy String?
+
+  created_user User? @relation("created_user_type", fields: [createdBy], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  updated_user User? @relation("updated_user_type", fields: [updatedBy], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
+  product_model ProductModel[] @relation("type_product_model")
+
+  @@map("type")
+}
+
+model Color {
+  id        String   @id @default(cuid())
+  name      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  createdBy String?
+  updatedBy String?
+
+  created_user User? @relation("created_user_color", fields: [createdBy], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  updated_user User? @relation("updated_user_color", fields: [updatedBy], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
+  product_color ProductColor[] @relation("color_product_color")
+
+  @@map("color")
+}
+
+model Fuel {
+  id        String   @id @default(cuid())
+  name      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  createdBy String?
+  updatedBy String?
+
+  created_user User? @relation("created_user_fuel", fields: [createdBy], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  updated_user User? @relation("updated_user_fuel", fields: [updatedBy], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
+  model_machine ModelMachine[] @relation("fuel_model_machine")
+
+  @@map("fuel")
+}
+
+model Transmition {
+  id        String   @id @default(cuid())
+  name      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  createdBy String?
+  updatedBy String?
+
+  created_user User? @relation("created_user_transmition", fields: [createdBy], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  updated_user User? @relation("updated_user_transmition", fields: [updatedBy], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
+  product_model ProductModel[] @relation("transmition_product_model")
+
+  @@map("transmition")
+}
+
+model Product {
+  id          String   @id @default(cuid())
+  name        String
+  buildUp     Int
+  description String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  createdBy   String?
+  updatedBy   String?
+
+  created_user User? @relation("created_user_product", fields: [createdBy], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  updated_user User? @relation("updated_user_product", fields: [updatedBy], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
+  product_color ProductColor[] @relation("product_product_color")
+  product_model ProductModel[] @relation("product_product_model")
+  price         Price[]        @relation("product_price")
+
+  @@map("product")
+}
+
+model ProductColor {
+  id        String   @id @default(cuid())
+  productId String
+  colorId   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  createdBy String?
+  updatedBy String?
+
+  created_user User? @relation("created_user_product_color", fields: [createdBy], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  updated_user User? @relation("updated_user_product_color", fields: [updatedBy], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
+  product Product @relation("product_product_color", fields: [productId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  color   Color   @relation("color_product_color", fields: [colorId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
+  @@map("product_color")
+}
+
+model ProductModel {
+  id            String   @id @default(cuid())
+  productId     String
+  typeId        String
+  transmitionId String
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  createdBy     String?
+  updatedBy     String?
+
+  created_user User? @relation("created_user_product_model", fields: [createdBy], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  updated_user User? @relation("updated_user_product_model", fields: [updatedBy], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
+  product     Product     @relation("product_product_model", fields: [productId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  type        Type        @relation("type_product_model", fields: [typeId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  transmition Transmition @relation("transmition_product_model", fields: [transmitionId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
+  model_machine   ModelMachine[]   @relation("product_model_model_machine")
+  model_dimention ModelDimention[] @relation("product_model_model_dimention")
+  model_chasis    ModelChasis[]    @relation("product_model_model_chasis")
+
+  @@map("product_model")
+}
+
+model ModelMachine {
+  id             String   @id @default(cuid())
+  productModelId String
+  machineSerial  String?
+  engineType     String
+  boreStroke     String
+  cylinder       Decimal  @db.Decimal(6, 2)
+  maxOutput      String
+  maxTorq        String
+  fuelId         String
+  fuelCapacity   Decimal  @db.Decimal(6, 2)
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+  createdBy      String?
+  updatedBy      String?
+
+  created_user User? @relation("created_user_model_machine", fields: [createdBy], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  updated_user User? @relation("updated_user_model_machine", fields: [updatedBy], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
+  product_model ProductModel @relation("product_model_model_machine", fields: [productModelId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  fuel          Fuel         @relation("fuel_model_machine", fields: [fuelId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
+  @@map("model_machine")
+}
+
+model ModelDimention {
+  id              String   @id @default(cuid())
+  productModelId  String
+  length          Decimal  @db.Decimal(6, 2)
+  width           Decimal  @db.Decimal(6, 2)
+  height          Decimal  @db.Decimal(6, 2)
+  wheelBase       Decimal  @db.Decimal(6, 2)
+  frontThread     Decimal  @db.Decimal(6, 2)
+  rearThread      Decimal  @db.Decimal(6, 2)
+  groundClearance Decimal  @db.Decimal(6, 2)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  createdBy       String?
+  updatedBy       String?
+
+  created_user User? @relation("created_user_model_dimention", fields: [createdBy], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  updated_user User? @relation("updated_user_model_dimention", fields: [updatedBy], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
+  product_model ProductModel @relation("product_model_model_dimention", fields: [productModelId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
+  @@map("model_dimention")
+}
+
+model ModelChasis {
+  id              String   @id @default(cuid())
+  productModelId  String
+  transmitionType String
+  frontSuspension String
+  rearSuspension  String
+  frontBrake      String
+  rearBrake       String
+  parkingBrake    String
+  brakingSystem   String
+  tireSize        String
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  createdBy       String?
+  updatedBy       String?
+
+  created_user User? @relation("created_user_model_chasis", fields: [createdBy], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  updated_user User? @relation("updated_user_model_chasis", fields: [updatedBy], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
+  product_model ProductModel @relation("product_model_model_chasis", fields: [productModelId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
+  @@map("model_chasis")
+}
+
+model Price {
+  id        String   @id @default(cuid())
+  productId String
+  price     Decimal  @default(0) @db.Decimal(8, 2)
+  credit    Boolean  @default(false)
+  tenor     Int
+  dp        Decimal  @default(0) @db.Decimal(8, 2)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  createdBy String?
+  updatedBy String?
+
+  created_user User? @relation("created_user_price", fields: [createdBy], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  updated_user User? @relation("updated_user_price", fields: [updatedBy], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
+  product      Product       @relation("product_price", fields: [productId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  price_detail PriceDetail[] @relation("price_price_detail")
+
+  @@map("price")
+}
+
+model PriceDetail {
+  id        String   @id @default(cuid())
+  priceId   String
+  count     Int
+  amount    Decimal  @default(0) @db.Decimal(8, 2)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  createdBy String?
+  updatedBy String?
+
+  created_user User? @relation("created_user_price_detail", fields: [createdBy], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  updated_user User? @relation("updated_user_price_detail", fields: [updatedBy], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
+  price Price @relation("price_price_detail", fields: [priceId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
+  @@map("price_detail")
+}
