@@ -11,7 +11,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useSearchParams } from 'next/navigation'
 import { useState, useTransition } from 'react'
 import { useForm } from 'react-hook-form'
-import CardWrapper from '../card-wrapper'
+import CardWrapper from '../../card-wrapper'
 
 export default function NewPasswordForm() {
     const [error, setError] = useState<string | undefined>()

@@ -5,12 +5,12 @@ import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card'
 import Link from 'next/link'
 import React from 'react'
 import Header from './header'
-import Social from './login/social'
+import Social from './auth/login/social'
 
 interface CardWrapperProps {
     children: React.ReactNode
-    headerLabel: string
-    descLabel: string
+    headerLabel?: string
+    descLabel?: string
     backButtonLabel?: string
     backButtonHref?: string
     showSocial?: boolean

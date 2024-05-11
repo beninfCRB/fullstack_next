@@ -9,7 +9,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { useState, useTransition } from 'react'
 import { useForm } from 'react-hook-form'
 import { FormControl, FormField, FormItem, FormLabel, FormMain, FormMessage } from '../../../ui/form'
-import CardWrapper from '../card-wrapper'
+import CardWrapper from '../../card-wrapper'
 import { ButtonMain } from '@/components/custom-button'
 
 

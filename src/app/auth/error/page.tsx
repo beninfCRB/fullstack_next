@@ -1,4 +1,4 @@
-import ErrorCard from '@/components/admin/auth/error-card'
+import ErrorCard from '@/components/admin/error-card'
 import React from 'react'
 
 export default function AuthErrorPage() {
