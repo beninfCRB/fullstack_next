@@ -4,6 +4,7 @@ import React from 'react'
 import { motion } from 'framer-motion'
 import { usePathname } from 'next/navigation'
 import Link from 'next/link'
+import { private_links } from '@/app/(private)/admin/router'
 
 interface Props {
     containerStyles?: string,
@@ -11,25 +12,19 @@ interface Props {
     underlineStyles?: string
 }
 
-const links = [
-    { path: '/admin', name: 'home' },
-    { path: '/admin/users', name: 'user' },
-    { path: '/admin/settings', name: 'setting' }
-]
-
 const Nav = ({ containerStyles, linkStyles, underlineStyles }: Props) => {
     const path = usePathname()
     return (
         <nav className={`${containerStyles}`}>
             {
-                links.map((link, index) => {
+                private_links.map((link, index) => {
                     return (
                         <Link
-                            href={link.path}
+                            href={link.href}
                             key={index}
                             className={`uppercase ${linkStyles}`}
                         >
-                            {link.path === path && (
+                            {link.href === path && (
                                 <motion.span
                                     initial={{ y: '-100%' }}
                                     animate={{ y: 0 }}
@@ -38,7 +33,7 @@ const Nav = ({ containerStyles, linkStyles, underlineStyles }: Props) => {
                                     className={`${underlineStyles}`}
                                 />
                             )}
-                            {link.name}
+                            {link.title}
                         </Link>
                     )
                 })

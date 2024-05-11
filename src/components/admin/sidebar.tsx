@@ -13,6 +13,7 @@ import {
 import { Button } from "../ui/button";
 
 import { useWindowWidth } from "@react-hook/window-size";
+import { private_links } from "@/app/(private)/admin/router";
 
 export default function Sidebar() {
     const [isCollapsed, setIsCollapsed] = useState(false);
@@ -51,32 +52,7 @@ export default function Sidebar() {
             )}
             <NavSideBar
                 isCollapsed={mobileWidth ? true : isCollapsed}
-                links={[
-                    {
-                        title: "Dashboard",
-                        href: "/admin",
-                        icon: LayoutDashboard,
-                        variant: "default"
-                    },
-                    {
-                        title: "Users",
-                        href: "/admin/users",
-                        icon: UsersRound,
-                        variant: "ghost"
-                    },
-                    {
-                        title: "Orders",
-                        href: "/admin/orders",
-                        icon: ShoppingCart,
-                        variant: "ghost"
-                    },
-                    {
-                        title: "Settings",
-                        href: "/admin/settings",
-                        icon: Settings,
-                        variant: "ghost"
-                    }
-                ]}
+                links={private_links}
             />
         </div>
     );
