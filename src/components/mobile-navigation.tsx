@@ -1,11 +1,10 @@
 "use client"
 
-import Nav from './navigation'
 import LogoIcon from './logo-icon'
 import { Sheet, SheetContent, SheetTrigger } from './ui/sheet'
 import { AlignJustify } from 'lucide-react'
 
-export default function MobileNavigation() {
+export default function MobileNavigation({ children }: { children: React.ReactNode }) {
     return (
         <Sheet>
             <SheetTrigger asChild>
@@ -17,10 +16,7 @@ export default function MobileNavigation() {
                 <div className='flex flex-col items-center justify-between h-full py-8'>
                     <div className='flex flex-col items-center gap-y-32'>
                         <LogoIcon href='/' />
-                        <Nav
-                            containerStyles='flex flex-col items-center gap-y-6'
-                            linkStyles='text-1xl font-semibold'
-                        />
+                        {children}
                     </div>
                 </div>
             </SheetContent>

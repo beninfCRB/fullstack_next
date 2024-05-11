@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Nav } from "../ui/nav";
+import { NavSideBar } from "./nav-sidebar";
 
 import {
     ChevronRight,
@@ -14,7 +14,7 @@ import { Button } from "../ui/button";
 
 import { useWindowWidth } from "@react-hook/window-size";
 
-export default function SideNavbar() {
+export default function Sidebar() {
     const [isCollapsed, setIsCollapsed] = useState(false);
 
     const onlyWidth = useWindowWidth();
@@ -34,8 +34,9 @@ export default function SideNavbar() {
         return null;
     }
 
+
     return (
-        <div className="relative min-w-[80px] border-r px-3 pb-10 pt-24">
+        <div className="relative min-w-[80px] border-r h-full px-3 pb-10 pt-24">
             {!mobileWidth && (
                 <div className="absolute right-[-20px] top-7">
                     <Button
@@ -48,7 +49,7 @@ export default function SideNavbar() {
                     </Button>
                 </div>
             )}
-            <Nav
+            <NavSideBar
                 isCollapsed={mobileWidth ? true : isCollapsed}
                 links={[
                     {

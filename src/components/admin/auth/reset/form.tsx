@@ -1,40 +1,36 @@
 "use client"
 
-import { login } from '@/actions/login'
+import { reset } from '@/actions/reset-password'
 import FormError from '@/components/form-error'
 import FormSuccess from '@/components/form-success'
-import { Button } from '@/components/ui/button'
 import { Input } from "@/components/ui/input"
-import { PasswordInput } from '@/components/ui/input-password'
-import { LoginSchema, LoginSchemaType } from '@/schemas/auth'
+import { ResetSchema, ResetSchemaType } from '@/schemas/auth'
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useState, useTransition } from 'react'
 import { useForm } from 'react-hook-form'
 import { FormControl, FormField, FormItem, FormLabel, FormMain, FormMessage } from '../../../ui/form'
 import CardWrapper from '../card-wrapper'
-import Link from 'next/link'
 import { ButtonMain } from '@/components/custom-button'
 
 
-export default function LoginForm() {
+export default function ResetForm() {
   const [error, setError] = useState<string | undefined>("")
   const [success, setSuccess] = useState<string | undefined>("")
   const [isPending, startTransition] = useTransition()
 
-  const form = useForm<LoginSchemaType>({
-    resolver: zodResolver(LoginSchema),
+  const form = useForm<ResetSchemaType>({
+    resolver: zodResolver(ResetSchema),
     defaultValues: {
-      email: "",
-      password: ""
+      email: ""
     },
   })
 
-  function onSubmit(values: LoginSchemaType) {
+  function onSubmit(values: ResetSchemaType) {
     setError(undefined)
     setSuccess(undefined)
 
     startTransition(async () => {
-      await login(values).then((data) => {
+      await reset(values).then((data) => {
         setSuccess(data.success)
         setError(data.error)
       })
@@ -43,8 +39,10 @@ export default function LoginForm() {
 
   return (
     <CardWrapper
-      headerLabel='AUTH'
-      descLabel="Sealmat datang kembali"
+      headerLabel="AUTH"
+      descLabel="Atur ulang kata sandi"
+      backButtonLabel='Kembali ke halaman login'
+      backButtonHref='/auth/login'
     >
       <FormMain {...form}>
         <form
@@ -69,36 +67,6 @@ export default function LoginForm() {
                 </FormItem>
               )}
             />
-            <FormField
-              control={form.control}
-              name="password"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Password</FormLabel>
-                  <FormControl>
-                    <PasswordInput
-                      disabled={isPending}
-                      placeholder="Masukan password"
-                      {...field}
-                    />
-                  </FormControl>
-                  <Button
-                    size={'sm'}
-                    variant={'link'}
-                    className='px-0 font-normal text-black'
-                    asChild
-                  >
-                    <Link
-                      className='text-black dark:text-white'
-                      href={'/auth/reset'}
-                    >
-                      Lupa kata sandi?
-                    </Link>
-                  </Button>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
             <FormError message={error} />
             <FormSuccess message={success} />
             <ButtonMain
@@ -106,7 +74,7 @@ export default function LoginForm() {
               className="w-full"
               type="submit"
             >
-              Sign In
+              Submit
             </ButtonMain>
           </div>
         </form>

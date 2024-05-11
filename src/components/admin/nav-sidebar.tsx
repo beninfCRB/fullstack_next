@@ -1,15 +1,15 @@
 "use client";
 
-import Link from "next/link";
 import { LucideIcon } from "lucide-react";
+import Link from "next/link";
 
-import { cn } from "@/lib/utils";
 import { buttonVariants } from "@/components/ui/button";
 import {
     Tooltip,
     TooltipContent,
     TooltipTrigger
 } from "@/components/ui/tooltip";
+import { cn } from "@/lib/utils";
 import { TooltipProvider } from "@radix-ui/react-tooltip";
 import { usePathname } from "next/navigation";
 
@@ -24,7 +24,7 @@ interface NavProps {
     }[];
 }
 
-export function Nav({ links, isCollapsed }: NavProps) {
+export function NavSideBar({ links, isCollapsed }: NavProps) {
     const pathName = usePathname();
     return (
         <TooltipProvider>
@@ -66,6 +66,7 @@ export function Nav({ links, isCollapsed }: NavProps) {
                                 </TooltipContent>
                             </Tooltip>
                         ) : (
+
                             <Link
                                 key={index}
                                 href={link.href}
@@ -97,6 +98,6 @@ export function Nav({ links, isCollapsed }: NavProps) {
                     )}
                 </nav>
             </div>
-        </TooltipProvider>
+        </TooltipProvider >
     );
 }

@@ -43,7 +43,12 @@ const Header = () => {
                         <ThemeToggler />
 
                         <div className='xl:hidden'>
-                            <MobileNavigation />
+                            <MobileNavigation>
+                                <Nav
+                                    containerStyles='flex flex-col items-center gap-y-6'
+                                    linkStyles='text-1xl font-semibold'
+                                />
+                            </MobileNavigation>
                         </div>
                     </div>
                 </div>

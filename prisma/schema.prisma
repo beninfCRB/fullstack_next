@@ -13,15 +13,21 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum UserRole {
+  ADMIN
+  USER
+}
+
 model User {
   id            String    @id @default(cuid())
-  username      String?   @unique
-  email         String?   @unique
+  username      String    @unique
+  email         String    @unique
   emailVerified DateTime?
   image         String?
-  password      String?
+  password      String
   Session       Session[]
   Account       Account?
+  role          UserRole  @default(USER)
   // // Optional for WebAuthn support
   // Authenticator Authenticator[]
   createdAt     DateTime  @default(now())
@@ -51,7 +57,6 @@ model User {
   price_updated           Price[]          @relation("updated_user_price")
   price_detail_created    PriceDetail[]    @relation("created_user_price_detail")
   price_detail_updated    PriceDetail[]    @relation("updated_user_price_detail")
-  Authenticator           Authenticator[]
 
   @@map("user")
 }
@@ -93,26 +98,21 @@ model Session {
 }
 
 model VerificationToken {
-  identifier String
-  token      String
-  expires    DateTime
+  id      String   @id @default(cuid())
+  email   String
+  token   String   @unique
+  expires DateTime
 
-  @@unique([identifier, token])
+  @@unique([email, token])
 }
 
-// Optional for WebAuthn support
-model Authenticator {
-  id                   String  @id @default(cuid())
-  credentialID         String  @unique
-  userId               String
-  providerAccountId    String
-  credentialPublicKey  String
-  counter              Int
-  credentialDeviceType String
-  credentialBackedUp   Boolean
-  transports           String?
+model PasswordResetToken {
+  id      String   @id @default(cuid())
+  email   String
+  token   String   @unique
+  expires DateTime
 
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  @@unique([email, token])
 }
 
 model Type {

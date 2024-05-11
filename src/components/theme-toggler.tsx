@@ -8,6 +8,7 @@ const ThemeToggler = () => {
     return (
         <div>
             <Button
+                className='rounded-full'
                 onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
             >
                 <SunIcon

@@ -1,5 +1,4 @@
 import { cn } from '@/lib/utils'
-import { LockClosedIcon } from '@radix-ui/react-icons'
 import { Poppins } from 'next/font/google'
 
 const font = Poppins({
@@ -8,11 +7,13 @@ const font = Poppins({
 })
 
 interface HeaderProps {
-    label: string
+    headLabel: string
+    descLabel: string
 }
 
 export default function Header({
-    label
+    headLabel,
+    descLabel
 }: HeaderProps) {
     return (
         <div className='w-full flex flex-col gap-y-4 items-center justify-center'>
@@ -20,10 +21,10 @@ export default function Header({
                 "text-3xl font-semibold",
                 font.className
             )}>
-                Masuk
+                {headLabel}
             </h1>
             <p className='text-muted-foreground text-sm'>
-                {label}
+                {descLabel}
             </p>
         </div>
     )
