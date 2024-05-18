@@ -1,7 +1,7 @@
 "use client"
 
 import React, { useCallback, useEffect, useState } from 'react'
-import CardWrapper from '../../card-wrapper'
+import CardWrapper from '../../ui/card-wrapper'
 import { BeatLoader } from 'react-spinners'
 import { useSearchParams } from 'next/navigation'
 import newVerification from '@/actions/new-verification'
@@ -35,12 +35,9 @@ export default function NewVerificationForm() {
         onSubmit()
     }, [onSubmit])
 
-    console.log('success=>', success);
-    console.log('error=>', error);
-
-
     return (
         <CardWrapper
+            className='w-[400px] shadow-lg'
             headerLabel='AUTH'
             descLabel='Confirming your verification'
             backButtonLabel='Back to login'

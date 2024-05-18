@@ -1,6 +1,6 @@
 "use client"
 
-import PageTitle from "@/components/admin/page-title";
+import PageTitle from "@/components/admin/ui/page-title";
 import { useSession } from "next-auth/react";
 
 export default function SettingsPage() {

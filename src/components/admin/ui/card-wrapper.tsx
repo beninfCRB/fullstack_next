@@ -5,7 +5,7 @@ import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card'
 import Link from 'next/link'
 import React from 'react'
 import Header from './header'
-import Social from './auth/login/social'
+import Social from '../auth/login/social'
 
 interface CardWrapperProps {
     children: React.ReactNode
@@ -14,6 +14,7 @@ interface CardWrapperProps {
     backButtonLabel?: string
     backButtonHref?: string
     showSocial?: boolean
+    className: string
 }
 
 export default function CardWrapper({
@@ -22,11 +23,12 @@ export default function CardWrapper({
     descLabel,
     backButtonLabel,
     backButtonHref,
-    showSocial
+    showSocial,
+    className
 }: CardWrapperProps) {
 
     return (
-        <Card className='w-[400px] shadow-md'>
+        <Card className={`${className}`}>
             <CardHeader>
                 <Header headLabel={headerLabel} descLabel={descLabel} />
             </CardHeader>

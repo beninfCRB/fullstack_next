@@ -10,7 +10,7 @@ import {
     ShoppingCart,
     UsersRound
 } from "lucide-react";
-import { Button } from "../ui/button";
+import { Button } from "../../ui/button";
 
 import { useWindowWidth } from "@react-hook/window-size";
 import { private_links } from "@/app/(private)/admin/router";

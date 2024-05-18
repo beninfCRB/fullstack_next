@@ -1,9 +1,9 @@
 "use client"
 
-import Card, { CardContent, CardProps } from "@/components/admin/card";
-import BarChart from "@/components/admin/bar-chart";
-import PageTitle from "@/components/admin/page-title";
-import SalesCard, { SalesProps } from "@/components/admin/sales-card";
+import Card, { CardContent, CardProps } from "@/components/admin/ui/card";
+import BarChart from "@/components/admin/ui/bar-chart";
+import PageTitle from "@/components/admin/ui/page-title";
+import SalesCard, { SalesProps } from "@/components/admin/ui/sales-card";
 import { Activity, CreditCard, DollarSign, Users } from "lucide-react";
 
 const cardData: CardProps[] = [

@@ -18,8 +18,6 @@ export async function login(values: LoginSchemaType) {
     const { email, password } = validatedFields.data
 
     const existingUser = await getUserByEmail(email)
-    console.log('========>', existingUser);
-
 
     if (!existingUser || !existingUser.email || !existingUser.password) {
         return { error: "Email do not exist!" }

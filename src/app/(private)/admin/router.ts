@@ -22,15 +22,9 @@ export const private_links: Array<PrivateLinksProps> =
             variant: "default"
         },
         {
-            title: "Users",
-            href: "/admin/users",
-            icon: UsersRound,
-            variant: "ghost"
-        },
-        {
-            title: "Orders",
-            href: "/admin/orders",
-            icon: ShoppingCart,
+            title: "Tipe",
+            href: "/admin/type",
+            icon: LayoutDashboard,
             variant: "ghost"
         },
         {

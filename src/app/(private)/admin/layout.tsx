@@ -1,6 +1,6 @@
 
-import HeadNavBar from '@/components/admin/head-navbar'
-import Sidebar from '@/components/admin/sidebar'
+import HeadNavBar from '@/components/admin/ui/head-navbar'
+import Sidebar from '@/components/admin/ui/sidebar'
 import React, { Suspense } from 'react'
 import LoadingPrivatePage from './loading'
 
@@ -13,7 +13,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                     <Sidebar />
                 </div>
                 {/* main page */}
-                <div className="p-8 w-full lg:pl-[width-of-SideNavbar]">
+                <div className="p-4 lg:p-8 xl:p-8 2xl:p-8 w-full lg:pl-[width-of-SideNavbar]">
                     <HeadNavBar />
                     {children}
                 </div>

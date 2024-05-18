@@ -2,11 +2,13 @@ import type { Metadata } from "next";
 import { SessionProvider } from "next-auth/react";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import 'react-toastify/dist/ReactToastify.css';
 
 //ThemeProvider
 import { auth } from "@/auth";
 import { ThemeProvider } from "@/components/theme-provider";
 import { cn } from "@/lib/utils";
+import { ToastContainer } from 'react-toastify';
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -31,6 +33,9 @@ export default async function RootLayout({
         })}>
           <ThemeProvider attribute="class" defaultTheme="light">
             <main>
+              <ToastContainer
+                position="top-center"
+              />
               {children}
             </main>
           </ThemeProvider>

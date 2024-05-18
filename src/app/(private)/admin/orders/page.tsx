@@ -1,9 +1,9 @@
 "use client";
 
-import { DataTable } from "@/components/admin/data-table";
+import { DataTable } from "@/components/admin/ui/data-table";
 import { ColumnDef } from "@tanstack/react-table";
 import React from "react";
-import PageTitle from "@/components/admin/page-title";
+import PageTitle from "@/components/admin/ui/page-title";
 import { cn } from "@/lib/utils";
 
 type Props = {};

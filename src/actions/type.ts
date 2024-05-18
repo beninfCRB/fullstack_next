@@ -1,11 +1,14 @@
 "use server"
 
+import { auth } from "@/auth";
 import { db } from "@/lib/db";
 import { TypeSchema, TypeSchemaType } from "@/schemas/type";
 import { ResponseStatic } from "@/static/reponse";
 
 export async function PostType(values: TypeSchemaType) {
     try {
+        const user = await auth()
+        delete values.id
         const validatedFields = TypeSchema.safeParse(values)
 
         if (!validatedFields.success) {
@@ -14,7 +17,9 @@ export async function PostType(values: TypeSchemaType) {
 
         await db.type.create({
             data: {
-                ...validatedFields.data
+                ...validatedFields.data,
+                createdBy: user?.user?.id,
+                updatedBy: user?.user?.id
             }
         })
 
@@ -29,6 +34,7 @@ export async function PostType(values: TypeSchemaType) {
 
 export async function PutType(id: string, values: TypeSchemaType) {
     try {
+        const user = await auth()
         const validatedFields = TypeSchema.safeParse(values)
 
         if (!validatedFields.success) {
@@ -40,7 +46,8 @@ export async function PutType(id: string, values: TypeSchemaType) {
                 id
             },
             data: {
-                ...validatedFields.data
+                ...validatedFields.data,
+                updatedBy: user?.user.id
             }
         })
 
@@ -53,7 +60,7 @@ export async function PutType(id: string, values: TypeSchemaType) {
     }
 }
 
-export async function Delete(id: string) {
+export async function DeleteType(id: string) {
     try {
         await db.type.delete({
             where: {

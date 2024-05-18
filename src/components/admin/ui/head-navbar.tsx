@@ -4,12 +4,12 @@ import { PersonIcon } from '@radix-ui/react-icons'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useState } from 'react'
-import ThemeToggler from '../theme-toggler'
-import MobileNavigation from '../mobile-navigation'
+import ThemeToggler from '../../theme-toggler'
+import MobileNavigation from '../../mobile-navigation'
 import Nav from './navigation'
 import { signOut } from 'next-auth/react'
-import { Button } from '../ui/button'
-import ButtonSignout from '../button-signout'
+import { Button } from '../../ui/button'
+import ButtonSignout from '../../button-signout'
 
 export default function HeadNavBar() {
     const [header, setHeader] = useState(false)

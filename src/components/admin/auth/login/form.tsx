@@ -11,7 +11,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { useState, useTransition } from 'react'
 import { useForm } from 'react-hook-form'
 import { FormControl, FormField, FormItem, FormLabel, FormMain, FormMessage } from '../../../ui/form'
-import CardWrapper from '../../card-wrapper'
+import CardWrapper from '../../ui/card-wrapper'
 import Link from 'next/link'
 import { ButtonMain } from '@/components/custom-button'
 
@@ -45,6 +45,7 @@ export default function LoginForm() {
     <CardWrapper
       headerLabel='AUTH'
       descLabel="Sealmat datang kembali"
+      className='w-[400px] shadow-lg'
     >
       <FormMain {...form}>
         <form

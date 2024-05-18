@@ -9,7 +9,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { useState, useTransition } from 'react'
 import { useForm } from 'react-hook-form'
 import { FormControl, FormField, FormItem, FormLabel, FormMain, FormMessage } from '../../../ui/form'
-import CardWrapper from '../../card-wrapper'
+import CardWrapper from '../../ui/card-wrapper'
 import { ButtonMain } from '@/components/custom-button'
 
 
@@ -39,6 +39,7 @@ export default function ResetForm() {
 
   return (
     <CardWrapper
+      className='w-[400px] shadow-lg'
       headerLabel="AUTH"
       descLabel="Atur ulang kata sandi"
       backButtonLabel='Kembali ke halaman login'
