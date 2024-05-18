@@ -44,9 +44,14 @@ export const {
                 sessionToken: token
             });
 
+            if (token.sub && session.user) {
+                session.user.id = token.sub as string
+            }
+
             if (token.role && session.user) {
                 session.user.role = token.role as UserRole
             }
+
             return session
         },
         async jwt({ token }) {

@@ -8,6 +8,7 @@ import { ResponseStatic } from "@/static/reponse";
 export async function PostType(values: TypeSchemaType) {
     try {
         const user = await auth()
+
         delete values.id
         const validatedFields = TypeSchema.safeParse(values)
 
