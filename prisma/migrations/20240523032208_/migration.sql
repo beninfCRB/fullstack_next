@@ -60,23 +60,20 @@ CREATE TABLE `VerificationToken` (
     `token` VARCHAR(191) NOT NULL,
     `expires` DATETIME(3) NOT NULL,
 
+    UNIQUE INDEX `VerificationToken_token_key`(`token`),
     UNIQUE INDEX `VerificationToken_email_token_key`(`email`, `token`),
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
-CREATE TABLE `Authenticator` (
+CREATE TABLE `PasswordResetToken` (
     `id` VARCHAR(191) NOT NULL,
-    `credentialID` VARCHAR(191) NOT NULL,
-    `userId` VARCHAR(191) NOT NULL,
-    `providerAccountId` VARCHAR(191) NOT NULL,
-    `credentialPublicKey` VARCHAR(191) NOT NULL,
-    `counter` INTEGER NOT NULL,
-    `credentialDeviceType` VARCHAR(191) NOT NULL,
-    `credentialBackedUp` BOOLEAN NOT NULL,
-    `transports` VARCHAR(191) NULL,
+    `email` VARCHAR(191) NOT NULL,
+    `token` VARCHAR(191) NOT NULL,
+    `expires` DATETIME(3) NOT NULL,
 
-    UNIQUE INDEX `Authenticator_credentialID_key`(`credentialID`),
+    UNIQUE INDEX `PasswordResetToken_token_key`(`token`),
+    UNIQUE INDEX `PasswordResetToken_email_token_key`(`email`, `token`),
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
@@ -95,6 +92,8 @@ CREATE TABLE `type` (
 -- CreateTable
 CREATE TABLE `color` (
     `id` VARCHAR(191) NOT NULL,
+    `code` VARCHAR(191) NOT NULL,
+    `color` VARCHAR(191) NOT NULL,
     `name` VARCHAR(191) NOT NULL,
     `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `updatedAt` DATETIME(3) NOT NULL,
@@ -263,9 +262,6 @@ ALTER TABLE `Account` ADD CONSTRAINT `Account_userId_fkey` FOREIGN KEY (`userId`
 
 -- AddForeignKey
 ALTER TABLE `Session` ADD CONSTRAINT `Session_userId_fkey` FOREIGN KEY (`userId`) REFERENCES `user`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE `Authenticator` ADD CONSTRAINT `Authenticator_userId_fkey` FOREIGN KEY (`userId`) REFERENCES `user`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE `type` ADD CONSTRAINT `type_createdBy_fkey` FOREIGN KEY (`createdBy`) REFERENCES `user`(`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;

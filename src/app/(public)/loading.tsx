@@ -1,12 +1,13 @@
 "use client"
 
-import ThreeDotsWave from "@/components/ThreeDotsWave";
-import React from "react";
+import LoadingSVG from "@/components/loading-svg";
 
-export default function LoadinPublicPage() {
+export default function LoadingMainPage() {
     return (
-        <div>
-            <ThreeDotsWave />
+        <div
+            className="max-w-max mx-auto flex justify-center items-center min-h-screen"
+        >
+            <LoadingSVG />
         </div>
     );
 }

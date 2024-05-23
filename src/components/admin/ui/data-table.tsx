@@ -81,8 +81,9 @@ export function DataTable<TData, TValue>({
         <div className="flex flex-col w-full gap-2">
             <div className="flex items-center justify-between">
                 <div className="flex flex-row items-center space-x-2">
-                    {table.getAllColumns().filter((column) => column.getCanHide()).map((column) => (
+                    {table.getAllColumns().filter((column) => column.getCanHide()).map((column, i) => (
                         <Input
+                            key={i}
                             placeholder={`Filter ${column.id}...`}
                             value={(column.getFilterValue() as string) ?? ""}
                             onChange={(event) =>
@@ -113,9 +114,10 @@ export function DataTable<TData, TValue>({
                         {table
                             .getAllColumns()
                             .filter((column) => column.getCanHide())
-                            .map((column) => {
+                            .map((column, i) => {
                                 return (
                                     <DropdownMenuCheckboxItem
+                                        key={i}
                                         className="capitalize"
                                         checked={column.getIsVisible()}
                                         onCheckedChange={(value) =>

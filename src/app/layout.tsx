@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { SessionProvider } from "next-auth/react";
 import { Inter } from "next/font/google";
-import "./globals.css";
 import 'react-toastify/dist/ReactToastify.css';
+import "./globals.css";
 
 //ThemeProvider
 import { auth } from "@/auth";
