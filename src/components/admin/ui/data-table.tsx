@@ -77,6 +77,17 @@ export function DataTable<TData, TValue>({
         icon: any,
     }>
 
+    const decision = (v: any): any => {
+        console.log(v);
+        if (typeof v === 'number') {
+            return (v as number) ?? ""
+        } else if (typeof v === 'number') {
+            return (v as number) ?? ""
+        }
+
+        return (v as number) ?? ""
+    }
+
     return (
         <div className="flex flex-col w-full gap-2">
             <div className="flex items-center justify-between">
@@ -85,7 +96,7 @@ export function DataTable<TData, TValue>({
                         <Input
                             key={i}
                             placeholder={`Filter ${column.id}...`}
-                            value={(column.getFilterValue() as string) ?? ""}
+                            value={decision(column.getFilterValue())}
                             onChange={(event) =>
                                 column.setFilterValue(event.target.value)
                             }

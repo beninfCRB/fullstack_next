@@ -34,6 +34,24 @@ export const private_links: Array<PrivateLinksProps> =
             variant: "ghost"
         },
         {
+            title: "Bahan Bakar",
+            href: "/admin/fuel",
+            icon: LayoutDashboard,
+            variant: "ghost"
+        },
+        {
+            title: "Transmisi",
+            href: "/admin/transmition",
+            icon: LayoutDashboard,
+            variant: "ghost"
+        },
+        {
+            title: "Produk",
+            href: "/admin/product",
+            icon: LayoutDashboard,
+            variant: "ghost"
+        },
+        {
             title: "Settings",
             href: "/admin/settings",
             icon: Settings,
