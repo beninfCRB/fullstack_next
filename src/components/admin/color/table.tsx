@@ -63,10 +63,7 @@ export const ColorTable: FunctionComponent<ColorTable> = function ({ ...props })
     const columns: ColumnDef<ColorType>[] = [
         {
             accessorKey: "color",
-            header: "Warna",
-            cell: ({ row }) => <div className="lowercase">
-                <ColorPicker onChange={() => { }} value={row.getValue("color")} />
-            </div>,
+            header: "Warna"
         },
         {
             accessorKey: "code",
@@ -84,8 +81,7 @@ export const ColorTable: FunctionComponent<ColorTable> = function ({ ...props })
                         <ArrowUpDown className="ml-2 h-4 w-4" />
                     </Button>
                 )
-            },
-            cell: ({ row }) => <div className="lowercase">{row.getValue("name")}</div>,
+            }
         },
         {
             id: "actions",

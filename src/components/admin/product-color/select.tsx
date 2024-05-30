@@ -1,19 +1,16 @@
-import React, { FunctionComponent } from 'react'
-import { ColorType } from './type'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
+import { FunctionComponent } from 'react'
+import { ProductColorType } from './type'
 
-interface colorSelectProps {
+interface productcolorSelectProps {
     placeholder: string
-    data: Array<ColorType>
-    setValue: (id: string) => void
+    data: Array<ProductColorType>
 }
 
-export const ColorSelect: FunctionComponent<colorSelectProps> = function ({ ...props }) {
+export const ProductColorSelect: FunctionComponent<productcolorSelectProps> = function ({ ...props }) {
     return (
-        <Select
-            onValueChange={props.setValue}
-        >
-            <SelectTrigger className="w-full">
+        <Select>
+            <SelectTrigger className="w-[180px]">
                 <SelectValue placeholder={props.placeholder} />
             </SelectTrigger>
             <SelectContent>
@@ -23,7 +20,7 @@ export const ColorSelect: FunctionComponent<colorSelectProps> = function ({ ...p
                             key={i}
                             value={item?.id as string}
                         >
-                            {item?.name}
+                            {item?.product?.name}
                         </SelectItem>
                     )
                 })

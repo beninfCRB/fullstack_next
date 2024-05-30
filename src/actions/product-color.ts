@@ -2,21 +2,21 @@
 
 import { auth } from "@/auth";
 import { db } from "@/lib/db";
-import { ProductSchema, ProductSchemaType } from "@/schemas/product";
+import { ProductColorSchema, ProductColorSchemaType } from "@/schemas/product-color";
 import { ResponseStatic } from "@/static/reponse";
 
-export async function PostProduct(values: ProductSchemaType) {
+export async function PostProductColor(values: ProductColorSchemaType) {
     try {
         const user = await auth()
 
         delete values.id
-        const validatedFields = ProductSchema.safeParse(values)
+        const validatedFields = ProductColorSchema.safeParse(values)
 
         if (!validatedFields.success) {
             return { error: "Invalid Fields!" }
         }
 
-        await db.product.create({
+        await db.productColor.create({
             data: {
                 ...validatedFields.data,
                 createdBy: user?.user?.id,
@@ -33,16 +33,16 @@ export async function PostProduct(values: ProductSchemaType) {
     }
 }
 
-export async function PutProduct(id: string, values: ProductSchemaType) {
+export async function PutProductColor(id: string, values: ProductColorSchemaType) {
     try {
         const user = await auth()
-        const validatedFields = ProductSchema.safeParse(values)
+        const validatedFields = ProductColorSchema.safeParse(values)
 
         if (!validatedFields.success) {
             return { error: "Invalid Fields!" }
         }
 
-        await db.product.update({
+        await db.productColor.update({
             where: {
                 id
             },
@@ -61,9 +61,9 @@ export async function PutProduct(id: string, values: ProductSchemaType) {
     }
 }
 
-export async function DeleteProduct(id: string) {
+export async function DeleteProductColor(id: string) {
     try {
-        await db.product.delete({
+        await db.productColor.delete({
             where: {
                 id
             }

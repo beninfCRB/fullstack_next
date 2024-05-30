@@ -72,8 +72,7 @@ export const FuelTable: FunctionComponent<FuelTable> = function ({ ...props }) {
                         <ArrowUpDown className="ml-2 h-4 w-4" />
                     </Button>
                 )
-            },
-            cell: ({ row }) => <div className="lowercase">{row.getValue("name")}</div>,
+            }
         },
         {
             id: "actions",

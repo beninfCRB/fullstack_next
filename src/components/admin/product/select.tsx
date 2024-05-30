@@ -2,15 +2,18 @@ import React, { FunctionComponent } from 'react'
 import { ProductType } from './type'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 
-interface productSelectProps {
+interface colorSelectProps {
     placeholder: string
     data: Array<ProductType>
+    setValue: (id: any) => void
 }
 
-export const ProductSelect: FunctionComponent<productSelectProps> = function ({ ...props }) {
+export const ProductSelect: FunctionComponent<colorSelectProps> = function ({ ...props }) {
     return (
-        <Select>
-            <SelectTrigger className="w-[180px]">
+        <Select
+            onValueChange={props.setValue}
+        >
+            <SelectTrigger className="w-full">
                 <SelectValue placeholder={props.placeholder} />
             </SelectTrigger>
             <SelectContent>

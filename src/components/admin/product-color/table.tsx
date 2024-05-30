@@ -21,15 +21,15 @@ import {
     AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
 import { toast } from 'react-toastify'
-import { ProductType } from './type'
+import { ProductColorType } from './type'
 
 
-interface ProductTable {
-    data: Array<ProductType> | []
+interface ProductColorTable {
+    data: Array<ProductColorType> | []
     onDelete: (id: string) => Promise<any>
 }
 
-export const ProductTable: FunctionComponent<ProductTable> = function ({ ...props }) {
+export const ProductColorTable: FunctionComponent<ProductColorTable> = function ({ ...props }) {
     const [id, setId] = useState<string | undefined>(undefined)
     const router = useRouter()
 
@@ -59,44 +59,40 @@ export const ProductTable: FunctionComponent<ProductTable> = function ({ ...prop
         router.refresh()
     }, [success, error])
 
-    const columns: ColumnDef<ProductType>[] = [
+    const columns: ColumnDef<ProductColorType>[] = [
         {
-            accessorKey: "name",
+            accessorKey: "product.name",
             header: ({ column }) => {
                 return (
                     <Button
                         variant="ghost"
                         onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
                     >
-                        Produk
+                        Nama Produk
                         <ArrowUpDown className="ml-2 h-4 w-4" />
                     </Button>
                 )
             }
         },
         {
-            accessorKey: "buildUp",
+            accessorKey: "color.name",
             header: ({ column }) => {
                 return (
                     <Button
                         variant="ghost"
                         onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
                     >
-                        Tahun Pembuatan
+                        Nama Warna
                         <ArrowUpDown className="ml-2 h-4 w-4" />
                     </Button>
                 )
             }
-        },
-        {
-            accessorKey: "description",
-            header: "Keterangan"
         },
         {
             id: "actions",
             enableHiding: false,
             cell: ({ row }) => {
-                const product = row.original
+                const productcolor = row.original
 
                 return (
                     <div
@@ -104,7 +100,7 @@ export const ProductTable: FunctionComponent<ProductTable> = function ({ ...prop
                     >
                         <ButtonMain
                             className="w-full rounded-full"
-                            onClick={() => onUpdate(product.id as string)}
+                            onClick={() => onUpdate(productcolor.id as string)}
                             variant={'default'}
                         >
                             <Pencil2Icon />
@@ -112,7 +108,7 @@ export const ProductTable: FunctionComponent<ProductTable> = function ({ ...prop
                         <AlertDialogTrigger>
                             <ButtonMain
                                 className="w-full rounded-full"
-                                onClick={() => setId(product.id as string)}
+                                onClick={() => setId(productcolor.id as string)}
                                 variant={'secondary'}
                             >
                                 <TrashIcon />
@@ -128,7 +124,7 @@ export const ProductTable: FunctionComponent<ProductTable> = function ({ ...prop
         <div className='w-full shadow-xl'>
             <motion.div
                 animate={{ y: [-10, 0] }}
-                transition={{ product: "spring", stiffness: 100 }}
+                transition={{ productcolor: "spring", stiffness: 100 }}
             >
                 <AlertDialog>
                     <DataTable

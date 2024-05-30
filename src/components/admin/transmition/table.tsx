@@ -72,8 +72,7 @@ export const TransmitionTable: FunctionComponent<TransmitionTable> = function ({
                         <ArrowUpDown className="ml-2 h-4 w-4" />
                     </Button>
                 )
-            },
-            cell: ({ row }) => <div className="lowercase">{row.getValue("name")}</div>,
+            }
         },
         {
             id: "actions",
