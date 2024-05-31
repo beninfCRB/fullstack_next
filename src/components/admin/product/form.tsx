@@ -80,7 +80,6 @@ export const ProductForm: FunctionComponent<ProductFormProps> = function ({ ...p
     const onSubmit = (values: ProductSchemaType) => {
         setError(undefined)
         setSuccess(undefined)
-        values.buildUp = Number(values.buildUp)
 
         if (id) {
             startTransition(async () => {
@@ -184,7 +183,7 @@ export const ProductForm: FunctionComponent<ProductFormProps> = function ({ ...p
                                                                     placeholder="Masukan Tahun Pembuatan"
                                                                     type='number'
                                                                     {...field}
-                                                                    onChange={event => field.onChange(+event.target.value)}
+                                                                    onChange={e => field.onChange(parseInt(e.target.value))}
                                                                 />
                                                             </FormControl>
                                                             <FormMessage />

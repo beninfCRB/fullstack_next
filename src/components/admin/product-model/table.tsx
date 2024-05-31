@@ -1,15 +1,6 @@
 "use client"
 
 import { ButtonMain } from '@/components/custom-button'
-import { CheckIcon, Cross2Icon, Pencil2Icon, TrashIcon } from '@radix-ui/react-icons'
-import { ColumnDef } from '@tanstack/react-table'
-import { useRouter } from 'next/navigation'
-import { FunctionComponent, startTransition, useEffect, useState } from 'react'
-import { DataTable } from '../ui/data-table'
-import { ColorType } from './type'
-import { Button } from '@/components/ui/button'
-import { ArrowUpDown } from 'lucide-react'
-import { motion } from 'framer-motion'
 import {
     AlertDialog,
     AlertDialogAction,
@@ -21,16 +12,24 @@ import {
     AlertDialogTitle,
     AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
+import { Button } from '@/components/ui/button'
+import { CheckIcon, Cross2Icon, Pencil2Icon, TrashIcon } from '@radix-ui/react-icons'
+import { ColumnDef } from '@tanstack/react-table'
+import { motion } from 'framer-motion'
+import { ArrowUpDown } from 'lucide-react'
+import { useRouter } from 'next/navigation'
+import { FunctionComponent, startTransition, useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
-import { ColorPicker } from '@/components/ui/color-picker-input'
+import { DataTable } from '../ui/data-table'
+import { ProductModelType } from './type'
 
 
-interface ColorTable {
-    data: Array<ColorType> | []
+interface ProductModelTable {
+    data: Array<ProductModelType> | []
     onDelete: (id: string) => Promise<any>
 }
 
-export const ColorTable: FunctionComponent<ColorTable> = function ({ ...props }) {
+export const ProductModelTable: FunctionComponent<ProductModelTable> = function ({ ...props }) {
     const [id, setId] = useState<string | undefined>(undefined)
     const router = useRouter()
 
@@ -60,34 +59,44 @@ export const ColorTable: FunctionComponent<ColorTable> = function ({ ...props })
         router.refresh()
     }, [success, error])
 
-    const columns: ColumnDef<ColorType>[] = [
+    const columns: ColumnDef<ProductModelType>[] = [
         {
-            accessorKey: "color",
-            header: "Warna",
-            cell: ({ row }) => {
-                const color = row.original
-
-                return (
-                    <ColorPicker
-                        onChange={() => { }}
-                        value={color.color as string}
-                    />
-                )
-            }
-        },
-        {
-            accessorKey: "code",
-            header: "Warna"
-        },
-        {
-            accessorKey: "name",
+            accessorKey: "product.name",
             header: ({ column }) => {
                 return (
                     <Button
                         variant="ghost"
                         onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
                     >
-                        Warna
+                        Nama Produk
+                        <ArrowUpDown className="ml-2 h-4 w-4" />
+                    </Button>
+                )
+            }
+        },
+        {
+            accessorKey: "type.name",
+            header: ({ column }) => {
+                return (
+                    <Button
+                        variant="ghost"
+                        onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+                    >
+                        Nama Tipe
+                        <ArrowUpDown className="ml-2 h-4 w-4" />
+                    </Button>
+                )
+            }
+        },
+        {
+            accessorKey: "transmition.name",
+            header: ({ column }) => {
+                return (
+                    <Button
+                        variant="ghost"
+                        onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+                    >
+                        Nama Transmisi
                         <ArrowUpDown className="ml-2 h-4 w-4" />
                     </Button>
                 )
@@ -97,7 +106,7 @@ export const ColorTable: FunctionComponent<ColorTable> = function ({ ...props })
             id: "actions",
             enableHiding: false,
             cell: ({ row }) => {
-                const type = row.original
+                const productmodel = row.original
 
                 return (
                     <div
@@ -105,7 +114,7 @@ export const ColorTable: FunctionComponent<ColorTable> = function ({ ...props })
                     >
                         <ButtonMain
                             className="w-full rounded-full"
-                            onClick={() => onUpdate(type.id as string)}
+                            onClick={() => onUpdate(productmodel.id as string)}
                             variant={'default'}
                         >
                             <Pencil2Icon />
@@ -113,7 +122,7 @@ export const ColorTable: FunctionComponent<ColorTable> = function ({ ...props })
                         <AlertDialogTrigger>
                             <ButtonMain
                                 className="w-full rounded-full"
-                                onClick={() => setId(type.id as string)}
+                                onClick={() => setId(productmodel.id as string)}
                                 variant={'secondary'}
                             >
                                 <TrashIcon />
@@ -129,7 +138,7 @@ export const ColorTable: FunctionComponent<ColorTable> = function ({ ...props })
         <div className='w-full shadow-xl'>
             <motion.div
                 animate={{ y: [-10, 0] }}
-                transition={{ type: "spring", stiffness: 100 }}
+                transition={{ productmodel: "spring", stiffness: 100 }}
             >
                 <AlertDialog>
                     <DataTable

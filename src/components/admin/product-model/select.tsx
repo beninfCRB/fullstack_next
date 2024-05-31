@@ -1,14 +1,14 @@
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { FunctionComponent } from 'react'
-import { FuelType } from './type'
+import { ProductModelType } from './type'
 import { ControllerRenderProps } from 'react-hook-form'
 
-interface fuelSelectProps extends ControllerRenderProps {
+interface productmodelSelectProps extends ControllerRenderProps {
     placeholder: string
-    data: Array<FuelType>
+    data: Array<ProductModelType>
 }
 
-export const FuelSelect: FunctionComponent<fuelSelectProps> = function ({ ...props }) {
+export const ProductModelSelect: FunctionComponent<productmodelSelectProps> = function ({ ...props }) {
     const { placeholder, data, onChange } = props
 
     return (
@@ -26,7 +26,7 @@ export const FuelSelect: FunctionComponent<fuelSelectProps> = function ({ ...pro
                             key={i}
                             value={item?.id as string}
                         >
-                            {item?.name}
+                            {item?.product?.name}
                         </SelectItem>
                     )
                 })

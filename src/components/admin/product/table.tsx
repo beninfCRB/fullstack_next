@@ -2,10 +2,10 @@
 
 import { ButtonMain } from '@/components/custom-button'
 import { CheckIcon, Cross2Icon, Pencil2Icon, TrashIcon } from '@radix-ui/react-icons'
-import { ColumnDef } from '@tanstack/react-table'
+import { ColumnDef, FilterFn, filterFns } from '@tanstack/react-table'
 import { useRouter } from 'next/navigation'
 import { FunctionComponent, startTransition, useEffect, useState } from 'react'
-import { DataTable } from '../ui/data-table'
+import { DataTable, multiFunctionFilterData } from '../ui/data-table'
 import { Button } from '@/components/ui/button'
 import { ArrowUpDown } from 'lucide-react'
 import { motion } from 'framer-motion'
@@ -22,6 +22,7 @@ import {
 } from "@/components/ui/alert-dialog"
 import { toast } from 'react-toastify'
 import { ProductType } from './type'
+import { ProductModelType } from '../product-model/type'
 
 
 interface ProductTable {
@@ -86,7 +87,8 @@ export const ProductTable: FunctionComponent<ProductTable> = function ({ ...prop
                         <ArrowUpDown className="ml-2 h-4 w-4" />
                     </Button>
                 )
-            }
+            },
+            filterFn: multiFunctionFilterData
         },
         {
             accessorKey: "description",

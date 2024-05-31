@@ -1,11 +1,12 @@
 import { db } from "@/lib/db"
 
-export async function GetProductColor() {
+export async function GetProductModel() {
     try {
-        const data = await db.productColor.findMany({
+        const data = await db.productModel.findMany({
             include: {
                 product: true,
-                color: true
+                type: true,
+                transmition: true
             }
         })
 
@@ -15,15 +16,16 @@ export async function GetProductColor() {
     }
 }
 
-export async function GetProductColorID(id: string) {
+export async function GetProductModelID(id: string) {
     try {
-        const data = await db.productColor.findFirst({
+        const data = await db.productModel.findFirst({
             where: {
                 id
             },
             include: {
                 product: true,
-                color: true
+                type: true,
+                transmition: true
             }
         })
 

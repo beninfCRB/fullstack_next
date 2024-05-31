@@ -1,23 +1,26 @@
 import React, { FunctionComponent } from 'react'
 import { ColorType } from './type'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
+import { ControllerRenderProps } from 'react-hook-form'
 
-interface colorSelectProps {
+interface colorSelectProps extends ControllerRenderProps {
     placeholder: string
     data: Array<ColorType>
-    setValue: (id: string) => void
 }
 
 export const ColorSelect: FunctionComponent<colorSelectProps> = function ({ ...props }) {
+    const { placeholder, data, onChange } = props
+
     return (
         <Select
-            onValueChange={props.setValue}
+            onValueChange={onChange}
+            {...props}
         >
             <SelectTrigger className="w-full">
-                <SelectValue placeholder={props.placeholder} />
+                <SelectValue placeholder={placeholder} />
             </SelectTrigger>
             <SelectContent>
-                {props.data.map((item, i) => {
+                {data.map((item, i) => {
                     return (
                         <SelectItem
                             key={i}

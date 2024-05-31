@@ -1,12 +1,12 @@
 "use client"
 
-import { PostProductColor, PutProductColor } from '@/actions/product-color'
+import { PostProductModel, PutProductModel } from '@/actions/product-model'
 import { ButtonMain } from '@/components/custom-button'
 import FormError from '@/components/form-error'
 import FormSuccess from '@/components/form-success'
 import { FormControl, FormField, FormItem, FormLabel, FormMain, FormMessage } from '@/components/ui/form'
 import { Input } from "@/components/ui/input"
-import { ProductColorSchema, ProductColorSchemaType } from '@/schemas/product-color'
+import { ProductModelSchema, ProductModelSchemaType } from '@/schemas/product-model'
 import { zodResolver } from "@hookform/resolvers/zod"
 import { CrossCircledIcon, PlusCircledIcon, PlusIcon } from '@radix-ui/react-icons'
 import { motion } from 'framer-motion'
@@ -16,19 +16,22 @@ import { useForm } from 'react-hook-form'
 import { toast } from 'react-toastify'
 import { ProductSelect } from '../product/select'
 import { ProductType } from '../product/type'
+import { TransmitionSelect } from '../transmition/select'
+import { TransmitionType } from '../transmition/type'
+import { TypeSelect } from '../type/select'
+import { TypeType } from '../type/type'
 import CardWrapper from '../ui/card-wrapper'
 import PageTitle from '../ui/page-title'
-import { ProductColorType } from './type'
-import { ColorType } from '../color/type'
-import { ColorSelect } from '../color/select'
+import { ProductModelType } from './type'
 
-interface ProductColorFormProps {
+interface ProductModelFormProps {
     dataProduct: Array<ProductType>
-    dataColor: Array<ColorType>
-    getID: (id: string) => Promise<ProductColorType>
+    dataType: Array<TypeType>
+    dataTransmition: Array<TransmitionType>
+    getID: (id: string) => Promise<ProductModelType>
 }
 
-export const ProductColorForm: FunctionComponent<ProductColorFormProps> = function ({ ...props }) {
+export const ProductModelForm: FunctionComponent<ProductModelFormProps> = function ({ ...props }) {
     const [visible, setVisible] = useState<boolean>(false)
     const router = useRouter()
     const path = usePathname()
@@ -38,24 +41,23 @@ export const ProductColorForm: FunctionComponent<ProductColorFormProps> = functi
     }
 
     const id = useSearchParams().get('id') as string
-    const [data, setData] = useState<ProductColorType>({})
+    const [data, setData] = useState<ProductModelType>({})
     const [error, setError] = useState<string | undefined>(undefined)
     const [success, setSuccess] = useState<string | undefined>(undefined)
     const [isPending, startTransition] = useTransition()
 
-    const form = useForm<ProductColorSchemaType>({
-        resolver: zodResolver(ProductColorSchema),
+    const form = useForm<ProductModelSchemaType>({
+        resolver: zodResolver(ProductModelSchema),
         defaultValues: {
             id: "",
             productId: "",
-            colorId: ""
+            typeId: "",
+            transmitionId: ""
         }
     })
 
     const get = async (id: string) => {
         const obj = await props.getID(id)
-        console.log('=====>obj', obj);
-
         setData(obj)
     }
 
@@ -67,11 +69,10 @@ export const ProductColorForm: FunctionComponent<ProductColorFormProps> = functi
 
     useEffect(() => {
         if (data) {
-            console.log(data);
-
             form.setValue('id', data.id as string)
             form.setValue('productId', data.productId as string)
-            form.setValue('colorId', data.colorId as string)
+            form.setValue('typeId', data.typeId as string)
+            form.setValue('transmitionId', data.transmitionId as string)
             setVisible(true)
         }
     }, [data])
@@ -86,20 +87,20 @@ export const ProductColorForm: FunctionComponent<ProductColorFormProps> = functi
         router.refresh()
     }, [success, error])
 
-    const onSubmit = (values: ProductColorSchemaType) => {
+    const onSubmit = (values: ProductModelSchemaType) => {
         setError(undefined)
         setSuccess(undefined)
 
         if (id) {
             startTransition(async () => {
-                await PutProductColor(id, values).then((data) => {
+                await PutProductModel(id, values).then((data) => {
                     setSuccess(data.success)
                     setError(data.error)
                 })
             })
         } else {
             startTransition(async () => {
-                await PostProductColor(values).then((data) => {
+                await PostProductModel(values).then((data) => {
                     setSuccess(data.success)
                     setError(data.error)
                 })
@@ -133,7 +134,7 @@ export const ProductColorForm: FunctionComponent<ProductColorFormProps> = functi
                         <div className="basis-full items-center justify-center">
                             <motion.div
                                 animate={{ y: [-50, 5] }}
-                                transition={{ productcolor: "spring", stiffness: 100 }}
+                                transition={{ productmodel: "spring", stiffness: 100 }}
                             >
                                 <CardWrapper
                                     className='w-full shadow-lg'
@@ -183,15 +184,33 @@ export const ProductColorForm: FunctionComponent<ProductColorFormProps> = functi
                                                 />
                                                 <FormField
                                                     control={form.control}
-                                                    name="colorId"
+                                                    name="typeId"
                                                     render={({ field }) => (
                                                         <FormItem>
-                                                            <FormLabel>Warna</FormLabel>
+                                                            <FormLabel>Tipe</FormLabel>
                                                             <FormControl>
-                                                                <ColorSelect
-                                                                    data={props.dataColor}
+                                                                <TypeSelect
+                                                                    data={props.dataType}
                                                                     disabled={isPending}
-                                                                    placeholder="Masukan Nama Warna"
+                                                                    placeholder="Masukan Nama Tipe"
+                                                                    {...field}
+                                                                />
+                                                            </FormControl>
+                                                            <FormMessage />
+                                                        </FormItem>
+                                                    )}
+                                                />
+                                                <FormField
+                                                    control={form.control}
+                                                    name="transmitionId"
+                                                    render={({ field }) => (
+                                                        <FormItem>
+                                                            <FormLabel>Transmisi</FormLabel>
+                                                            <FormControl>
+                                                                <TransmitionSelect
+                                                                    data={props.dataTransmition}
+                                                                    disabled={isPending}
+                                                                    placeholder="Masukan Nama Transmisi"
                                                                     {...field}
                                                                 />
                                                             </FormControl>

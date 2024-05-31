@@ -9,8 +9,6 @@ import { GetProductColor, GetProductColorID } from '@/data/product-color'
 
 export default async function ProductColorPage() {
     const data = await GetProductColor() || []
-    console.log('------------>data', data);
-
     const product = await GetProduct() || []
     const color = await GetColor() || []
 
