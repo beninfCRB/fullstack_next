@@ -16,7 +16,7 @@ export const FuelSelect: FunctionComponent<fuelSelectProps> = function ({ ...pro
             onValueChange={onChange}
             {...props}
         >
-            <SelectTrigger className="w-[180px]">
+            <SelectTrigger className="w-full">
                 <SelectValue placeholder={placeholder} />
             </SelectTrigger>
             <SelectContent>

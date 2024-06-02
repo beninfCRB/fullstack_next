@@ -27,7 +27,7 @@ import { Button } from "../../ui/button";
 
 import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
-import { Cross2Icon, DoubleArrowLeftIcon, DoubleArrowRightIcon } from "@radix-ui/react-icons";
+import { Cross2Icon, DoubleArrowLeftIcon, DoubleArrowRightIcon, MagnifyingGlassIcon } from "@radix-ui/react-icons";
 import { ChevronDown, ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
 import { useState } from "react";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -114,18 +114,6 @@ export function DataTable<TData, TValue>({
         <div className="flex flex-col w-full gap-2">
             <div className="flex items-center justify-between">
                 <div className="flex flex-row items-center space-x-2">
-                    {table.getAllColumns().filter((column) => column.getCanHide()).map((column, i) => (
-                        <Input
-                            key={i}
-                            placeholder={`Filter ${i + 1} ...`}
-                            value={decision(column.getFilterValue())}
-                            onChange={(event) =>
-                                column.setFilterValue(decision(event.target.value))
-                            }
-                            className="max-w-sm"
-                        />
-                    )
-                    )}
                     {isFiltered && (
                         <Button
                             variant="ghost"
@@ -166,19 +154,47 @@ export function DataTable<TData, TValue>({
             </div>
             <div className="rounded-md border gap-2">
                 <Table>
-                    <TableHeader>
+                    <TableHeader
+                        className="bg-red-500"
+                    >
                         {table.getHeaderGroups().map((headerGroup) => (
-                            <TableRow key={headerGroup.id}>
+                            <TableRow
+                                key={headerGroup.id}
+                            >
                                 {headerGroup.headers.map((header) => {
                                     return (
-                                        <TableHead key={header.id}>
-                                            {header.isPlaceholder
-                                                ? null
-                                                : flexRender(
-                                                    header.column.columnDef.header,
-                                                    header.getContext()
-                                                )}
-                                        </TableHead>
+                                        <>
+                                            <TableHead
+                                                className="text-white"
+                                                key={header.id}
+                                            >
+                                                {header.isPlaceholder
+                                                    ? null
+                                                    : <div className="flex flex-col items-start text-white">
+                                                        {
+                                                            flexRender(
+                                                                header.column.columnDef.header,
+                                                                header.getContext()
+                                                            )
+                                                        }
+                                                        {table.getAllColumns().filter((column) => column.getCanHide() && column.id === header.column.id).map((column, i) => (
+                                                            <div className="w-full">
+                                                                <Input
+                                                                    key={i}
+                                                                    placeholder={`Cari...`}
+                                                                    value={decision(column.getFilterValue())}
+                                                                    onChange={(event) =>
+                                                                        column.setFilterValue(decision(event.target.value))
+                                                                    }
+                                                                    className="max-w-sm"
+                                                                />
+                                                            </div>
+                                                        )
+                                                        )}
+                                                    </div>
+                                                }
+                                            </TableHead>
+                                        </>
                                     );
                                 })}
                             </TableRow>

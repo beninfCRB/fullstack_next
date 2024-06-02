@@ -1,14 +1,14 @@
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { FunctionComponent } from 'react'
-import { ProductModelType } from './type'
+import { ModelMachineType } from './type'
 import { ControllerRenderProps } from 'react-hook-form'
 
-interface productmodelSelectProps extends ControllerRenderProps {
+interface modelmachineSelectProps extends ControllerRenderProps {
     placeholder: string
-    data: Array<ProductModelType>
+    data: Array<ModelMachineType>
 }
 
-export const ProductModelSelect: FunctionComponent<productmodelSelectProps> = function ({ ...props }) {
+export const ModelMachineSelect: FunctionComponent<modelmachineSelectProps> = function ({ ...props }) {
     const { placeholder, data, onChange } = props
 
     return (
@@ -16,7 +16,7 @@ export const ProductModelSelect: FunctionComponent<productmodelSelectProps> = fu
             onValueChange={onChange}
             {...props}
         >
-            <SelectTrigger className="w-full">
+            <SelectTrigger className="w-[180px]">
                 <SelectValue placeholder={placeholder} />
             </SelectTrigger>
             <SelectContent>
@@ -26,7 +26,7 @@ export const ProductModelSelect: FunctionComponent<productmodelSelectProps> = fu
                             key={i}
                             value={item?.id as string}
                         >
-                            {item?.product?.name}
+                            {item?.engineType}
                         </SelectItem>
                     )
                 })
