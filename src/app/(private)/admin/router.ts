@@ -70,6 +70,12 @@ export const private_links: Array<PrivateLinksProps> =
             variant: "ghost"
         },
         {
+            title: "Model Dimensi",
+            href: "/admin/model-dimention",
+            icon: LayoutDashboard,
+            variant: "ghost"
+        },
+        {
             title: "Settings",
             href: "/admin/settings",
             icon: Settings,

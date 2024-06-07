@@ -152,10 +152,10 @@ export function DataTable<TData, TValue>({
                     </DropdownMenuContent>
                 </DropdownMenu>
             </div>
-            <div className="rounded-md border gap-2">
+            <div className="rounded-md border gap-2 overflow-x-auto">
                 <Table>
                     <TableHeader
-                        className="bg-red-500"
+                        className="bg-red-500 hover:bg-red-500"
                     >
                         {table.getHeaderGroups().map((headerGroup) => (
                             <TableRow
