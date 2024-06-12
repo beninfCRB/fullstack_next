@@ -1,15 +1,14 @@
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { FunctionComponent } from 'react'
-import { ProductColorType } from './type'
+import { ProductImageType } from './type'
 import { ControllerRenderProps } from 'react-hook-form'
-import { ColorPicker } from '@/components/ui/color-picker-input'
 
-interface productcolorSelectProps extends ControllerRenderProps {
+interface productimageSelectProps extends ControllerRenderProps {
     placeholder: string
-    data: Array<ProductColorType>
+    data: Array<ProductImageType>
 }
 
-export const ProductColorSelect: FunctionComponent<productcolorSelectProps> = function ({ ...props }) {
+export const ProductImageSelect: FunctionComponent<productimageSelectProps> = function ({ ...props }) {
     const { placeholder, data, onChange } = props
 
     return (
@@ -17,7 +16,7 @@ export const ProductColorSelect: FunctionComponent<productcolorSelectProps> = fu
             onValueChange={onChange}
             {...props}
         >
-            <SelectTrigger className="w-full">
+            <SelectTrigger className="w-[180px]">
                 <SelectValue placeholder={placeholder} />
             </SelectTrigger>
             <SelectContent>
@@ -27,14 +26,7 @@ export const ProductColorSelect: FunctionComponent<productcolorSelectProps> = fu
                             key={i}
                             value={item?.id as string}
                         >
-                            <div className='flex items-center justify-start gap-2'>
-                                <div>{item?.product?.name}</div>
-                                <div>{item?.color?.name}</div>
-                                <div><ColorPicker
-                                    onChange={() => { }}
-                                    value={item?.color?.color as string}
-                                /></div>
-                            </div>
+                            {item?.product_color?.color?.name}
                         </SelectItem>
                     )
                 })

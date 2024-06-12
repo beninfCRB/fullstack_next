@@ -7,7 +7,7 @@ import LoadingPrivatePage from './loading'
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
     return (
         <Suspense fallback={<LoadingPrivatePage />}>
-            <section className='flex min-h-screen w-full'>
+            <section className='flex mx-auto w-full'>
                 {/* sidebar */}
                 <div className="hidden lg:block md:block">
                     <Sidebar />

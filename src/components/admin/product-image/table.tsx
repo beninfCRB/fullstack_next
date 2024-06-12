@@ -21,16 +21,18 @@ import {
     AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
 import { toast } from 'react-toastify'
-import { ProductColorType } from './type'
+import { ProductImageType } from './type'
 import { ColorPicker } from '@/components/ui/color-picker-input'
+import Image from 'next/image'
+import { join } from 'path'
 
 
-interface ProductColorTable {
-    data: Array<ProductColorType> | []
+interface ProductImageTable {
+    data: Array<ProductImageType> | []
     onDelete: (id: string) => Promise<any>
 }
 
-export const ProductColorTable: FunctionComponent<ProductColorTable> = function ({ ...props }) {
+export const ProductImageTable: FunctionComponent<ProductImageTable> = function ({ ...props }) {
     const [id, setId] = useState<string | undefined>(undefined)
     const router = useRouter()
 
@@ -60,9 +62,9 @@ export const ProductColorTable: FunctionComponent<ProductColorTable> = function 
         router.refresh()
     }, [success, error])
 
-    const columns: ColumnDef<ProductColorType>[] = [
+    const columns: ColumnDef<ProductImageType>[] = [
         {
-            accessorKey: "product.name",
+            accessorKey: "product_color.product.name",
             header: ({ column }) => {
                 return (
                     <Button
@@ -76,21 +78,21 @@ export const ProductColorTable: FunctionComponent<ProductColorTable> = function 
             }
         },
         {
-            accessorKey: "color.color",
+            accessorKey: "product_color.color.color",
             header: "Warna",
             cell: ({ row }) => {
-                const product = row.original
+                const product_image = row.original
 
                 return (
                     <ColorPicker
                         onChange={() => { }}
-                        value={product?.color?.color as string}
+                        value={product_image?.product_color?.color?.color as string}
                     />
                 )
             }
         },
         {
-            accessorKey: "color.name",
+            accessorKey: "product_color.color.name",
             header: ({ column }) => {
                 return (
                     <Button
@@ -104,10 +106,29 @@ export const ProductColorTable: FunctionComponent<ProductColorTable> = function 
             }
         },
         {
+            accessorKey: "path",
+            header: "Gambar",
+            cell: ({ row }) => {
+                const product_image = row.original
+
+                return (
+                    <Image
+                        className='rounded-lg border-2 border-red-500 size-auto'
+                        src={product_image?.path as string}
+                        about={`${product_image.product_color?.product} ${product_image.product_color?.product?.name}`}
+                        alt=''
+                        width={150}
+                        height={150}
+                        priority={false}
+                    />
+                )
+            }
+        },
+        {
             id: "actions",
             enableHiding: false,
             cell: ({ row }) => {
-                const productcolor = row.original
+                const productimage = row.original
 
                 return (
                     <div
@@ -115,7 +136,7 @@ export const ProductColorTable: FunctionComponent<ProductColorTable> = function 
                     >
                         <ButtonMain
                             className="w-full rounded-full"
-                            onClick={() => onUpdate(productcolor.id as string)}
+                            onClick={() => onUpdate(productimage.id as string)}
                             variant={'default'}
                         >
                             <Pencil2Icon />
@@ -123,7 +144,7 @@ export const ProductColorTable: FunctionComponent<ProductColorTable> = function 
                         <AlertDialogTrigger>
                             <ButtonMain
                                 className="w-full rounded-full"
-                                onClick={() => setId(productcolor.id as string)}
+                                onClick={() => setId(productimage.id as string)}
                                 variant={'secondary'}
                             >
                                 <TrashIcon />
@@ -139,7 +160,7 @@ export const ProductColorTable: FunctionComponent<ProductColorTable> = function 
         <div className='w-full shadow-xl'>
             <motion.div
                 animate={{ y: [-10, 0] }}
-                transition={{ productcolor: "spring", stiffness: 100 }}
+                transition={{ productimage: "spring", stiffness: 100 }}
             >
                 <AlertDialog>
                     <DataTable

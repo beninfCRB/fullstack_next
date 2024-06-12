@@ -58,6 +58,12 @@ export const private_links: Array<PrivateLinksProps> =
             variant: "ghost"
         },
         {
+            title: "Gambar Produk",
+            href: "/admin/product-image",
+            icon: LayoutDashboard,
+            variant: "ghost"
+        },
+        {
             title: "Model Produk",
             href: "/admin/product-model",
             icon: LayoutDashboard,

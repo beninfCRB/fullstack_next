@@ -25,7 +25,7 @@ export default async function ModelDimentionPage() {
     }
 
     return (
-        <div className="gap-6 w-full md:w-[88%]">
+        <div className="gap-6 w-full 2xl:w-[88%] xl:w-[85.5%] md:w-[81%] lg:w-[83%]">
             <div className='flex flex-col gap-4'>
                 <ModelDimentionForm
                     dataFuel={fuel}

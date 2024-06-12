@@ -47,6 +47,8 @@ model User {
   product_color_updated   ProductColor[]   @relation("updated_user_product_color")
   product_model_created   ProductModel[]   @relation("created_user_product_model")
   product_model_updated   ProductModel[]   @relation("updated_user_product_model")
+  product_image_created   ProductImage[]   @relation("created_user_product_image")
+  product_image_updated   ProductImage[]   @relation("updated_user_product_image")
   model_machine_created   ModelMachine[]   @relation("created_user_model_machine")
   model_machine_updated   ModelMachine[]   @relation("updated_user_model_machine")
   model_dimention_created ModelDimention[] @relation("created_user_model_dimention")
@@ -213,8 +215,9 @@ model ProductColor {
   created_user User? @relation("created_user_product_color", fields: [createdBy], references: [id], onDelete: NoAction, onUpdate: NoAction)
   updated_user User? @relation("updated_user_product_color", fields: [updatedBy], references: [id], onDelete: NoAction, onUpdate: NoAction)
 
-  product Product @relation("product_product_color", fields: [productId], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  color   Color   @relation("color_product_color", fields: [colorId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  product       Product        @relation("product_product_color", fields: [productId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  color         Color          @relation("color_product_color", fields: [colorId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  product_image ProductImage[] @relation("product_image")
 
   @@map("product_color")
 }
@@ -241,6 +244,23 @@ model ProductModel {
   model_chasis    ModelChasis[]    @relation("product_model_model_chasis")
 
   @@map("product_model")
+}
+
+model ProductImage {
+  id             String   @id @default(cuid())
+  productColorId String
+  path           String
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+  createdBy      String?
+  updatedBy      String?
+
+  created_user User? @relation("created_user_product_image", fields: [createdBy], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  updated_user User? @relation("updated_user_product_image", fields: [updatedBy], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
+  product_color ProductColor @relation("product_image", fields: [productColorId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
+  @@map("product_image")
 }
 
 model ModelMachine {
