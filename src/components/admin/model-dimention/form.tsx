@@ -146,202 +146,232 @@ export const ModelDimentionForm: FunctionComponent<ModelDimentionFormProps> = fu
                                             onSubmit={form.handleSubmit(onSubmit)}
                                             className='space-y-6'
                                         >
-                                            <div className="space-y-4">
-                                                {data && (
+                                            {data && (
+                                                <FormField
+                                                    control={form.control}
+                                                    name="id"
+                                                    render={({ field }) => (
+                                                        <FormItem
+                                                            hidden
+                                                        >
+                                                            <FormControl>
+                                                                <Input
+                                                                    hidden
+                                                                    {...field}
+                                                                />
+                                                            </FormControl>
+                                                        </FormItem>
+                                                    )}
+                                                />
+                                            )}
+                                            <div className="flex lg:flex-row max-md:flex-col gap-4">
+                                                <div
+                                                    className='lg:basis-1/2'
+                                                >
                                                     <FormField
                                                         control={form.control}
-                                                        name="id"
+                                                        name="productModelId"
                                                         render={({ field }) => (
-                                                            <FormItem
-                                                                hidden
-                                                            >
+                                                            <FormItem>
+                                                                <FormLabel>Model Produk</FormLabel>
                                                                 <FormControl>
-                                                                    <Input
-                                                                        hidden
+                                                                    <ProductModelSelect
+                                                                        data={props.dataProductModel}
+                                                                        disabled={isPending}
+                                                                        placeholder="Masukan Nama Model Produk"
                                                                         {...field}
                                                                     />
                                                                 </FormControl>
+                                                                <FormMessage />
                                                             </FormItem>
                                                         )}
                                                     />
-                                                )}
-                                                <FormField
-                                                    control={form.control}
-                                                    name="productModelId"
-                                                    render={({ field }) => (
-                                                        <FormItem>
-                                                            <FormLabel>Model Produk</FormLabel>
-                                                            <FormControl>
-                                                                <ProductModelSelect
-                                                                    data={props.dataProductModel}
-                                                                    disabled={isPending}
-                                                                    placeholder="Masukan Nama Model Produk"
-                                                                    {...field}
-                                                                />
-                                                            </FormControl>
-                                                            <FormMessage />
-                                                        </FormItem>
-                                                    )}
-                                                />
-                                                <FormField
-                                                    control={form.control}
-                                                    name="length"
-                                                    render={({ field }) => (
-                                                        <FormItem>
-                                                            <FormLabel>Panjang</FormLabel>
-                                                            <FormControl>
-                                                                <Input
-                                                                    disabled={isPending}
-                                                                    placeholder="Masukan Panjang"
-                                                                    type='number'
-                                                                    {...field}
-                                                                    onChange={e => field.onChange(Number(e.target.value))}
-                                                                />
-                                                            </FormControl>
-                                                            <FormMessage />
-                                                        </FormItem>
-                                                    )}
-                                                />
-                                                <FormField
-                                                    control={form.control}
-                                                    name="width"
-                                                    render={({ field }) => (
-                                                        <FormItem>
-                                                            <FormLabel>Lebar</FormLabel>
-                                                            <FormControl>
-                                                                <Input
-                                                                    disabled={isPending}
-                                                                    placeholder="Masukan Lebar"
-                                                                    type='number'
-                                                                    {...field}
-                                                                    onChange={e => field.onChange(Number(e.target.value))}
-                                                                />
-                                                            </FormControl>
-                                                            <FormMessage />
-                                                        </FormItem>
-                                                    )}
-                                                />
-                                                <FormField
-                                                    control={form.control}
-                                                    name="height"
-                                                    render={({ field }) => (
-                                                        <FormItem>
-                                                            <FormLabel>Tinggi</FormLabel>
-                                                            <FormControl>
-                                                                <Input
-                                                                    disabled={isPending}
-                                                                    placeholder="Masukan Tinggi"
-                                                                    type='number'
-                                                                    {...field}
-                                                                    onChange={e => field.onChange(Number(e.target.value))}
-                                                                />
-                                                            </FormControl>
-                                                            <FormMessage />
-                                                        </FormItem>
-                                                    )}
-                                                />
-                                                <FormField
-                                                    control={form.control}
-                                                    name="wheelBase"
-                                                    render={({ field }) => (
-                                                        <FormItem>
-                                                            <FormLabel>Jarak Sumbu Roda</FormLabel>
-                                                            <FormControl>
-                                                                <Input
-                                                                    disabled={isPending}
-                                                                    placeholder="Masukan Jarak Sumbu Roda"
-                                                                    type='number'
-                                                                    {...field}
-                                                                    onChange={e => field.onChange(Number(e.target.value))}
-                                                                />
-                                                            </FormControl>
-                                                            <FormMessage />
-                                                        </FormItem>
-                                                    )}
-                                                />
-                                                <FormField
-                                                    control={form.control}
-                                                    name="frontThread"
-                                                    render={({ field }) => (
-                                                        <FormItem>
-                                                            <FormLabel>Jarak Pijak Depan</FormLabel>
-                                                            <FormControl>
-                                                                <Input
-                                                                    disabled={isPending}
-                                                                    placeholder="Masukan Jarak Pijak Depan"
-                                                                    type='number'
-                                                                    {...field}
-                                                                    onChange={e => field.onChange(Number(e.target.value))}
-                                                                />
-                                                            </FormControl>
-                                                            <FormMessage />
-                                                        </FormItem>
-                                                    )}
-                                                />
-                                                <FormField
-                                                    control={form.control}
-                                                    name="rearThread"
-                                                    render={({ field }) => (
-                                                        <FormItem>
-                                                            <FormLabel>Jarak Pijak Belakang</FormLabel>
-                                                            <FormControl>
-                                                                <Input
-                                                                    disabled={isPending}
-                                                                    placeholder="Masukan Jarak Pijak Belakang"
-                                                                    type='number'
-                                                                    {...field}
-                                                                    onChange={e => field.onChange(Number(e.target.value))}
-                                                                />
-                                                            </FormControl>
-                                                            <FormMessage />
-                                                        </FormItem>
-                                                    )}
-                                                />
-                                                <FormField
-                                                    control={form.control}
-                                                    name="groundClearance"
-                                                    render={({ field }) => (
-                                                        <FormItem>
-                                                            <FormLabel>Jarak Terendah</FormLabel>
-                                                            <FormControl>
-                                                                <Input
-                                                                    disabled={isPending}
-                                                                    placeholder="Masukan Jarak Terendah"
-                                                                    type='number'
-                                                                    {...field}
-                                                                    onChange={e => field.onChange(Number(e.target.value))}
-                                                                />
-                                                            </FormControl>
-                                                            <FormMessage />
-                                                        </FormItem>
-                                                    )}
-                                                />
-                                                <FormError message={error} />
-                                                <FormSuccess message={success} />
-                                                <div
-                                                    className='flex items-center justify-end gap-2'
-                                                >
-                                                    <ButtonMain
-                                                        disabled={isPending}
-                                                        className="w-full rounded-full gap-2"
-                                                        type="submit"
-                                                        variant={'default'}
-                                                    >
-                                                        <PlusIcon />
-                                                        Simpan
-                                                    </ButtonMain>
-                                                    <ButtonMain
-                                                        disabled={isPending}
-                                                        className="w-full rounded-full gap-2"
-                                                        onClick={
-                                                            onCancel
-                                                        }
-                                                        variant={'secondary'}
-                                                    >
-                                                        <CrossCircledIcon />
-                                                        Batal
-                                                    </ButtonMain>
+                                                    <FormField
+                                                        control={form.control}
+                                                        name="length"
+                                                        render={({ field }) => (
+                                                            <FormItem>
+                                                                <FormLabel>Panjang</FormLabel>
+                                                                <FormControl>
+                                                                    <div className="relative w-full">
+                                                                        <Input
+                                                                            {...field}
+                                                                            className='pr-9'
+                                                                            disabled={isPending}
+                                                                            placeholder="Masukan Panjang"
+                                                                            type='number'
+                                                                            onChange={e => field.onChange(Number(e.target.value))}
+                                                                        />
+                                                                        <div className='flex absolute items-center right-4 top-0 m-2.5 h-4 w-4 text-muted-foreground'>MM</div>
+                                                                    </div>
+                                                                </FormControl>
+                                                                <FormMessage />
+                                                            </FormItem>
+                                                        )}
+                                                    />
+                                                    <FormField
+                                                        control={form.control}
+                                                        name="width"
+                                                        render={({ field }) => (
+                                                            <FormItem>
+                                                                <FormLabel>Lebar</FormLabel>
+                                                                <FormControl>
+                                                                    <div className="relative w-full">
+                                                                        <Input
+                                                                            disabled={isPending}
+                                                                            placeholder="Masukan Lebar"
+                                                                            type='number'
+                                                                            {...field}
+                                                                            onChange={e => field.onChange(Number(e.target.value))}
+                                                                        />
+                                                                        <div className='flex absolute items-center right-4 top-0 m-2.5 h-4 w-4 text-muted-foreground'>MM</div>
+                                                                    </div>
+                                                                </FormControl>
+                                                                <FormMessage />
+                                                            </FormItem>
+                                                        )}
+                                                    />
+                                                    <FormField
+                                                        control={form.control}
+                                                        name="height"
+                                                        render={({ field }) => (
+                                                            <FormItem>
+                                                                <FormLabel>Tinggi</FormLabel>
+                                                                <FormControl>
+                                                                    <div className="relative w-full">
+                                                                        <Input
+                                                                            disabled={isPending}
+                                                                            placeholder="Masukan Tinggi"
+                                                                            type='number'
+                                                                            {...field}
+                                                                            onChange={e => field.onChange(Number(e.target.value))}
+                                                                        />
+                                                                        <div className='flex absolute items-center right-4 top-0 m-2.5 h-4 w-4 text-muted-foreground'>MM</div>
+                                                                    </div>
+                                                                </FormControl>
+                                                                <FormMessage />
+                                                            </FormItem>
+                                                        )}
+                                                    />
                                                 </div>
+                                                <div
+                                                    className='lg:basis-1/2'
+                                                >
+                                                    <FormField
+                                                        control={form.control}
+                                                        name="wheelBase"
+                                                        render={({ field }) => (
+                                                            <FormItem>
+                                                                <FormLabel>Jarak Sumbu Roda</FormLabel>
+                                                                <FormControl>
+                                                                    <div className="relative w-full">
+                                                                        <Input
+                                                                            disabled={isPending}
+                                                                            placeholder="Masukan Jarak Sumbu Roda"
+                                                                            type='number'
+                                                                            {...field}
+                                                                            onChange={e => field.onChange(Number(e.target.value))}
+                                                                        />
+                                                                        <div className='flex absolute items-center right-4 top-0 m-2.5 h-4 w-4 text-muted-foreground'>MM</div>
+                                                                    </div>
+                                                                </FormControl>
+                                                                <FormMessage />
+                                                            </FormItem>
+                                                        )}
+                                                    />
+                                                    <FormField
+                                                        control={form.control}
+                                                        name="frontThread"
+                                                        render={({ field }) => (
+                                                            <FormItem>
+                                                                <FormLabel>Jarak Pijak Depan</FormLabel>
+                                                                <FormControl>
+                                                                    <div className="relative w-full">
+                                                                        <Input
+                                                                            disabled={isPending}
+                                                                            placeholder="Masukan Jarak Pijak Depan"
+                                                                            type='number'
+                                                                            {...field}
+                                                                            onChange={e => field.onChange(Number(e.target.value))}
+                                                                        />
+                                                                        <div className='flex absolute items-center right-4 top-0 m-2.5 h-4 w-4 text-muted-foreground'>MM</div>
+                                                                    </div>
+                                                                </FormControl>
+                                                                <FormMessage />
+                                                            </FormItem>
+                                                        )}
+                                                    />
+                                                    <FormField
+                                                        control={form.control}
+                                                        name="rearThread"
+                                                        render={({ field }) => (
+                                                            <FormItem>
+                                                                <FormLabel>Jarak Pijak Belakang</FormLabel>
+                                                                <FormControl>
+                                                                    <div className="relative w-full">
+                                                                        <Input
+                                                                            disabled={isPending}
+                                                                            placeholder="Masukan Jarak Pijak Belakang"
+                                                                            type='number'
+                                                                            {...field}
+                                                                            onChange={e => field.onChange(Number(e.target.value))}
+                                                                        />
+                                                                        <div className='flex absolute items-center right-4 top-0 m-2.5 h-4 w-4 text-muted-foreground'>MM</div>
+                                                                    </div>
+                                                                </FormControl>
+                                                                <FormMessage />
+                                                            </FormItem>
+                                                        )}
+                                                    />
+                                                    <FormField
+                                                        control={form.control}
+                                                        name="groundClearance"
+                                                        render={({ field }) => (
+                                                            <FormItem>
+                                                                <FormLabel>Jarak Terendah</FormLabel>
+                                                                <FormControl>
+                                                                    <div className="relative w-full">
+                                                                        <Input
+                                                                            disabled={isPending}
+                                                                            placeholder="Masukan Jarak Terendah"
+                                                                            type='number'
+                                                                            {...field}
+                                                                            onChange={e => field.onChange(Number(e.target.value))}
+                                                                        />
+                                                                        <div className='flex absolute items-center right-4 top-0 m-2.5 h-4 w-4 text-muted-foreground'>MM</div>
+                                                                    </div>
+                                                                </FormControl>
+                                                                <FormMessage />
+                                                            </FormItem>
+                                                        )}
+                                                    />
+                                                </div>
+                                            </div>
+                                            <FormError message={error} />
+                                            <FormSuccess message={success} />
+                                            <div
+                                                className='flex items-center justify-end gap-2'
+                                            >
+                                                <ButtonMain
+                                                    disabled={isPending}
+                                                    className="w-full rounded-full gap-2"
+                                                    type="submit"
+                                                    variant={'default'}
+                                                >
+                                                    <PlusIcon />
+                                                    Simpan
+                                                </ButtonMain>
+                                                <ButtonMain
+                                                    disabled={isPending}
+                                                    className="w-full rounded-full gap-2"
+                                                    onClick={
+                                                        onCancel
+                                                    }
+                                                    variant={'secondary'}
+                                                >
+                                                    <CrossCircledIcon />
+                                                    Batal
+                                                </ButtonMain>
                                             </div>
                                         </form>
                                     </FormMain>

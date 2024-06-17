@@ -1,15 +1,15 @@
-import React, { FunctionComponent } from 'react'
-import { ColorType } from './type'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
+import { FunctionComponent } from 'react'
+import { PriceType } from './type'
 import { ControllerRenderProps } from 'react-hook-form'
 import { ColorPicker } from '@/components/ui/color-picker-input'
 
-interface colorSelectProps extends ControllerRenderProps {
+interface priceSelectProps extends ControllerRenderProps {
     placeholder: string
-    data: Array<ColorType>
+    data: Array<PriceType>
 }
 
-export const ColorSelect: FunctionComponent<colorSelectProps> = function ({ ...props }) {
+export const PriceSelect: FunctionComponent<priceSelectProps> = function ({ ...props }) {
     const { placeholder, data, onChange } = props
 
     return (
@@ -27,13 +27,7 @@ export const ColorSelect: FunctionComponent<colorSelectProps> = function ({ ...p
                             key={i}
                             value={item?.id as string}
                         >
-                            <div className='flex items-center justify-start gap-2'>
-                                <div><ColorPicker
-                                    onChange={() => { }}
-                                    value={item?.color as string}
-                                /></div>
-                                <div>{item?.name}</div>
-                            </div>
+                            {item?.product?.name} - Rp. {Number(item?.price)}
                         </SelectItem>
                     )
                 })

@@ -28,12 +28,12 @@ export const ProductColorSelect: FunctionComponent<productcolorSelectProps> = fu
                             value={item?.id as string}
                         >
                             <div className='flex items-center justify-start gap-2'>
-                                <div>{item?.product?.name}</div>
-                                <div>{item?.color?.name}</div>
                                 <div><ColorPicker
                                     onChange={() => { }}
                                     value={item?.color?.color as string}
                                 /></div>
+                                <div>{item?.product?.name}</div>
+                                <div>{item?.color?.name}</div>
                             </div>
                         </SelectItem>
                     )

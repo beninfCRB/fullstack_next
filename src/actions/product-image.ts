@@ -108,7 +108,7 @@ export async function PutProductImage(id: string, values: FormData) {
 
         if (!dataOld) return { error: 'data tidak ditemukan' }
 
-        await unlink(dataOld.path)
+        await unlink(join(process.cwd(), "public", dataOld.path))
 
         const uniqueSuffix = `${Date.now()}-${Math.round(Math.random() * 1e9)}`;
         const filename = `${image.name.replace(
@@ -145,7 +145,7 @@ export async function DeleteProductImage(id: string) {
 
         if (!dataOld) return { error: 'data tidak ditemukan' }
 
-        await unlink(dataOld.path)
+        await unlink(join(process.cwd(), "public", dataOld.path))
 
         await db.productImage.delete({
             where: {

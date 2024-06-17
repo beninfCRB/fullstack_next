@@ -132,68 +132,76 @@ export const TypeForm: FunctionComponent<TypeFormProps> = function ({ ...props }
                                             onSubmit={form.handleSubmit(onSubmit)}
                                             className='space-y-6'
                                         >
-                                            <div className="space-y-4">
-                                                {data && (
-                                                    <FormField
-                                                        control={form.control}
-                                                        name="id"
-                                                        render={({ field }) => (
-                                                            <FormItem
-                                                                hidden
-                                                            >
-                                                                <FormControl>
-                                                                    <Input
-                                                                        hidden
-                                                                        {...field}
-                                                                    />
-                                                                </FormControl>
-                                                            </FormItem>
-                                                        )}
-                                                    />
-                                                )}
+                                            {data && (
                                                 <FormField
                                                     control={form.control}
-                                                    name="name"
+                                                    name="id"
                                                     render={({ field }) => (
-                                                        <FormItem>
-                                                            <FormLabel>Nama Tipe</FormLabel>
+                                                        <FormItem
+                                                            hidden
+                                                        >
                                                             <FormControl>
                                                                 <Input
-                                                                    disabled={isPending}
-                                                                    placeholder="Masukan Nama Tipe"
+                                                                    hidden
                                                                     {...field}
                                                                 />
                                                             </FormControl>
-                                                            <FormMessage />
                                                         </FormItem>
                                                     )}
                                                 />
-                                                <FormError message={error} />
-                                                <FormSuccess message={success} />
+                                            )}
+                                            <div className="flex lg:flex-row max-md:flex-col gap-4">
                                                 <div
-                                                    className='flex items-center justify-end gap-2'
+                                                    className='lg:basis-1/2'
                                                 >
-                                                    <ButtonMain
-                                                        disabled={isPending}
-                                                        className="w-full rounded-full gap-2"
-                                                        type="submit"
-                                                        variant={'default'}
-                                                    >
-                                                        <PlusIcon />
-                                                        Simpan
-                                                    </ButtonMain>
-                                                    <ButtonMain
-                                                        disabled={isPending}
-                                                        className="w-full rounded-full gap-2"
-                                                        onClick={
-                                                            onCancel
-                                                        }
-                                                        variant={'secondary'}
-                                                    >
-                                                        <CrossCircledIcon />
-                                                        Batal
-                                                    </ButtonMain>
+                                                    <FormField
+                                                        control={form.control}
+                                                        name="name"
+                                                        render={({ field }) => (
+                                                            <FormItem>
+                                                                <FormLabel>Nama Tipe</FormLabel>
+                                                                <FormControl>
+                                                                    <Input
+                                                                        disabled={isPending}
+                                                                        placeholder="Masukan Nama Tipe"
+                                                                        {...field}
+                                                                    />
+                                                                </FormControl>
+                                                                <FormMessage />
+                                                            </FormItem>
+                                                        )}
+                                                    />
                                                 </div>
+                                                <div
+                                                    className='lg:basis-1/2'
+                                                >
+                                                </div>
+                                            </div>
+                                            <FormError message={error} />
+                                            <FormSuccess message={success} />
+                                            <div
+                                                className='flex items-center justify-end gap-2'
+                                            >
+                                                <ButtonMain
+                                                    disabled={isPending}
+                                                    className="w-full rounded-full gap-2"
+                                                    type="submit"
+                                                    variant={'default'}
+                                                >
+                                                    <PlusIcon />
+                                                    Simpan
+                                                </ButtonMain>
+                                                <ButtonMain
+                                                    disabled={isPending}
+                                                    className="w-full rounded-full gap-2"
+                                                    onClick={
+                                                        onCancel
+                                                    }
+                                                    variant={'secondary'}
+                                                >
+                                                    <CrossCircledIcon />
+                                                    Batal
+                                                </ButtonMain>
                                             </div>
                                         </form>
                                     </FormMain>

@@ -1,14 +1,6 @@
 "use client"
 
 import { ButtonMain } from '@/components/custom-button'
-import { CheckIcon, Cross2Icon, Pencil2Icon, TrashIcon } from '@radix-ui/react-icons'
-import { ColumnDef } from '@tanstack/react-table'
-import { useRouter } from 'next/navigation'
-import { FunctionComponent, startTransition, useEffect, useState } from 'react'
-import { DataTable } from '../ui/data-table'
-import { Button } from '@/components/ui/button'
-import { ArrowUpDown } from 'lucide-react'
-import { motion } from 'framer-motion'
 import {
     AlertDialog,
     AlertDialogAction,
@@ -20,16 +12,25 @@ import {
     AlertDialogTitle,
     AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
+import { Button } from '@/components/ui/button'
+import { formattedPrice } from '@/utils/format-price'
+import { CheckIcon, Cross2Icon, Pencil2Icon, TrashIcon } from '@radix-ui/react-icons'
+import { ColumnDef } from '@tanstack/react-table'
+import { motion } from 'framer-motion'
+import { ArrowUpDown } from 'lucide-react'
+import { useRouter } from 'next/navigation'
+import { FunctionComponent, startTransition, useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
-import { ModelMachineType } from './type'
+import { DataTable } from '../ui/data-table'
+import { PriceType } from './type'
 
 
-interface ModelMachineTable {
-    data: Array<ModelMachineType> | []
+interface PriceTable {
+    data: Array<PriceType> | []
     onDelete: (id: string) => Promise<any>
 }
 
-export const ModelMachineTable: FunctionComponent<ModelMachineTable> = function ({ ...props }) {
+export const PriceTable: FunctionComponent<PriceTable> = function ({ ...props }) {
     const [id, setId] = useState<string | undefined>(undefined)
     const router = useRouter()
 
@@ -59,107 +60,126 @@ export const ModelMachineTable: FunctionComponent<ModelMachineTable> = function 
         router.refresh()
     }, [success, error])
 
-    const columns: ColumnDef<ModelMachineType>[] = [
+    const columns: ColumnDef<PriceType>[] = [
         {
-            accessorKey: "product_model.product.name",
+            accessorKey: "product.name",
             header: ({ column }) => {
                 return (
                     <Button
                         variant="ghost"
                         onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
                     >
-                        Produk
+                        Nama Produk
                         <ArrowUpDown className="ml-2 h-4 w-4" />
                     </Button>
                 )
             }
         },
         {
-            accessorKey: "product_model.type.name",
+            accessorKey: "price",
             header: ({ column }) => {
                 return (
                     <Button
                         variant="ghost"
                         onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
                     >
-                        Tipe
-                        <ArrowUpDown className="ml-2 h-4 w-4" />
-                    </Button>
-                )
-            }
-        },
-        {
-            accessorKey: "product_model.transmition.name",
-            header: ({ column }) => {
-                return (
-                    <Button
-                        variant="ghost"
-                        onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-                    >
-                        Transmisi
-                        <ArrowUpDown className="ml-2 h-4 w-4" />
-                    </Button>
-                )
-            }
-        },
-        {
-            accessorKey: "engineType",
-            header: ({ column }) => {
-                return (
-                    <Button
-                        variant="ghost"
-                        onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-                    >
-                        Jenis Mesin
-                        <ArrowUpDown className="ml-2 h-4 w-4" />
-                    </Button>
-                )
-            }
-        },
-        {
-            accessorKey: "cylinder",
-            header: ({ column }) => {
-                return (
-                    <Button
-                        variant="ghost"
-                        onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-                    >
-                        Silinder
+                        Harga
                         <ArrowUpDown className="ml-2 h-4 w-4" />
                     </Button>
                 )
             },
             cell: ({ row }) => {
-                const model_machine = row.original
+                const price = row.original
+
+                return (
+                    <>
+                        {
+                            formattedPrice(Number(price.price))
+                        }
+                    </>
+                )
+            },
+        },
+        {
+            accessorKey: "dp",
+            header: ({ column }) => {
+                return (
+                    <Button
+                        variant="ghost"
+                        onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+                    >
+                        DP
+                        <ArrowUpDown className="ml-2 h-4 w-4" />
+                    </Button>
+                )
+            },
+            cell: ({ row }) => {
+                const price = row.original
+
+                return (
+                    <>
+                        {
+                            formattedPrice(Number(price.dp))
+                        }
+                    </>
+                )
+            },
+        },
+        {
+            accessorKey: "credit",
+            header: ({ column }) => {
+                return (
+                    <Button
+                        variant="ghost"
+                        onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+                    >
+                        Kredit
+                        <ArrowUpDown className="ml-2 h-4 w-4" />
+                    </Button>
+                )
+            },
+            cell: ({ row }) => {
+                const price = row.original
+
+                return (
+                    <>
+                        {
+                            price.credit ? 'YA' : 'TIDAK'
+                        }
+                    </>
+                )
+            },
+        },
+        {
+            accessorKey: "tenor",
+            header: ({ column }) => {
+                return (
+                    <Button
+                        variant="ghost"
+                        onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+                    >
+                        Tenor
+                        <ArrowUpDown className="ml-2 h-4 w-4" />
+                    </Button>
+                )
+            },
+            cell: ({ row }) => {
+                const price = row.original
 
                 return (
                     <>
                         {`
-                            ${model_machine.cylinder} CC
+                            ${price.tenor} Bulan
                         `}
                     </>
                 )
             },
         },
         {
-            accessorKey: "machineSerial",
-            header: ({ column }) => {
-                return (
-                    <Button
-                        variant="ghost"
-                        onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-                    >
-                        Serial Mesin
-                        <ArrowUpDown className="ml-2 h-4 w-4" />
-                    </Button>
-                )
-            }
-        },
-        {
             id: "actions",
             enableHiding: false,
             cell: ({ row }) => {
-                const modelmachine = row.original
+                const price = row.original
 
                 return (
                     <div
@@ -167,7 +187,7 @@ export const ModelMachineTable: FunctionComponent<ModelMachineTable> = function 
                     >
                         <ButtonMain
                             className="w-full rounded-full"
-                            onClick={() => onUpdate(modelmachine.id as string)}
+                            onClick={() => onUpdate(price.id as string)}
                             variant={'default'}
                         >
                             <Pencil2Icon />
@@ -175,7 +195,7 @@ export const ModelMachineTable: FunctionComponent<ModelMachineTable> = function 
                         <AlertDialogTrigger>
                             <ButtonMain
                                 className="w-full rounded-full"
-                                onClick={() => setId(modelmachine.id as string)}
+                                onClick={() => setId(price.id as string)}
                                 variant={'secondary'}
                             >
                                 <TrashIcon />
@@ -191,7 +211,7 @@ export const ModelMachineTable: FunctionComponent<ModelMachineTable> = function 
         <div className='w-full shadow-xl'>
             <motion.div
                 animate={{ y: [-10, 0] }}
-                transition={{ modelmachine: "spring", stiffness: 100 }}
+                transition={{ price: "spring", stiffness: 100 }}
             >
                 <AlertDialog>
                     <DataTable

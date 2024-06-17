@@ -114,7 +114,18 @@ export const ModelDimentionTable: FunctionComponent<ModelDimentionTable> = funct
                         <ArrowUpDown className="ml-2 h-4 w-4" />
                     </Button>
                 )
-            }
+            },
+            cell: ({ row }) => {
+                const model_dimention = row.original
+
+                return (
+                    <>
+                        {`
+                            ${model_dimention.length} MM
+                        `}
+                    </>
+                )
+            },
         },
         {
             accessorKey: "width",
@@ -128,7 +139,18 @@ export const ModelDimentionTable: FunctionComponent<ModelDimentionTable> = funct
                         <ArrowUpDown className="ml-2 h-4 w-4" />
                     </Button>
                 )
-            }
+            },
+            cell: ({ row }) => {
+                const model_dimention = row.original
+
+                return (
+                    <>
+                        {`
+                            ${model_dimention.width} MM
+                        `}
+                    </>
+                )
+            },
         },
         {
             accessorKey: "height",
@@ -142,7 +164,18 @@ export const ModelDimentionTable: FunctionComponent<ModelDimentionTable> = funct
                         <ArrowUpDown className="ml-2 h-4 w-4" />
                     </Button>
                 )
-            }
+            },
+            cell: ({ row }) => {
+                const model_dimention = row.original
+
+                return (
+                    <>
+                        {`
+                            ${model_dimention.height} MM
+                        `}
+                    </>
+                )
+            },
         },
         {
             accessorKey: "wheelBase",
@@ -156,7 +189,18 @@ export const ModelDimentionTable: FunctionComponent<ModelDimentionTable> = funct
                         <ArrowUpDown className="ml-2 h-4 w-4" />
                     </Button>
                 )
-            }
+            },
+            cell: ({ row }) => {
+                const model_dimention = row.original
+
+                return (
+                    <>
+                        {`
+                            ${model_dimention.wheelBase} MM
+                        `}
+                    </>
+                )
+            },
         },
         {
             accessorKey: "frontThread",
@@ -170,7 +214,18 @@ export const ModelDimentionTable: FunctionComponent<ModelDimentionTable> = funct
                         <ArrowUpDown className="ml-2 h-4 w-4" />
                     </Button>
                 )
-            }
+            },
+            cell: ({ row }) => {
+                const model_dimention = row.original
+
+                return (
+                    <>
+                        {`
+                            ${model_dimention.frontThread} MM
+                        `}
+                    </>
+                )
+            },
         },
         {
             accessorKey: "rearThread",
@@ -184,7 +239,18 @@ export const ModelDimentionTable: FunctionComponent<ModelDimentionTable> = funct
                         <ArrowUpDown className="ml-2 h-4 w-4" />
                     </Button>
                 )
-            }
+            },
+            cell: ({ row }) => {
+                const model_dimention = row.original
+
+                return (
+                    <>
+                        {`
+                            ${model_dimention.rearThread} MM
+                        `}
+                    </>
+                )
+            },
         },
         {
             accessorKey: "groundClearance",

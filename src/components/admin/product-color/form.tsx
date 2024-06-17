@@ -54,7 +54,6 @@ export const ProductColorForm: FunctionComponent<ProductColorFormProps> = functi
 
     const get = async (id: string) => {
         const obj = await props.getID(id)
-        console.log('=====>obj', obj);
 
         setData(obj)
     }
@@ -67,7 +66,6 @@ export const ProductColorForm: FunctionComponent<ProductColorFormProps> = functi
 
     useEffect(() => {
         if (data) {
-            console.log(data);
 
             form.setValue('id', data.id as string)
             form.setValue('productId', data.productId as string)
@@ -144,87 +142,95 @@ export const ProductColorForm: FunctionComponent<ProductColorFormProps> = functi
                                             onSubmit={form.handleSubmit(onSubmit)}
                                             className='space-y-6'
                                         >
-                                            <div className="space-y-4">
-                                                {data && (
+                                            {data && (
+                                                <FormField
+                                                    control={form.control}
+                                                    name="id"
+                                                    render={({ field }) => (
+                                                        <FormItem
+                                                            hidden
+                                                        >
+                                                            <FormControl>
+                                                                <Input
+                                                                    hidden
+                                                                    {...field}
+                                                                />
+                                                            </FormControl>
+                                                        </FormItem>
+                                                    )}
+                                                />
+                                            )}
+                                            <div className="flex lg:flex-row max-md:flex-col gap-4">
+                                                <div
+                                                    className='lg:basis-1/2'
+                                                >
                                                     <FormField
                                                         control={form.control}
-                                                        name="id"
+                                                        name="productId"
                                                         render={({ field }) => (
-                                                            <FormItem
-                                                                hidden
-                                                            >
+                                                            <FormItem>
+                                                                <FormLabel>Produk</FormLabel>
                                                                 <FormControl>
-                                                                    <Input
-                                                                        hidden
+                                                                    <ProductSelect
+                                                                        data={props.dataProduct}
+                                                                        disabled={isPending}
+                                                                        placeholder="Masukan Nama Produk"
                                                                         {...field}
                                                                     />
                                                                 </FormControl>
+                                                                <FormMessage />
                                                             </FormItem>
                                                         )}
                                                     />
-                                                )}
-                                                <FormField
-                                                    control={form.control}
-                                                    name="productId"
-                                                    render={({ field }) => (
-                                                        <FormItem>
-                                                            <FormLabel>Produk</FormLabel>
-                                                            <FormControl>
-                                                                <ProductSelect
-                                                                    data={props.dataProduct}
-                                                                    disabled={isPending}
-                                                                    placeholder="Masukan Nama Produk"
-                                                                    {...field}
-                                                                />
-                                                            </FormControl>
-                                                            <FormMessage />
-                                                        </FormItem>
-                                                    )}
-                                                />
-                                                <FormField
-                                                    control={form.control}
-                                                    name="colorId"
-                                                    render={({ field }) => (
-                                                        <FormItem>
-                                                            <FormLabel>Warna</FormLabel>
-                                                            <FormControl>
-                                                                <ColorSelect
-                                                                    data={props.dataColor}
-                                                                    disabled={isPending}
-                                                                    placeholder="Masukan Nama Warna"
-                                                                    {...field}
-                                                                />
-                                                            </FormControl>
-                                                            <FormMessage />
-                                                        </FormItem>
-                                                    )}
-                                                />
-                                                <FormError message={error} />
-                                                <FormSuccess message={success} />
-                                                <div
-                                                    className='flex items-center justify-end gap-2'
-                                                >
-                                                    <ButtonMain
-                                                        disabled={isPending}
-                                                        className="w-full rounded-full gap-2"
-                                                        type="submit"
-                                                        variant={'default'}
-                                                    >
-                                                        <PlusIcon />
-                                                        Simpan
-                                                    </ButtonMain>
-                                                    <ButtonMain
-                                                        disabled={isPending}
-                                                        className="w-full rounded-full gap-2"
-                                                        onClick={
-                                                            onCancel
-                                                        }
-                                                        variant={'secondary'}
-                                                    >
-                                                        <CrossCircledIcon />
-                                                        Batal
-                                                    </ButtonMain>
                                                 </div>
+                                                <div
+                                                    className='lg:basis-1/2'
+                                                >
+                                                    <FormField
+                                                        control={form.control}
+                                                        name="colorId"
+                                                        render={({ field }) => (
+                                                            <FormItem>
+                                                                <FormLabel>Warna</FormLabel>
+                                                                <FormControl>
+                                                                    <ColorSelect
+                                                                        data={props.dataColor}
+                                                                        disabled={isPending}
+                                                                        placeholder="Masukan Nama Warna"
+                                                                        {...field}
+                                                                    />
+                                                                </FormControl>
+                                                                <FormMessage />
+                                                            </FormItem>
+                                                        )}
+                                                    />
+                                                </div>
+                                            </div>
+                                            <FormError message={error} />
+                                            <FormSuccess message={success} />
+                                            <div
+                                                className='flex items-center justify-end gap-2'
+                                            >
+                                                <ButtonMain
+                                                    disabled={isPending}
+                                                    className="w-full rounded-full gap-2"
+                                                    type="submit"
+                                                    variant={'default'}
+                                                >
+                                                    <PlusIcon />
+                                                    Simpan
+                                                </ButtonMain>
+                                                <ButtonMain
+                                                    disabled={isPending}
+                                                    className="w-full rounded-full gap-2"
+                                                    onClick={
+                                                        onCancel
+                                                    }
+                                                    variant={'secondary'}
+                                                >
+                                                    <CrossCircledIcon />
+                                                    Batal
+                                                </ButtonMain>
                                             </div>
                                         </form>
                                     </FormMain>

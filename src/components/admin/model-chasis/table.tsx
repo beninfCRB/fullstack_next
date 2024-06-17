@@ -21,15 +21,15 @@ import {
     AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
 import { toast } from 'react-toastify'
-import { ModelMachineType } from './type'
+import { ModelChasisType } from './type'
 
 
-interface ModelMachineTable {
-    data: Array<ModelMachineType> | []
+interface ModelChasisTable {
+    data: Array<ModelChasisType> | []
     onDelete: (id: string) => Promise<any>
 }
 
-export const ModelMachineTable: FunctionComponent<ModelMachineTable> = function ({ ...props }) {
+export const ModelChasisTable: FunctionComponent<ModelChasisTable> = function ({ ...props }) {
     const [id, setId] = useState<string | undefined>(undefined)
     const router = useRouter()
 
@@ -59,7 +59,7 @@ export const ModelMachineTable: FunctionComponent<ModelMachineTable> = function 
         router.refresh()
     }, [success, error])
 
-    const columns: ColumnDef<ModelMachineType>[] = [
+    const columns: ColumnDef<ModelChasisType>[] = [
         {
             accessorKey: "product_model.product.name",
             header: ({ column }) => {
@@ -103,53 +103,98 @@ export const ModelMachineTable: FunctionComponent<ModelMachineTable> = function 
             }
         },
         {
-            accessorKey: "engineType",
+            accessorKey: "transmitionType",
             header: ({ column }) => {
                 return (
                     <Button
                         variant="ghost"
                         onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
                     >
-                        Jenis Mesin
+                        Jenis Transmisi
                         <ArrowUpDown className="ml-2 h-4 w-4" />
                     </Button>
                 )
             }
         },
         {
-            accessorKey: "cylinder",
+            accessorKey: "frontSuspension",
             header: ({ column }) => {
                 return (
                     <Button
                         variant="ghost"
                         onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
                     >
-                        Silinder
+                        Suspensi Depan
                         <ArrowUpDown className="ml-2 h-4 w-4" />
                     </Button>
                 )
-            },
-            cell: ({ row }) => {
-                const model_machine = row.original
-
-                return (
-                    <>
-                        {`
-                            ${model_machine.cylinder} CC
-                        `}
-                    </>
-                )
-            },
+            }
         },
         {
-            accessorKey: "machineSerial",
+            accessorKey: "rearSuspension",
             header: ({ column }) => {
                 return (
                     <Button
                         variant="ghost"
                         onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
                     >
-                        Serial Mesin
+                        Suspensi Belakang
+                        <ArrowUpDown className="ml-2 h-4 w-4" />
+                    </Button>
+                )
+            }
+        },
+        {
+            accessorKey: "frontBrake",
+            header: ({ column }) => {
+                return (
+                    <Button
+                        variant="ghost"
+                        onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+                    >
+                        Rem Depan
+                        <ArrowUpDown className="ml-2 h-4 w-4" />
+                    </Button>
+                )
+            }
+        },
+        {
+            accessorKey: "rearBrake",
+            header: ({ column }) => {
+                return (
+                    <Button
+                        variant="ghost"
+                        onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+                    >
+                        Rem Belakang
+                        <ArrowUpDown className="ml-2 h-4 w-4" />
+                    </Button>
+                )
+            }
+        },
+        {
+            accessorKey: "parkingBrake",
+            header: ({ column }) => {
+                return (
+                    <Button
+                        variant="ghost"
+                        onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+                    >
+                        Rem Parkir
+                        <ArrowUpDown className="ml-2 h-4 w-4" />
+                    </Button>
+                )
+            }
+        },
+        {
+            accessorKey: "brakingSystem",
+            header: ({ column }) => {
+                return (
+                    <Button
+                        variant="ghost"
+                        onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+                    >
+                        Sistem Rem
                         <ArrowUpDown className="ml-2 h-4 w-4" />
                     </Button>
                 )
@@ -159,7 +204,7 @@ export const ModelMachineTable: FunctionComponent<ModelMachineTable> = function 
             id: "actions",
             enableHiding: false,
             cell: ({ row }) => {
-                const modelmachine = row.original
+                const modelchasis = row.original
 
                 return (
                     <div
@@ -167,7 +212,7 @@ export const ModelMachineTable: FunctionComponent<ModelMachineTable> = function 
                     >
                         <ButtonMain
                             className="w-full rounded-full"
-                            onClick={() => onUpdate(modelmachine.id as string)}
+                            onClick={() => onUpdate(modelchasis.id as string)}
                             variant={'default'}
                         >
                             <Pencil2Icon />
@@ -175,7 +220,7 @@ export const ModelMachineTable: FunctionComponent<ModelMachineTable> = function 
                         <AlertDialogTrigger>
                             <ButtonMain
                                 className="w-full rounded-full"
-                                onClick={() => setId(modelmachine.id as string)}
+                                onClick={() => setId(modelchasis.id as string)}
                                 variant={'secondary'}
                             >
                                 <TrashIcon />
@@ -191,7 +236,7 @@ export const ModelMachineTable: FunctionComponent<ModelMachineTable> = function 
         <div className='w-full shadow-xl'>
             <motion.div
                 animate={{ y: [-10, 0] }}
-                transition={{ modelmachine: "spring", stiffness: 100 }}
+                transition={{ modelchasis: "spring", stiffness: 100 }}
             >
                 <AlertDialog>
                     <DataTable

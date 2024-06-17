@@ -1,12 +1,12 @@
 "use client"
 
-import { PostModelMachine, PutModelMachine } from '@/actions/model-machine'
+import { PostModelChasis, PutModelChasis } from '@/actions/model-chasis'
 import { ButtonMain } from '@/components/custom-button'
 import FormError from '@/components/form-error'
 import FormSuccess from '@/components/form-success'
 import { FormControl, FormField, FormItem, FormLabel, FormMain, FormMessage } from '@/components/ui/form'
 import { Input } from "@/components/ui/input"
-import { ModelMachineSchema, ModelMachineSchemaType } from '@/schemas/model-machine'
+import { ModelChasisSchema, ModelChasisSchemaType } from '@/schemas/model-chasis'
 import { zodResolver } from "@hookform/resolvers/zod"
 import { CrossCircledIcon, PlusCircledIcon, PlusIcon } from '@radix-ui/react-icons'
 import { motion } from 'framer-motion'
@@ -14,22 +14,18 @@ import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { FunctionComponent, useEffect, useState, useTransition } from 'react'
 import { useForm } from 'react-hook-form'
 import { toast } from 'react-toastify'
-import { FuelSelect } from '../fuel/select'
-import { FuelType } from '../fuel/type'
 import { ProductModelSelect } from '../product-model/select'
 import { ProductModelType } from '../product-model/type'
 import CardWrapper from '../ui/card-wrapper'
 import PageTitle from '../ui/page-title'
-import { ModelMachineType } from './type'
-import { Decimal } from '@prisma/client/runtime/library'
+import { ModelChasisType } from './type'
 
-interface ModelMachineFormProps {
+interface ModelChasisFormProps {
     dataProductModel: Array<ProductModelType>
-    dataFuel: Array<FuelType>
-    getID: (id: string) => Promise<ModelMachineType>
+    getID: (id: string) => Promise<ModelChasisType>
 }
 
-export const ModelMachineForm: FunctionComponent<ModelMachineFormProps> = function ({ ...props }) {
+export const ModelChasisForm: FunctionComponent<ModelChasisFormProps> = function ({ ...props }) {
     const [visible, setVisible] = useState<boolean>(false)
     const router = useRouter()
     const path = usePathname()
@@ -39,22 +35,24 @@ export const ModelMachineForm: FunctionComponent<ModelMachineFormProps> = functi
     }
 
     const id = useSearchParams().get('id') as string
-    const [data, setData] = useState<ModelMachineType>({})
+    const [data, setData] = useState<ModelChasisType>({})
     const [error, setError] = useState<string | undefined>(undefined)
     const [success, setSuccess] = useState<string | undefined>(undefined)
     const [isPending, startTransition] = useTransition()
 
-    const form = useForm<ModelMachineSchemaType>({
-        resolver: zodResolver(ModelMachineSchema),
+    const form = useForm<ModelChasisSchemaType>({
+        resolver: zodResolver(ModelChasisSchema),
         defaultValues: {
             id: "",
             productModelId: "",
-            machineSerial: "",
-            engineType: "",
-            boreStroke: "",
-            maxOutput: "",
-            maxTorq: "",
-            fuelId: ""
+            transmitionType: "",
+            frontSuspension: "",
+            rearSuspension: "",
+            frontBrake: "",
+            rearBrake: "",
+            parkingBrake: "",
+            brakingSystem: "",
+            tireSize: "",
         }
     })
 
@@ -74,13 +72,14 @@ export const ModelMachineForm: FunctionComponent<ModelMachineFormProps> = functi
         if (data) {
             form.setValue('id', data.id as string)
             form.setValue('productModelId', data.productModelId as string)
-            form.setValue('machineSerial', data.machineSerial as string)
-            form.setValue('engineType', data.engineType as string)
-            form.setValue('cylinder', Number(data.cylinder) as number)
-            form.setValue('maxOutput', data.maxOutput as string)
-            form.setValue('maxTorq', data.maxTorq as string)
-            form.setValue('fuelId', data.fuelId as string)
-            form.setValue('fuelCapacity', Number(data.fuelCapacity) as number)
+            form.setValue('transmitionType', data.transmitionType as string)
+            form.setValue('frontSuspension', data.frontSuspension as string)
+            form.setValue('rearSuspension', data.rearSuspension as string)
+            form.setValue('frontBrake', data.frontBrake as string)
+            form.setValue('rearBrake', data.rearBrake as string)
+            form.setValue('parkingBrake', data.parkingBrake as string)
+            form.setValue('brakingSystem', data.brakingSystem as string)
+            form.setValue('tireSize', data.tireSize as string)
             setVisible(true)
         }
     }, [data])
@@ -95,20 +94,20 @@ export const ModelMachineForm: FunctionComponent<ModelMachineFormProps> = functi
         router.refresh()
     }, [success, error])
 
-    const onSubmit = (values: ModelMachineSchemaType) => {
+    const onSubmit = (values: ModelChasisSchemaType) => {
         setError(undefined)
         setSuccess(undefined)
 
         if (id) {
             startTransition(async () => {
-                await PutModelMachine(id, values).then((data) => {
+                await PutModelChasis(id, values).then((data) => {
                     setSuccess(data.success)
                     setError(data.error)
                 })
             })
         } else {
             startTransition(async () => {
-                await PostModelMachine(values).then((data) => {
+                await PostModelChasis(values).then((data) => {
                     setSuccess(data.success)
                     setError(data.error)
                 })
@@ -126,7 +125,7 @@ export const ModelMachineForm: FunctionComponent<ModelMachineFormProps> = functi
         <div className="gap-6 w-full">
             <div className='flex flex-col gap-4'>
                 <div className='flex items-center justify-between'>
-                    <PageTitle title="Model Mesin" />
+                    <PageTitle title="Model Rangka" />
                     <ButtonMain
                         className='rounded-full gap-2'
                         variant="destructive"
@@ -142,11 +141,11 @@ export const ModelMachineForm: FunctionComponent<ModelMachineFormProps> = functi
                         <div className="basis-full items-center justify-center">
                             <motion.div
                                 animate={{ y: [-50, 5] }}
-                                transition={{ modelmachine: "spring", stiffness: 100 }}
+                                transition={{ modelchasis: "spring", stiffness: 100 }}
                             >
                                 <CardWrapper
                                     className='w-full shadow-lg'
-                                    headerLabel='Buat Data Model Mesin'
+                                    headerLabel='Buat Data Model Rangka'
                                 >
                                     <FormMain {...form}>
                                         <form
@@ -195,14 +194,14 @@ export const ModelMachineForm: FunctionComponent<ModelMachineFormProps> = functi
                                                     />
                                                     <FormField
                                                         control={form.control}
-                                                        name="machineSerial"
+                                                        name="transmitionType"
                                                         render={({ field }) => (
                                                             <FormItem>
-                                                                <FormLabel>Nomor Serial Mesin</FormLabel>
+                                                                <FormLabel>Jenis Transmisi</FormLabel>
                                                                 <FormControl>
                                                                     <Input
                                                                         disabled={isPending}
-                                                                        placeholder="Masukan Nama Serial Mesin"
+                                                                        placeholder="Masukan Jenis Transmisi"
                                                                         {...field}
                                                                     />
                                                                 </FormControl>
@@ -212,14 +211,14 @@ export const ModelMachineForm: FunctionComponent<ModelMachineFormProps> = functi
                                                     />
                                                     <FormField
                                                         control={form.control}
-                                                        name="engineType"
+                                                        name="frontSuspension"
                                                         render={({ field }) => (
                                                             <FormItem>
-                                                                <FormLabel>Tipe Mesin</FormLabel>
+                                                                <FormLabel>Suspensi Depan</FormLabel>
                                                                 <FormControl>
                                                                     <Input
                                                                         disabled={isPending}
-                                                                        placeholder="Masukan Tipe Mesin"
+                                                                        placeholder="Masukan Suspensi Depan"
                                                                         {...field}
                                                                     />
                                                                 </FormControl>
@@ -229,21 +228,33 @@ export const ModelMachineForm: FunctionComponent<ModelMachineFormProps> = functi
                                                     />
                                                     <FormField
                                                         control={form.control}
-                                                        name="cylinder"
+                                                        name="rearSuspension"
                                                         render={({ field }) => (
                                                             <FormItem>
-                                                                <FormLabel>Silinder</FormLabel>
+                                                                <FormLabel>Suspensi Belakang</FormLabel>
                                                                 <FormControl>
-                                                                    <div className="relative w-full">
-                                                                        <Input
-                                                                            disabled={isPending}
-                                                                            placeholder="Masukan Silinder"
-                                                                            type='number'
-                                                                            {...field}
-                                                                            onChange={e => field.onChange(Number(e.target.value))}
-                                                                        />
-                                                                        <div className='flex absolute items-center right-4 top-0 m-2.5 h-4 w-4 text-muted-foreground'>CC</div>
-                                                                    </div>
+                                                                    <Input
+                                                                        disabled={isPending}
+                                                                        placeholder="Masukan Suspensi Belakang"
+                                                                        {...field}
+                                                                    />
+                                                                </FormControl>
+                                                                <FormMessage />
+                                                            </FormItem>
+                                                        )}
+                                                    />
+                                                    <FormField
+                                                        control={form.control}
+                                                        name="tireSize"
+                                                        render={({ field }) => (
+                                                            <FormItem>
+                                                                <FormLabel>Ukuran Ban</FormLabel>
+                                                                <FormControl>
+                                                                    <Input
+                                                                        disabled={isPending}
+                                                                        placeholder="Masukan Ukuran Ban"
+                                                                        {...field}
+                                                                    />
                                                                 </FormControl>
                                                                 <FormMessage />
                                                             </FormItem>
@@ -255,77 +266,66 @@ export const ModelMachineForm: FunctionComponent<ModelMachineFormProps> = functi
                                                 >
                                                     <FormField
                                                         control={form.control}
-                                                        name="maxOutput"
+                                                        name="frontBrake"
                                                         render={({ field }) => (
                                                             <FormItem>
-                                                                <FormLabel>Tenaga Maksimum</FormLabel>
-                                                                <FormControl>
-                                                                    <div className="relative w-full">
-                                                                        <Input
-                                                                            disabled={isPending}
-                                                                            placeholder="Masukan Tenaga Maksimum"
-                                                                            {...field}
-                                                                        />
-                                                                        <div className='flex absolute items-center right-12 top-0 m-2.5 h-4 w-4 text-muted-foreground'>PS/RPM</div>
-                                                                    </div>
-                                                                </FormControl>
-                                                                <FormMessage />
-                                                            </FormItem>
-                                                        )}
-                                                    />
-                                                    <FormField
-                                                        control={form.control}
-                                                        name="maxTorq"
-                                                        render={({ field }) => (
-                                                            <FormItem>
-                                                                <FormLabel>Tenaga Maksimum</FormLabel>
-                                                                <FormControl>
-                                                                    <div className="relative w-full">
-                                                                        <Input
-                                                                            disabled={isPending}
-                                                                            placeholder="Masukan Tenaga Maksimum"
-                                                                            {...field}
-                                                                        />
-                                                                        <div className='flex absolute items-center right-16 top-0 m-2.5 h-4 w-4 text-muted-foreground'>KGM/RPM</div>
-                                                                    </div>
-                                                                </FormControl>
-                                                                <FormMessage />
-                                                            </FormItem>
-                                                        )}
-                                                    />
-                                                    <FormField
-                                                        control={form.control}
-                                                        name="fuelId"
-                                                        render={({ field }) => (
-                                                            <FormItem>
-                                                                <FormLabel>Bahan Bakar</FormLabel>
-                                                                <FormControl>
-                                                                    <div className="relative w-full">
-                                                                        <Input
-                                                                            disabled={isPending}
-                                                                            placeholder="Masukan Bahan Bakar"
-                                                                            {...field}
-                                                                        />
-                                                                        <div className='flex absolute items-center right-8 top-0 m-2.5 h-4 w-4 text-muted-foreground'>LITER</div>
-                                                                    </div>
-                                                                </FormControl>
-                                                                <FormMessage />
-                                                            </FormItem>
-                                                        )}
-                                                    />
-                                                    <FormField
-                                                        control={form.control}
-                                                        name="fuelCapacity"
-                                                        render={({ field }) => (
-                                                            <FormItem>
-                                                                <FormLabel>Kapasitas Bahan Bakar</FormLabel>
+                                                                <FormLabel>Rem Depan</FormLabel>
                                                                 <FormControl>
                                                                     <Input
                                                                         disabled={isPending}
-                                                                        placeholder="Masukan Kapasitas Bahan Bakar"
-                                                                        type='number'
+                                                                        placeholder="Masukan Rem Depan"
                                                                         {...field}
-                                                                        onChange={e => field.onChange(Number(e.target.value))}
+                                                                    />
+                                                                </FormControl>
+                                                                <FormMessage />
+                                                            </FormItem>
+                                                        )}
+                                                    />
+                                                    <FormField
+                                                        control={form.control}
+                                                        name="rearBrake"
+                                                        render={({ field }) => (
+                                                            <FormItem>
+                                                                <FormLabel>Rem Belakang</FormLabel>
+                                                                <FormControl>
+                                                                    <Input
+                                                                        disabled={isPending}
+                                                                        placeholder="Masukan Rem Belakang"
+                                                                        {...field}
+                                                                    />
+                                                                </FormControl>
+                                                                <FormMessage />
+                                                            </FormItem>
+                                                        )}
+                                                    />
+                                                    <FormField
+                                                        control={form.control}
+                                                        name="parkingBrake"
+                                                        render={({ field }) => (
+                                                            <FormItem>
+                                                                <FormLabel>Rem Parking</FormLabel>
+                                                                <FormControl>
+                                                                    <Input
+                                                                        disabled={isPending}
+                                                                        placeholder="Masukan Rem Parking"
+                                                                        {...field}
+                                                                    />
+                                                                </FormControl>
+                                                                <FormMessage />
+                                                            </FormItem>
+                                                        )}
+                                                    />
+                                                    <FormField
+                                                        control={form.control}
+                                                        name="brakingSystem"
+                                                        render={({ field }) => (
+                                                            <FormItem>
+                                                                <FormLabel>Sistem Rem</FormLabel>
+                                                                <FormControl>
+                                                                    <Input
+                                                                        disabled={isPending}
+                                                                        placeholder="Masukan Sistem Rem"
+                                                                        {...field}
                                                                     />
                                                                 </FormControl>
                                                                 <FormMessage />

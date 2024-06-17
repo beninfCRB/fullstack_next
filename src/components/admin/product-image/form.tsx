@@ -65,7 +65,6 @@ export const ProductImageForm: FunctionComponent<ProductImageFormProps> = functi
 
     useEffect(() => {
         if (data) {
-            console.log(data);
 
             form.setValue('id', data.id as string)
             form.setValue('productColorId', data.productColorId as string)
@@ -145,99 +144,109 @@ export const ProductImageForm: FunctionComponent<ProductImageFormProps> = functi
                                             onSubmit={form.handleSubmit(onSubmit)}
                                             className='space-y-6'
                                         >
-                                            <div className="space-y-4">
-                                                {data && (
+                                            {data && (
+                                                <FormField
+                                                    control={form.control}
+                                                    name="id"
+                                                    render={({ field }) => (
+                                                        <FormItem
+                                                            hidden
+                                                        >
+                                                            <FormControl>
+                                                                <Input
+                                                                    hidden
+                                                                    {...field}
+                                                                />
+                                                            </FormControl>
+                                                        </FormItem>
+                                                    )}
+                                                />
+                                            )}
+                                            <div className="flex lg:flex-row max-md:flex-col gap-4">
+                                                <div
+                                                    className='lg:basis-1/2'
+                                                >
+                                                    <Image
+                                                        className='rounded-lg border-2 border-red-500 shadow-xl size-auto'
+                                                        src={data.path ? data?.path as string : imageDefault}
+                                                        about={`${data.product_color?.product} ${data.product_color?.product?.name}`}
+                                                        alt=''
+                                                        width={100}
+                                                        height={100}
+                                                        priority={false}
+                                                    />
                                                     <FormField
                                                         control={form.control}
-                                                        name="id"
+                                                        name="productColorId"
                                                         render={({ field }) => (
-                                                            <FormItem
-                                                                hidden
-                                                            >
+                                                            <FormItem>
+                                                                <FormLabel>Gambar Produk</FormLabel>
                                                                 <FormControl>
-                                                                    <Input
-                                                                        hidden
+                                                                    <ProductColorSelect
                                                                         {...field}
+                                                                        data={props.dataProductColor}
+                                                                        disabled={isPending}
+                                                                        placeholder="Masukan Gambar Produk"
                                                                     />
                                                                 </FormControl>
+                                                                <FormMessage />
                                                             </FormItem>
                                                         )}
                                                     />
-                                                )}
-                                                <FormField
-                                                    control={form.control}
-                                                    name="productColorId"
-                                                    render={({ field }) => (
-                                                        <FormItem>
-                                                            <FormLabel>Gambar Produk</FormLabel>
-                                                            <FormControl>
-                                                                <ProductColorSelect
-                                                                    {...field}
-                                                                    data={props.dataProductColor}
-                                                                    disabled={isPending}
-                                                                    placeholder="Masukan Gambar Produk"
-                                                                />
-                                                            </FormControl>
-                                                            <FormMessage />
-                                                        </FormItem>
-                                                    )}
-                                                />
-                                                <Image
-                                                    className='rounded-lg border-2 border-red-500 shadow-xl size-auto'
-                                                    src={data.path ? data?.path as string : imageDefault}
-                                                    about={`${data.product_color?.product} ${data.product_color?.product?.name}`}
-                                                    alt=''
-                                                    priority={false}
-                                                />
-                                                <FormField
-                                                    control={form.control}
-                                                    name="image"
-                                                    render={({ field }) => (
-                                                        <FormItem>
-                                                            <FormLabel>Gambar Produk</FormLabel>
-                                                            <FormControl>
-                                                                <Input
-                                                                    {...field}
-                                                                    type='file'
-                                                                    disabled={isPending}
-                                                                    placeholder="Masukan Gambar Produk"
-                                                                    accept="image/jpeg, image/png"
-                                                                    onChange={(event) =>
-                                                                        field.onChange(event.target.files && event.target.files[0])
-                                                                    }
-                                                                    value={undefined}
-                                                                />
-                                                            </FormControl>
-                                                            <FormMessage />
-                                                        </FormItem>
-                                                    )}
-                                                />
-                                                <FormError message={error} />
-                                                <FormSuccess message={success} />
-                                                <div
-                                                    className='flex items-center justify-end gap-2'
-                                                >
-                                                    <ButtonMain
-                                                        disabled={isPending}
-                                                        className="w-full rounded-full gap-2"
-                                                        type="submit"
-                                                        variant={'default'}
-                                                    >
-                                                        <PlusIcon />
-                                                        Simpan
-                                                    </ButtonMain>
-                                                    <ButtonMain
-                                                        disabled={isPending}
-                                                        className="w-full rounded-full gap-2"
-                                                        onClick={
-                                                            onCancel
-                                                        }
-                                                        variant={'secondary'}
-                                                    >
-                                                        <CrossCircledIcon />
-                                                        Batal
-                                                    </ButtonMain>
                                                 </div>
+                                                <div
+                                                    className='lg:basis-1/2'
+                                                >
+                                                    <FormField
+                                                        control={form.control}
+                                                        name="image"
+                                                        render={({ field }) => (
+                                                            <FormItem>
+                                                                <FormLabel>Gambar Produk</FormLabel>
+                                                                <FormControl>
+                                                                    <Input
+                                                                        {...field}
+                                                                        type='file'
+                                                                        disabled={isPending}
+                                                                        placeholder="Masukan Gambar Produk"
+                                                                        accept="image/jpeg, image/png"
+                                                                        onChange={(event) =>
+                                                                            field.onChange(event.target.files && event.target.files[0])
+                                                                        }
+                                                                        value={undefined}
+                                                                    />
+                                                                </FormControl>
+                                                                <FormMessage />
+                                                            </FormItem>
+                                                        )}
+                                                    />
+                                                </div>
+                                            </div>
+                                            <FormError message={error} />
+                                            <FormSuccess message={success} />
+                                            <div
+                                                className='flex items-center justify-end gap-2'
+                                            >
+                                                <ButtonMain
+                                                    disabled={isPending}
+                                                    className="w-full rounded-full gap-2"
+                                                    type="submit"
+                                                    variant={'default'}
+                                                >
+                                                    <PlusIcon />
+                                                    Simpan
+                                                </ButtonMain>
+                                                <ButtonMain
+                                                    disabled={isPending}
+                                                    className="w-full rounded-full gap-2"
+                                                    onClick={
+                                                        onCancel
+                                                    }
+                                                    variant={'secondary'}
+                                                >
+                                                    <CrossCircledIcon />
+                                                    Batal
+                                                </ButtonMain>
                                             </div>
                                         </form>
                                     </FormMain>

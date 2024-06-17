@@ -76,8 +76,20 @@ export const private_links: Array<PrivateLinksProps> =
             variant: "ghost"
         },
         {
+            title: "Model Rangka",
+            href: "/admin/model-chasis",
+            icon: LayoutDashboard,
+            variant: "ghost"
+        },
+        {
             title: "Model Dimensi",
             href: "/admin/model-dimention",
+            icon: LayoutDashboard,
+            variant: "ghost"
+        },
+        {
+            title: "Harga",
+            href: "/admin/price",
             icon: LayoutDashboard,
             variant: "ghost"
         },
