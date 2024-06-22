@@ -58,7 +58,7 @@ export const ProductColorTable: FunctionComponent<ProductColorTable> = function 
         setError(undefined)
         setSuccess(undefined)
         router.refresh()
-    }, [success, error])
+    }, [success, error, router])
 
     const columns: ColumnDef<ProductColorType>[] = [
         {

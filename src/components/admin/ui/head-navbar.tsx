@@ -1,17 +1,18 @@
 "use client"
 
-import { PersonIcon } from '@radix-ui/react-icons'
-import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { useState } from 'react'
-import ThemeToggler from '../../theme-toggler'
-import MobileNavigation from '../../mobile-navigation'
-import Nav from './navigation'
-import { signOut } from 'next-auth/react'
-import { Button } from '../../ui/button'
+import { FunctionComponent, useState } from 'react'
 import ButtonSignout from '../../button-signout'
+import ThemeToggler from '../../theme-toggler'
+import { MobileNavigation } from '@/components/mobile-navigation'
+import Nav from '@/components/navigation'
+import { private_links } from '@/app/(private)/admin/router'
 
-export default function HeadNavBar() {
+interface HeadNavBarProps {
+    title: string
+}
+
+export const HeadNavBar: FunctionComponent<HeadNavBarProps> = function ({ ...props }) {
     const [header, setHeader] = useState(false)
     const pathName = usePathname()
 
@@ -27,9 +28,12 @@ export default function HeadNavBar() {
                 <div className='flex flex-col gap-y-4 mr-auto'>
                     <div className='flex items-center gap-x-6'>
                         <div className='block md:hidden xs:hidden'>
-                            <MobileNavigation>
+                            <MobileNavigation
+                                title={props.title}
+                            >
                                 <Nav
-                                    containerStyles='flex flex-col items-center gap-y-6'
+                                    data={private_links}
+                                    containerStyles='flex flex-col items-center gap-y-4'
                                     linkStyles='text-1xl font-semibold'
                                 />
                             </MobileNavigation>

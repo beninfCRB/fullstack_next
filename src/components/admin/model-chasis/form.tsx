@@ -56,17 +56,15 @@ export const ModelChasisForm: FunctionComponent<ModelChasisFormProps> = function
         }
     })
 
-    const get = async (id: string) => {
-        const obj = await props.getID(id)
-
-        setData(obj)
-    }
-
     useEffect(() => {
-        if (id) {
-            get(id)
-        }
-    }, [id])
+        const fetchData = async () => {
+            if (id) {
+                const obj = await props.getID(id);
+                setData(obj);
+            }
+        };
+        fetchData();
+    }, [id, props])
 
     useEffect(() => {
         if (data) {
@@ -82,7 +80,7 @@ export const ModelChasisForm: FunctionComponent<ModelChasisFormProps> = function
             form.setValue('tireSize', data.tireSize as string)
             setVisible(true)
         }
-    }, [data])
+    }, [data, form])
 
     useEffect(() => {
         success !== "" ? toast.success(success) : toast.error(error)
@@ -92,7 +90,7 @@ export const ModelChasisForm: FunctionComponent<ModelChasisFormProps> = function
         form.reset()
         router.replace(`${path}`)
         router.refresh()
-    }, [success, error])
+    }, [success, error, form, path, router])
 
     const onSubmit = (values: ModelChasisSchemaType) => {
         setError(undefined)
@@ -119,6 +117,7 @@ export const ModelChasisForm: FunctionComponent<ModelChasisFormProps> = function
         form.reset()
         setVisible(false)
         router.replace(`${path}`)
+        setData({})
     }
 
     return (

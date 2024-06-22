@@ -57,7 +57,7 @@ export const ModelChasisTable: FunctionComponent<ModelChasisTable> = function ({
         setError(undefined)
         setSuccess(undefined)
         router.refresh()
-    }, [success, error])
+    }, [success, error, router])
 
     const columns: ColumnDef<ModelChasisType>[] = [
         {

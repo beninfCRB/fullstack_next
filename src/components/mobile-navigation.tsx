@@ -1,10 +1,16 @@
 "use client"
 
+import { FunctionComponent } from 'react'
 import LogoIcon from './logo-icon'
 import { Sheet, SheetContent, SheetTrigger } from './ui/sheet'
 import { AlignJustify } from 'lucide-react'
 
-export default function MobileNavigation({ children }: { children: React.ReactNode }) {
+interface MobileNavigationProps {
+    title: string
+    children: React.ReactNode
+}
+
+export const MobileNavigation: FunctionComponent<MobileNavigationProps> = function ({ title, children }) {
     return (
         <Sheet>
             <SheetTrigger asChild>
@@ -14,8 +20,8 @@ export default function MobileNavigation({ children }: { children: React.ReactNo
             </SheetTrigger>
             <SheetContent>
                 <div className='flex flex-col items-center justify-between h-full py-8'>
-                    <div className='flex flex-col items-center gap-y-32'>
-                        <LogoIcon title='DIAN REJEKI TOYOTA' href='/' />
+                    <div className='flex flex-col items-center gap-y-8'>
+                        <LogoIcon title={title} href='/' />
                         {children}
                     </div>
                 </div>

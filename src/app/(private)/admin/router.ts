@@ -1,14 +1,11 @@
 import {
-    ChevronRight,
     LayoutDashboard,
-    Settings,
-    ShoppingCart,
-    UsersRound
+    Settings
 } from "lucide-react";
 
 interface PrivateLinksProps {
-    title: string
-    href: string
+    name: string
+    path: string
     icon: any
     variant: any
 }
@@ -16,92 +13,92 @@ interface PrivateLinksProps {
 export const private_links: Array<PrivateLinksProps> =
     [
         {
-            title: "Dashboard",
-            href: "/admin",
+            name: "Dashboard",
+            path: "/admin",
             icon: LayoutDashboard,
             variant: "default"
         },
         {
-            title: "Tipe",
-            href: "/admin/type",
+            name: "Tipe",
+            path: "/admin/type",
             icon: LayoutDashboard,
             variant: "ghost"
         },
         {
-            title: "Warna",
-            href: "/admin/color",
+            name: "Warna",
+            path: "/admin/color",
             icon: LayoutDashboard,
             variant: "ghost"
         },
         {
-            title: "Bahan Bakar",
-            href: "/admin/fuel",
+            name: "Bahan Bakar",
+            path: "/admin/fuel",
             icon: LayoutDashboard,
             variant: "ghost"
         },
         {
-            title: "Transmisi",
-            href: "/admin/transmition",
+            name: "Transmisi",
+            path: "/admin/transmition",
             icon: LayoutDashboard,
             variant: "ghost"
         },
         {
-            title: "Produk",
-            href: "/admin/product",
+            name: "Produk",
+            path: "/admin/product",
             icon: LayoutDashboard,
             variant: "ghost"
         },
         {
-            title: "Warna Produk",
-            href: "/admin/product-color",
+            name: "Warna Produk",
+            path: "/admin/product-color",
             icon: LayoutDashboard,
             variant: "ghost"
         },
         {
-            title: "Gambar Produk",
-            href: "/admin/product-image",
+            name: "Gambar Produk",
+            path: "/admin/product-image",
             icon: LayoutDashboard,
             variant: "ghost"
         },
         {
-            title: "Model Produk",
-            href: "/admin/product-model",
+            name: "Model Produk",
+            path: "/admin/product-model",
             icon: LayoutDashboard,
             variant: "ghost"
         },
         {
-            title: "Model Mesin",
-            href: "/admin/model-machine",
+            name: "Model Mesin",
+            path: "/admin/model-machine",
             icon: LayoutDashboard,
             variant: "ghost"
         },
         {
-            title: "Model Rangka",
-            href: "/admin/model-chasis",
+            name: "Model Rangka",
+            path: "/admin/model-chasis",
             icon: LayoutDashboard,
             variant: "ghost"
         },
         {
-            title: "Model Dimensi",
-            href: "/admin/model-dimention",
+            name: "Model Dimensi",
+            path: "/admin/model-dimention",
             icon: LayoutDashboard,
             variant: "ghost"
         },
         {
-            title: "Harga",
-            href: "/admin/price",
+            name: "Harga",
+            path: "/admin/price",
             icon: LayoutDashboard,
             variant: "ghost"
         },
         {
-            title: "Carousel",
-            href: "/admin/carousel-image",
+            name: "Carousel",
+            path: "/admin/carousel-image",
             icon: LayoutDashboard,
             variant: "ghost"
         },
         {
-            title: "Settings",
-            href: "/admin/settings",
+            name: "Settings",
+            path: "/admin/settings",
             icon: Settings,
             variant: "ghost"
         }

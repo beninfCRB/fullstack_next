@@ -57,7 +57,7 @@ export const TypeTable: FunctionComponent<TypeTable> = function ({ ...props }) {
         setError(undefined)
         setSuccess(undefined)
         router.refresh()
-    }, [success, error])
+    }, [success, error, router])
 
     const columns: ColumnDef<TypeType>[] = [
         {

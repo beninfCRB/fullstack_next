@@ -16,11 +16,11 @@ import { usePathname } from "next/navigation";
 interface NavProps {
     isCollapsed: boolean;
     links: {
-        title: string;
+        name: string;
         label?: string;
         icon: LucideIcon;
         variant: "default" | "ghost";
-        href: string;
+        path: string;
     }[];
 }
 
@@ -38,10 +38,10 @@ export function NavSideBar({ links, isCollapsed }: NavProps) {
                             <Tooltip key={index} delayDuration={0}>
                                 <TooltipTrigger asChild>
                                     <Link
-                                        href={link.href}
+                                        href={link.path}
                                         className={cn(
                                             buttonVariants({
-                                                variant: link.href === pathName ? "default" : "ghost",
+                                                variant: link.path === pathName ? "default" : "ghost",
                                                 size: "icon"
                                             }),
                                             "h-9 w-9",
@@ -50,14 +50,14 @@ export function NavSideBar({ links, isCollapsed }: NavProps) {
                                         )}
                                     >
                                         <link.icon className="h-4 w-4" />
-                                        <span className="sr-only">{link.title}</span>
+                                        <span className="sr-only">{link.name}</span>
                                     </Link>
                                 </TooltipTrigger>
                                 <TooltipContent
                                     side="right"
                                     className="flex items-center gap-4"
                                 >
-                                    {link.title}
+                                    {link.name}
                                     {link.label && (
                                         <span className="ml-auto text-muted-foreground">
                                             {link.label}
@@ -69,10 +69,10 @@ export function NavSideBar({ links, isCollapsed }: NavProps) {
 
                             <Link
                                 key={index}
-                                href={link.href}
+                                href={link.path}
                                 className={cn(
                                     buttonVariants({
-                                        variant: link.href === pathName ? "default" : "ghost",
+                                        variant: link.path === pathName ? "default" : "ghost",
                                         size: "sm"
                                     }),
                                     link.variant === "default" &&
@@ -81,7 +81,7 @@ export function NavSideBar({ links, isCollapsed }: NavProps) {
                                 )}
                             >
                                 <link.icon className="mr-2 h-4 w-4" />
-                                {link.title}
+                                {link.name}
                                 {link.label && (
                                     <span
                                         className={cn(

@@ -20,7 +20,7 @@ export default async function ProductColorPage() {
     const getData = async (id: string) => {
         "use server"
         const obj = await GetProductColorID(id)
-        const data: ProductColorType = { ...obj }
+        const data: Partial<ProductColorType> = { ...obj }
         return data
     }
 

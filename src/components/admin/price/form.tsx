@@ -51,17 +51,15 @@ export const PriceForm: FunctionComponent<PriceFormProps> = function ({ ...props
         }
     })
 
-    const get = async (id: string) => {
-        const obj = await props.getID(id)
-
-        setData(obj)
-    }
-
     useEffect(() => {
-        if (id) {
-            get(id)
-        }
-    }, [id])
+        const fetchData = async () => {
+            if (id) {
+                const obj = await props.getID(id);
+                setData(obj);
+            }
+        };
+        fetchData();
+    }, [id, props])
 
     useEffect(() => {
         if (data) {
@@ -74,7 +72,7 @@ export const PriceForm: FunctionComponent<PriceFormProps> = function ({ ...props
             form.setValue('dp', Number(data.dp))
             setVisible(true)
         }
-    }, [data])
+    }, [data, form])
 
     useEffect(() => {
         success !== "" ? toast.success(success) : toast.error(error)
@@ -84,7 +82,7 @@ export const PriceForm: FunctionComponent<PriceFormProps> = function ({ ...props
         form.reset()
         router.replace(`${path}`)
         router.refresh()
-    }, [success, error])
+    }, [success, error, form, path, router])
 
     const onSubmit = (values: PriceSchemaType) => {
         setError(undefined)
@@ -111,6 +109,7 @@ export const PriceForm: FunctionComponent<PriceFormProps> = function ({ ...props
         form.reset()
         setVisible(false)
         router.replace(`${path}`)
+        setData({})
     }
 
     return (

@@ -57,7 +57,7 @@ export const FuelTable: FunctionComponent<FuelTable> = function ({ ...props }) {
         setError(undefined)
         setSuccess(undefined)
         router.refresh()
-    }, [success, error])
+    }, [success, error, router])
 
     const columns: ColumnDef<FuelType>[] = [
         {

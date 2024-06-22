@@ -19,7 +19,7 @@ const LogoIcon = (props: LogoProps) => {
                 height={20}
                 alt=''
             />
-            <p className='text-center font-semibold'>
+            <p className='text-center font-semibold underline decoration-red-500'>
                 {props.title}
             </p>
         </Link>

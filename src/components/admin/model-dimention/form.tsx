@@ -51,17 +51,15 @@ export const ModelDimentionForm: FunctionComponent<ModelDimentionFormProps> = fu
         }
     })
 
-    const get = async (id: string) => {
-        const obj = await props.getID(id)
-
-        setData(obj)
-    }
-
     useEffect(() => {
-        if (id) {
-            get(id)
-        }
-    }, [id])
+        const fetchData = async () => {
+            if (id) {
+                const obj = await props.getID(id);
+                setData(obj);
+            }
+        };
+        fetchData();
+    }, [id, props])
 
     useEffect(() => {
         if (data) {
@@ -76,7 +74,7 @@ export const ModelDimentionForm: FunctionComponent<ModelDimentionFormProps> = fu
             form.setValue('groundClearance', Number(data.groundClearance) as number)
             setVisible(true)
         }
-    }, [data])
+    }, [data, form])
 
     useEffect(() => {
         success !== "" ? toast.success(success) : toast.error(error)
@@ -86,7 +84,7 @@ export const ModelDimentionForm: FunctionComponent<ModelDimentionFormProps> = fu
         form.reset()
         router.replace(`${path}`)
         router.refresh()
-    }, [success, error])
+    }, [success, error, form, path, router])
 
     const onSubmit = (values: ModelDimentionSchemaType) => {
         setError(undefined)
@@ -113,6 +111,7 @@ export const ModelDimentionForm: FunctionComponent<ModelDimentionFormProps> = fu
         form.reset()
         setVisible(false)
         router.replace(`${path}`)
+        setData({})
     }
 
     return (

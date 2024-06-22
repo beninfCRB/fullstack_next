@@ -58,17 +58,15 @@ export const ModelMachineForm: FunctionComponent<ModelMachineFormProps> = functi
         }
     })
 
-    const get = async (id: string) => {
-        const obj = await props.getID(id)
-
-        setData(obj)
-    }
-
     useEffect(() => {
-        if (id) {
-            get(id)
-        }
-    }, [id])
+        const fetchData = async () => {
+            if (id) {
+                const obj = await props.getID(id);
+                setData(obj);
+            }
+        };
+        fetchData();
+    }, [id, props])
 
     useEffect(() => {
         if (data) {
@@ -83,7 +81,7 @@ export const ModelMachineForm: FunctionComponent<ModelMachineFormProps> = functi
             form.setValue('fuelCapacity', Number(data.fuelCapacity) as number)
             setVisible(true)
         }
-    }, [data])
+    }, [data, form])
 
     useEffect(() => {
         success !== "" ? toast.success(success) : toast.error(error)
@@ -93,7 +91,7 @@ export const ModelMachineForm: FunctionComponent<ModelMachineFormProps> = functi
         form.reset()
         router.replace(`${path}`)
         router.refresh()
-    }, [success, error])
+    }, [success, error, form, path, router])
 
     const onSubmit = (values: ModelMachineSchemaType) => {
         setError(undefined)
@@ -120,6 +118,7 @@ export const ModelMachineForm: FunctionComponent<ModelMachineFormProps> = functi
         form.reset()
         setVisible(false)
         router.replace(`${path}`)
+        setData({})
     }
 
     return (

@@ -58,7 +58,7 @@ export const CarouselImageTable: FunctionComponent<CarouselImageTable> = functio
         setError(undefined)
         setSuccess(undefined)
         router.refresh()
-    }, [success, error])
+    }, [success, error, router])
 
     const columns: ColumnDef<CarouselImageType>[] = [
         {

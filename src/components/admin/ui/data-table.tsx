@@ -172,7 +172,7 @@ export function DataTable<TData, TValue>({
                                                             )
                                                         }
                                                         {table.getAllColumns().filter((column) => column.getCanHide() && column.id === header.column.id).map((column, i) => (
-                                                            <div className="w-full">
+                                                            <div key={i} className="w-full">
                                                                 <Input
                                                                     key={i}
                                                                     placeholder={`Cari...`}

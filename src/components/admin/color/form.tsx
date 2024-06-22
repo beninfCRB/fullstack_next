@@ -25,15 +25,13 @@ interface ColorFormProps {
 
 export const ColorForm: FunctionComponent<ColorFormProps> = function ({ ...props }) {
     const [visible, setVisible] = useState<boolean>(false)
-    const [color, setColor] = useState<string>('#0f0f0f');
+    const [color, setColor] = useState<string>('');
     const router = useRouter()
     const path = usePathname()
 
     const onClick = () => {
         setVisible(true)
     }
-
-
 
     const id = useSearchParams().get('id') as string
     const [data, setData] = useState<ColorType>({})
@@ -51,26 +49,25 @@ export const ColorForm: FunctionComponent<ColorFormProps> = function ({ ...props
         }
     })
 
-    const get = async (id: string) => {
-        const obj = await props.getID(id)
-        setData(obj)
-    }
-
     useEffect(() => {
-        if (id) {
-            get(id)
-        }
-    }, [id])
+        const fetchData = async () => {
+            if (id) {
+                const obj = await props.getID(id);
+                setData(obj);
+            }
+        };
+        fetchData();
+    }, [id, props])
 
     useEffect(() => {
         if (data) {
             form.setValue('id', data.id as string)
             form.setValue('code', data.code as string)
             form.setValue('name', data.name as string)
-            form.setValue('color', data.color as string)
+            form.setValue('color', data.code as string)
             setVisible(true)
         }
-    }, [data])
+    }, [data, form])
 
     useEffect(() => {
         success !== "" ? toast.success(success) : toast.error(error)
@@ -80,7 +77,7 @@ export const ColorForm: FunctionComponent<ColorFormProps> = function ({ ...props
         form.reset()
         router.replace(`${path}`)
         router.refresh()
-    }, [success, error])
+    }, [success, error, form, path, router])
 
     const onSubmit = (values: ColorSchemaType) => {
         setError(undefined)
@@ -108,7 +105,7 @@ export const ColorForm: FunctionComponent<ColorFormProps> = function ({ ...props
     const onCancel = () => {
         form.reset()
         setVisible(false)
-        router.replace(`${path}`)
+        router.replace(`${path.replace(/\?.*$/, '')}`)
     }
 
     return (

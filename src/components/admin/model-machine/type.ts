@@ -5,7 +5,7 @@ import { ProductModelType } from "../product-model/type"
 export interface ModelMachineType {
     id?: string
     productModelId?: string
-    machineSerial?: string
+    machineSerial?: string | null
     engineType?: string
     boreStroke?: string
     cylinder?: Decimal

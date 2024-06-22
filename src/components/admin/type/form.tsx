@@ -45,16 +45,15 @@ export const TypeForm: FunctionComponent<TypeFormProps> = function ({ ...props }
         }
     })
 
-    const get = async (id: string) => {
-        const obj = await props.getID(id)
-        setData(obj)
-    }
-
     useEffect(() => {
-        if (id) {
-            get(id)
-        }
-    }, [id])
+        const fetchData = async () => {
+            if (id) {
+                const obj = await props.getID(id);
+                setData(obj);
+            }
+        };
+        fetchData();
+    }, [id, props])
 
     useEffect(() => {
         if (data) {
@@ -62,7 +61,7 @@ export const TypeForm: FunctionComponent<TypeFormProps> = function ({ ...props }
             form.setValue('name', data.name as string)
             setVisible(true)
         }
-    }, [data])
+    }, [data, form])
 
     useEffect(() => {
         success !== "" ? toast.success(success) : toast.error(error)
@@ -72,7 +71,7 @@ export const TypeForm: FunctionComponent<TypeFormProps> = function ({ ...props }
         form.reset()
         router.replace(`${path}`)
         router.refresh()
-    }, [success, error])
+    }, [success, error, form, path, router])
 
     const onSubmit = (values: TypeSchemaType) => {
         setError(undefined)
@@ -99,6 +98,7 @@ export const TypeForm: FunctionComponent<TypeFormProps> = function ({ ...props }
         form.reset()
         setVisible(false)
         router.replace(`${path}`)
+        setData({})
     }
 
     return (

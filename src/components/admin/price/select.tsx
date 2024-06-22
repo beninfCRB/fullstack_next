@@ -27,7 +27,7 @@ export const PriceSelect: FunctionComponent<priceSelectProps> = function ({ ...p
                             key={i}
                             value={item?.id as string}
                         >
-                            {item?.product?.name} - Rp. {Number(item?.price)}
+                            {item?.product_model?.product?.name} - Rp. {Number(item?.price)}
                         </SelectItem>
                     )
                 })

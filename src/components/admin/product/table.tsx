@@ -58,7 +58,7 @@ export const ProductTable: FunctionComponent<ProductTable> = function ({ ...prop
         setError(undefined)
         setSuccess(undefined)
         router.refresh()
-    }, [success, error])
+    }, [success, error, router])
 
     const columns: ColumnDef<ProductType>[] = [
         {

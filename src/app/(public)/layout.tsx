@@ -9,7 +9,7 @@ export default function HomeLayout({ children }: { children: React.ReactNode }) 
             <section
                 className='flex flex-col w-full'
             >
-                <Header />
+                <Header title={process.env.APP_NAME as string} />
                 {children}
                 <Footer />
             </section>

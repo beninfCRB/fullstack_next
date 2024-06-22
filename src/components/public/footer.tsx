@@ -26,6 +26,7 @@ const Footer = () => {
                     {
                         public_links.map((item, i) =>
                             <Link
+                                key={i}
                                 href={item.path}
                             >
                                 <h1 className='font-bold text-xl text-white'>{item.name.toUpperCase()}</h1>

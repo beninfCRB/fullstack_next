@@ -20,7 +20,7 @@ export default async function ModelMachinePage() {
     const getData = async (id: string) => {
         "use server"
         const obj = await GetModelMachineID(id)
-        const data: ModelMachineType = { ...obj }
+        const data: Partial<ModelMachineType> = { ...obj }
         return data
     }
 

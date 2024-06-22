@@ -13,6 +13,6 @@ export interface ProductModelType {
     product?: ProductType
     type?: TypeType
     transmition?: TransmitionType
-    price?: PriceType
+    price?: PriceType | null
     model_machine?: Array<ModelMachineType>
 }

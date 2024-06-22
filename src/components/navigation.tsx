@@ -4,20 +4,27 @@ import React from 'react'
 import { motion } from 'framer-motion'
 import { usePathname } from 'next/navigation'
 import Link from 'next/link'
-import { public_links } from '@/app/(public)/router'
+
+interface linkType {
+    path: string
+    name: string
+    icon?: any
+    variant?: any
+}
 
 interface Props {
     containerStyles?: string,
     linkStyles?: string,
-    underlineStyles?: string
+    underlineStyles?: string,
+    data: Array<linkType>
 }
 
-const Nav = ({ containerStyles, linkStyles, underlineStyles }: Props) => {
+const Nav = ({ containerStyles, linkStyles, underlineStyles, data }: Props) => {
     const path = usePathname()
     return (
         <nav className={`${containerStyles}`}>
             {
-                public_links.map((link, index) => {
+                data.map((link, index) => {
                     return (
                         <Link
                             href={link.path}

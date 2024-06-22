@@ -23,7 +23,7 @@ import { ColorType } from '../color/type'
 import { ColorSelect } from '../color/select'
 
 interface ProductColorFormProps {
-    dataProduct: Array<ProductType>
+    dataProduct: Array<ProductType> | []
     dataColor: Array<ColorType>
     getID: (id: string) => Promise<ProductColorType>
 }
@@ -52,17 +52,15 @@ export const ProductColorForm: FunctionComponent<ProductColorFormProps> = functi
         }
     })
 
-    const get = async (id: string) => {
-        const obj = await props.getID(id)
-
-        setData(obj)
-    }
-
     useEffect(() => {
-        if (id) {
-            get(id)
-        }
-    }, [id])
+        const fetchData = async () => {
+            if (id) {
+                const obj = await props.getID(id);
+                setData(obj);
+            }
+        };
+        fetchData();
+    }, [id, props])
 
     useEffect(() => {
         if (data) {
@@ -72,7 +70,7 @@ export const ProductColorForm: FunctionComponent<ProductColorFormProps> = functi
             form.setValue('colorId', data.colorId as string)
             setVisible(true)
         }
-    }, [data])
+    }, [data, form])
 
     useEffect(() => {
         success !== "" ? toast.success(success) : toast.error(error)
@@ -82,7 +80,7 @@ export const ProductColorForm: FunctionComponent<ProductColorFormProps> = functi
         form.reset()
         router.replace(`${path}`)
         router.refresh()
-    }, [success, error])
+    }, [success, error, form, path, router])
 
     const onSubmit = (values: ProductColorSchemaType) => {
         setError(undefined)
@@ -109,6 +107,7 @@ export const ProductColorForm: FunctionComponent<ProductColorFormProps> = functi
         form.reset()
         setVisible(false)
         router.replace(`${path}`)
+        setData({})
     }
 
     return (

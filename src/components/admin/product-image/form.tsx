@@ -20,7 +20,7 @@ import { ProductColorType } from '../product-color/type'
 import CardWrapper from '../ui/card-wrapper'
 import PageTitle from '../ui/page-title'
 import { ProductImageType } from './type'
-import imageDefault from '../../../../public/image/image.png'
+import imageDefaultPng from '../../../../public/image/image.png'
 
 interface ProductImageFormProps {
     dataProductColor: Array<ProductColorType>
@@ -51,26 +51,23 @@ export const ProductImageForm: FunctionComponent<ProductImageFormProps> = functi
         }
     })
 
-    const get = async (id: string) => {
-        const obj = await props.getID(id)
-
-        setData(obj)
-    }
-
     useEffect(() => {
-        if (id) {
-            get(id)
-        }
-    }, [id])
+        const fetchData = async () => {
+            if (id) {
+                const obj = await props.getID(id);
+                setData(obj);
+            }
+        };
+        fetchData();
+    }, [id, props])
 
     useEffect(() => {
         if (data) {
-
             form.setValue('id', data.id as string)
             form.setValue('productColorId', data.productColorId as string)
             setVisible(true)
         }
-    }, [data])
+    }, [data, form])
 
     useEffect(() => {
         success !== "" ? toast.success(success) : toast.error(error)
@@ -80,7 +77,7 @@ export const ProductImageForm: FunctionComponent<ProductImageFormProps> = functi
         form.reset()
         router.replace(`${path}`)
         router.refresh()
-    }, [success, error])
+    }, [success, error, form, path, router])
 
     const onSubmit = (values: ProductImageSchemaType) => {
         setError(undefined)
@@ -111,6 +108,7 @@ export const ProductImageForm: FunctionComponent<ProductImageFormProps> = functi
         form.reset()
         setVisible(false)
         router.replace(`${path}`)
+        setData({})
     }
 
     return (
@@ -168,7 +166,7 @@ export const ProductImageForm: FunctionComponent<ProductImageFormProps> = functi
                                                 >
                                                     <Image
                                                         className='rounded-lg border-2 border-red-500 shadow-xl size-auto'
-                                                        src={data.path ? data?.path as string : imageDefault}
+                                                        src={data.path ? data?.path as string : imageDefaultPng}
                                                         about={`${data.product_color?.product} ${data.product_color?.product?.name}`}
                                                         alt=''
                                                         width={100}

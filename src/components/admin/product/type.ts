@@ -7,6 +7,6 @@ export interface ProductType {
     buildUp?: number
     description?: string
 
-    product_model?: Array<ProductModelType>
-    product_color?: Array<ProductColorType>
+    product_model?: Array<ProductModelType> | null
+    product_color?: Array<ProductColorType> | null
 }

@@ -48,17 +48,15 @@ export const CarouselImageForm: FunctionComponent<CarouselImageFormProps> = func
         }
     })
 
-    const get = async (id: string) => {
-        const obj = await props.getID(id)
-
-        setData(obj)
-    }
-
     useEffect(() => {
-        if (id) {
-            get(id)
-        }
-    }, [id])
+        const fetchData = async () => {
+            if (id) {
+                const obj = await props.getID(id);
+                setData(obj);
+            }
+        };
+        fetchData();
+    }, [id, props])
 
     useEffect(() => {
         if (data) {
@@ -67,7 +65,7 @@ export const CarouselImageForm: FunctionComponent<CarouselImageFormProps> = func
             form.setValue('name', data.name as string)
             setVisible(true)
         }
-    }, [data])
+    }, [data, form])
 
     useEffect(() => {
         success !== "" ? toast.success(success) : toast.error(error)
@@ -77,7 +75,7 @@ export const CarouselImageForm: FunctionComponent<CarouselImageFormProps> = func
         form.reset()
         router.replace(`${path}`)
         router.refresh()
-    }, [success, error])
+    }, [success, error, form, path, router])
 
     const onSubmit = (values: CarouselImageSchemaType) => {
         setError(undefined)
@@ -108,6 +106,7 @@ export const CarouselImageForm: FunctionComponent<CarouselImageFormProps> = func
         form.reset()
         setVisible(false)
         router.replace(`${path}`)
+        setData({})
     }
 
     return (
