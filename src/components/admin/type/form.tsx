@@ -98,7 +98,6 @@ export const TypeForm: FunctionComponent<TypeFormProps> = function ({ ...props }
         form.reset()
         setVisible(false)
         router.replace(`${path}`)
-        setData({})
     }
 
     return (

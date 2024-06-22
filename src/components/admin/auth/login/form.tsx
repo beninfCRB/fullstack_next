@@ -44,7 +44,7 @@ export default function LoginForm() {
   return (
     <CardWrapper
       headerLabel='AUTH'
-      descLabel="Sealmat datang kembali"
+      descLabel="Selamat datang kembali"
       className='w-[400px] shadow-lg'
     >
       <FormMain {...form}>

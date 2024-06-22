@@ -117,7 +117,6 @@ export const ModelChasisForm: FunctionComponent<ModelChasisFormProps> = function
         form.reset()
         setVisible(false)
         router.replace(`${path}`)
-        setData({})
     }
 
     return (
@@ -140,7 +139,7 @@ export const ModelChasisForm: FunctionComponent<ModelChasisFormProps> = function
                         <div className="basis-full items-center justify-center">
                             <motion.div
                                 animate={{ y: [-50, 5] }}
-                                transition={{ modelchasis: "spring", stiffness: 100 }}
+                                transition={{ type: "spring", stiffness: 100 }}
                             >
                                 <CardWrapper
                                     className='w-full shadow-lg'

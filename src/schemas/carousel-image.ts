@@ -9,8 +9,8 @@ export const CarouselImageSchema = z.object({
         message: "Is required",
     }),
     image: z.instanceof(File)
-        .refine((file) => file.size <= MAX_UPLOAD_SIZE, "Image size must be less than 1MB.")
-        .refine((file) => ACCEPTED_FILE_TYPES.includes(file.type), "Invalid file type. Only JPEG and PNG are allowed.")
+        .refine((file) => file.size <= MAX_UPLOAD_SIZE, "Ukuran gambar harus kurang dari 1MB.")
+        .refine((file) => ACCEPTED_FILE_TYPES.includes(file.type), "Tipe file tidak valid. Hanya JPEG dan PNG yang diperbolehkan."),
 })
 
 export type CarouselImageSchemaType = z.infer<typeof CarouselImageSchema>

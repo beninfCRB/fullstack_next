@@ -103,6 +103,12 @@ export const private_links: Array<PrivateLinksProps> =
             variant: "ghost"
         },
         {
+            name: "Promo",
+            path: "/admin/promo",
+            icon: LayoutDashboard,
+            variant: "ghost"
+        },
+        {
             name: "Settings",
             path: "/admin/settings",
             icon: Settings,

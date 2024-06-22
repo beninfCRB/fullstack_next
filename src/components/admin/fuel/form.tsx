@@ -98,7 +98,6 @@ export const FuelForm: FunctionComponent<FuelFormProps> = function ({ ...props }
         form.reset()
         setVisible(false)
         router.replace(`${path}`)
-        setData({})
     }
 
     return (

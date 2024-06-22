@@ -105,6 +105,7 @@ export const ColorForm: FunctionComponent<ColorFormProps> = function ({ ...props
     const onCancel = () => {
         form.reset()
         setVisible(false)
+        setColor('')
         router.replace(`${path.replace(/\?.*$/, '')}`)
     }
 

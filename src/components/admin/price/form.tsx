@@ -109,7 +109,6 @@ export const PriceForm: FunctionComponent<PriceFormProps> = function ({ ...props
         form.reset()
         setVisible(false)
         router.replace(`${path}`)
-        setData({})
     }
 
     return (
@@ -132,7 +131,7 @@ export const PriceForm: FunctionComponent<PriceFormProps> = function ({ ...props
                         <div className="basis-full items-center justify-center">
                             <motion.div
                                 animate={{ y: [-50, 5] }}
-                                transition={{ price: "spring", stiffness: 100 }}
+                                transition={{ type: "spring", stiffness: 100 }}
                             >
                                 <CardWrapper
                                     className='w-full shadow-lg'

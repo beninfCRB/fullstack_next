@@ -11,15 +11,18 @@ interface LogoProps {
 
 const LogoIcon = (props: LogoProps) => {
     return (
-        <Link href={props.href}>
+        <Link
+            href={props.href}
+            className='flex flex-col lg:flex-row items-center justify-center gap-2'
+        >
             <Image
-                className={props.className}
+                className={`basis-1/2 size-auto ${props.className}`}
                 src={logo}
-                width={45}
-                height={20}
+                width={30}
+                height={30}
                 alt=''
             />
-            <p className='text-center font-semibold underline decoration-red-500'>
+            <p className='basis-1/2 text-center font-bold italic decoration-red-500 text-wrap lg:text-nowrap text-2xl'>
                 {props.title}
             </p>
         </Link>

@@ -111,7 +111,6 @@ export const ModelDimentionForm: FunctionComponent<ModelDimentionFormProps> = fu
         form.reset()
         setVisible(false)
         router.replace(`${path}`)
-        setData({})
     }
 
     return (
@@ -134,7 +133,7 @@ export const ModelDimentionForm: FunctionComponent<ModelDimentionFormProps> = fu
                         <div className="basis-full items-center justify-center">
                             <motion.div
                                 animate={{ y: [-50, 5] }}
-                                transition={{ modeldimention: "spring", stiffness: 100 }}
+                                transition={{ type: "spring", stiffness: 100 }}
                             >
                                 <CardWrapper
                                     className='w-full shadow-lg'
