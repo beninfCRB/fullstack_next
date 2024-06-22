@@ -5,8 +5,8 @@ interface PublicLinksProps {
 
 export const public_links: Array<PublicLinksProps> = [
     { path: '/', name: 'home' },
-    { path: '/product', name: 'product' },
+    { path: '/product', name: 'produk' },
     { path: '/promo', name: 'promo' },
-    { path: '/about', name: 'about' },
-    { path: '/contact', name: 'contact' },
+    { path: '/about', name: 'tentang kami' },
+    { path: '/contact', name: 'kontak' },
 ]

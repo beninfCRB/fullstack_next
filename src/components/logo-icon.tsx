@@ -1,8 +1,7 @@
-import React from 'react'
 
-import logo from "../../public/image/logo.png"
-import Link from 'next/link'
 import Image from 'next/image'
+import Link from 'next/link'
+import logo from "../../public/image/logo.png"
 
 interface LogoProps {
     title?: string
@@ -21,7 +20,7 @@ const LogoIcon = (props: LogoProps) => {
                 alt=''
             />
             <p className='text-center font-semibold'>
-                asdasdas
+                {props.title}
             </p>
         </Link>
     )

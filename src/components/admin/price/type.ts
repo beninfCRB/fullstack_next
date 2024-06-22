@@ -1,13 +1,13 @@
 import { Decimal } from "@prisma/client/runtime/library"
-import { ProductType } from "../product/type"
+import { ProductModelType } from "../product-model/type"
 
 export interface PriceType {
     id?: string
-    productId?: string
+    productModelId?: string
     price?: Decimal
     credit?: boolean
     tenor?: number
     dp?: Decimal
 
-    product?: ProductType
+    product_model?: ProductModelType
 }

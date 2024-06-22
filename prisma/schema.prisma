@@ -59,6 +59,8 @@ model User {
   price_updated           Price[]          @relation("updated_user_price")
   price_detail_created    PriceDetail[]    @relation("created_user_price_detail")
   price_detail_updated    PriceDetail[]    @relation("updated_user_price_detail")
+  carousel_image_created  CarouselImage[]  @relation("created_user_carousel_image")
+  carousel_image_updated  CarouselImage[]  @relation("updated_user_carousel_image")
 
   @@map("user")
 }
@@ -198,7 +200,6 @@ model Product {
 
   product_color ProductColor[] @relation("product_product_color")
   product_model ProductModel[] @relation("product_product_model")
-  price         Price[]        @relation("product_price")
 
   @@map("product")
 }
@@ -242,6 +243,7 @@ model ProductModel {
   model_machine   ModelMachine[]   @relation("product_model_model_machine")
   model_dimention ModelDimention[] @relation("product_model_model_dimention")
   model_chasis    ModelChasis[]    @relation("product_model_model_chasis")
+  price           Price?           @relation("product_price")
 
   @@map("product_model")
 }
@@ -336,22 +338,22 @@ model ModelChasis {
 }
 
 model Price {
-  id        String   @id @default(cuid())
-  productId String
-  price     Decimal  @default(0) @db.Decimal(8, 2)
-  credit    Boolean  @default(false)
-  tenor     Int
-  dp        Decimal  @default(0) @db.Decimal(8, 2)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  createdBy String?
-  updatedBy String?
+  id             String   @id @default(cuid())
+  productModelId String   @unique
+  price          Decimal  @default(0) @db.Decimal(16, 2)
+  credit         Boolean  @default(false)
+  tenor          Int
+  dp             Decimal  @default(0) @db.Decimal(16, 2)
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+  createdBy      String?
+  updatedBy      String?
 
   created_user User? @relation("created_user_price", fields: [createdBy], references: [id], onDelete: NoAction, onUpdate: NoAction)
   updated_user User? @relation("updated_user_price", fields: [updatedBy], references: [id], onDelete: NoAction, onUpdate: NoAction)
 
-  product      Product       @relation("product_price", fields: [productId], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  price_detail PriceDetail[] @relation("price_price_detail")
+  product_model ProductModel  @relation("product_price", fields: [productModelId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  price_detail  PriceDetail[] @relation("price_price_detail")
 
   @@map("price")
 }
@@ -360,7 +362,7 @@ model PriceDetail {
   id        String   @id @default(cuid())
   priceId   String
   count     Int
-  amount    Decimal  @default(0) @db.Decimal(8, 2)
+  amount    Decimal  @default(0) @db.Decimal(16, 2)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   createdBy String?
@@ -372,4 +374,19 @@ model PriceDetail {
   price Price @relation("price_price_detail", fields: [priceId], references: [id], onDelete: NoAction, onUpdate: NoAction)
 
   @@map("price_detail")
+}
+
+model CarouselImage {
+  id        String   @id @default(cuid())
+  name      String
+  path      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  createdBy String?
+  updatedBy String?
+
+  created_user User? @relation("created_user_carousel_image", fields: [createdBy], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  updated_user User? @relation("updated_user_carousel_image", fields: [updatedBy], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
+  @@map("carousel_image")
 }

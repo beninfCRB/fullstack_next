@@ -3,12 +3,12 @@ import { PriceForm } from '@/components/admin/price/form'
 import { PriceTable } from '@/components/admin/price/table'
 import { PriceType } from '@/components/admin/price/type'
 import { GetPrice, GetPriceID } from '@/data/price'
-import { GetProduct } from '@/data/product'
+import { GetProductModel } from '@/data/product-model'
 
 
 export default async function PricePage() {
     const data = await GetPrice() || []
-    const product = await GetProduct() || []
+    const productModel = await GetProductModel() || []
 
     const onDelete = async (id: string) => {
         "use server"
@@ -26,7 +26,7 @@ export default async function PricePage() {
         <div className="gap-6 w-full">
             <div className='flex flex-col gap-4'>
                 <PriceForm
-                    dataProduct={product}
+                    dataProductModel={productModel}
                     getID={getData}
                 />
                 <PriceTable

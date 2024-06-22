@@ -5,7 +5,8 @@ export async function GetProductColor() {
         const data = await db.productColor.findMany({
             include: {
                 product: true,
-                color: true
+                color: true,
+                product_image: true
             }
         })
 
@@ -23,7 +24,8 @@ export async function GetProductColorID(id: string) {
             },
             include: {
                 product: true,
-                color: true
+                color: true,
+                product_image: true
             }
         })
 

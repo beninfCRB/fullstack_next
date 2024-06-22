@@ -1,12 +1,12 @@
 "use client"
 
-import { PostProductImage, PutProductImage } from '@/actions/product-image'
+import { PostCarouselImage, PutCarouselImage } from '@/actions/carousel-image'
 import { ButtonMain } from '@/components/custom-button'
 import FormError from '@/components/form-error'
 import FormSuccess from '@/components/form-success'
 import { FormControl, FormField, FormItem, FormLabel, FormMain, FormMessage } from '@/components/ui/form'
 import { Input } from "@/components/ui/input"
-import { ProductImageSchema, ProductImageSchemaType } from '@/schemas/product-image'
+import { CarouselImageSchema, CarouselImageSchemaType } from '@/schemas/carousel-image'
 import { zodResolver } from "@hookform/resolvers/zod"
 import { CrossCircledIcon, PlusCircledIcon, PlusIcon } from '@radix-ui/react-icons'
 import { motion } from 'framer-motion'
@@ -15,19 +15,16 @@ import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { FunctionComponent, useEffect, useState, useTransition } from 'react'
 import { useForm } from 'react-hook-form'
 import { toast } from 'react-toastify'
-import { ProductColorSelect } from '../product-color/select'
-import { ProductColorType } from '../product-color/type'
+import imageDefault from '../../../../public/image/image.png'
 import CardWrapper from '../ui/card-wrapper'
 import PageTitle from '../ui/page-title'
-import { ProductImageType } from './type'
-import imageDefault from '../../../../public/image/image.png'
+import { CarouselImageType } from './type'
 
-interface ProductImageFormProps {
-    dataProductColor: Array<ProductColorType>
-    getID: (id: string) => Promise<ProductImageType>
+interface CarouselImageFormProps {
+    getID: (id: string) => Promise<CarouselImageType>
 }
 
-export const ProductImageForm: FunctionComponent<ProductImageFormProps> = function ({ ...props }) {
+export const CarouselImageForm: FunctionComponent<CarouselImageFormProps> = function ({ ...props }) {
     const [visible, setVisible] = useState<boolean>(false)
     const router = useRouter()
     const path = usePathname()
@@ -37,16 +34,16 @@ export const ProductImageForm: FunctionComponent<ProductImageFormProps> = functi
     }
 
     const id = useSearchParams().get('id') as string
-    const [data, setData] = useState<ProductImageType>({})
+    const [data, setData] = useState<CarouselImageType>({})
     const [error, setError] = useState<string | undefined>(undefined)
     const [success, setSuccess] = useState<string | undefined>(undefined)
     const [isPending, startTransition] = useTransition()
 
-    const form = useForm<ProductImageSchemaType>({
-        resolver: zodResolver(ProductImageSchema),
+    const form = useForm<CarouselImageSchemaType>({
+        resolver: zodResolver(CarouselImageSchema),
         defaultValues: {
             id: "",
-            productColorId: "",
+            name: "",
             image: new File([], '')
         }
     })
@@ -67,7 +64,7 @@ export const ProductImageForm: FunctionComponent<ProductImageFormProps> = functi
         if (data) {
 
             form.setValue('id', data.id as string)
-            form.setValue('productColorId', data.productColorId as string)
+            form.setValue('name', data.name as string)
             setVisible(true)
         }
     }, [data])
@@ -82,24 +79,24 @@ export const ProductImageForm: FunctionComponent<ProductImageFormProps> = functi
         router.refresh()
     }, [success, error])
 
-    const onSubmit = (values: ProductImageSchemaType) => {
+    const onSubmit = (values: CarouselImageSchemaType) => {
         setError(undefined)
         setSuccess(undefined)
 
         let formData = new FormData();
-        formData.append('productColorId', values.productColorId);
+        formData.append('name', values.name);
         formData.append('image', values?.image as File);
 
         if (id) {
             startTransition(async () => {
-                await PutProductImage(id, formData).then((data) => {
+                await PutCarouselImage(id, formData).then((data) => {
                     setSuccess(data.success)
                     setError(data.error)
                 })
             })
         } else {
             startTransition(async () => {
-                await PostProductImage(formData).then((data) => {
+                await PostCarouselImage(formData).then((data) => {
                     setSuccess(data.success)
                     setError(data.error)
                 })
@@ -117,7 +114,7 @@ export const ProductImageForm: FunctionComponent<ProductImageFormProps> = functi
         <div className="gap-6 w-full">
             <div className='flex flex-col gap-4'>
                 <div className='flex items-center justify-between'>
-                    <PageTitle title="Gambar Produk" />
+                    <PageTitle title="Gambar Carousel" />
                     <ButtonMain
                         className='rounded-full gap-2'
                         variant="destructive"
@@ -133,11 +130,11 @@ export const ProductImageForm: FunctionComponent<ProductImageFormProps> = functi
                         <div className="basis-full items-center justify-center">
                             <motion.div
                                 animate={{ y: [-50, 5] }}
-                                transition={{ productimage: "spring", stiffness: 100 }}
+                                transition={{ carouselimage: "spring", stiffness: 100 }}
                             >
                                 <CardWrapper
                                     className='w-full shadow-lg'
-                                    headerLabel='Buat Data Gambar Produk'
+                                    headerLabel='Buat Data Gambar Carousel'
                                 >
                                     <FormMain {...form}>
                                         <form
@@ -169,7 +166,7 @@ export const ProductImageForm: FunctionComponent<ProductImageFormProps> = functi
                                                     <Image
                                                         className='rounded-lg border-2 border-red-500 shadow-xl size-auto'
                                                         src={data.path ? data?.path as string : imageDefault}
-                                                        about={`${data.product_color?.product} ${data.product_color?.product?.name}`}
+                                                        about={`${data.name}`}
                                                         alt=''
                                                         width={100}
                                                         height={100}
@@ -177,16 +174,15 @@ export const ProductImageForm: FunctionComponent<ProductImageFormProps> = functi
                                                     />
                                                     <FormField
                                                         control={form.control}
-                                                        name="productColorId"
+                                                        name="name"
                                                         render={({ field }) => (
                                                             <FormItem>
-                                                                <FormLabel>Warna Produk</FormLabel>
+                                                                <FormLabel>Nama Carousel</FormLabel>
                                                                 <FormControl>
-                                                                    <ProductColorSelect
+                                                                    <Input
                                                                         {...field}
-                                                                        data={props.dataProductColor}
                                                                         disabled={isPending}
-                                                                        placeholder="Masukan Warna Produk"
+                                                                        placeholder="Masukan Gambar Carousel"
                                                                     />
                                                                 </FormControl>
                                                                 <FormMessage />
@@ -202,13 +198,13 @@ export const ProductImageForm: FunctionComponent<ProductImageFormProps> = functi
                                                         name="image"
                                                         render={({ field }) => (
                                                             <FormItem>
-                                                                <FormLabel>Gambar Produk</FormLabel>
+                                                                <FormLabel>Gambar Carousel</FormLabel>
                                                                 <FormControl>
                                                                     <Input
                                                                         {...field}
                                                                         type='file'
                                                                         disabled={isPending}
-                                                                        placeholder="Masukan Gambar Produk"
+                                                                        placeholder="Masukan Gambar Carousel"
                                                                         accept="image/jpeg, image/png"
                                                                         onChange={(event) =>
                                                                             field.onChange(event.target.files && event.target.files[0])

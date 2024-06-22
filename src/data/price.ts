@@ -4,7 +4,12 @@ export async function GetPrice() {
     try {
         const data = await db.price.findMany({
             include: {
-                product: true
+                product_model: {
+                    include: {
+                        product: true,
+                        type: true
+                    }
+                }
             }
         })
 
@@ -21,7 +26,12 @@ export async function GetPriceID(id: string) {
                 id
             },
             include: {
-                product: true
+                product_model: {
+                    include: {
+                        product: true,
+                        type: true
+                    }
+                }
             }
         })
 

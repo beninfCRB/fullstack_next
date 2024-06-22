@@ -26,7 +26,7 @@ export const ProductModelSelect: FunctionComponent<productmodelSelectProps> = fu
                             key={i}
                             value={item?.id as string}
                         >
-                            {item?.product?.name}
+                            {item?.product?.name} {item?.type?.name}
                         </SelectItem>
                     )
                 })

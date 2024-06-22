@@ -7,6 +7,7 @@ import FormSuccess from '@/components/form-success'
 import { Checkbox } from '@/components/ui/checkbox'
 import { FormControl, FormField, FormItem, FormLabel, FormMain, FormMessage } from '@/components/ui/form'
 import { Input } from "@/components/ui/input"
+import MoneyInput from '@/components/ui/money-input'
 import { PriceSchema, PriceSchemaType } from '@/schemas/price'
 import { zodResolver } from "@hookform/resolvers/zod"
 import { CrossCircledIcon, PlusCircledIcon, PlusIcon } from '@radix-ui/react-icons'
@@ -15,15 +16,14 @@ import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { FunctionComponent, useEffect, useState, useTransition } from 'react'
 import { useForm } from 'react-hook-form'
 import { toast } from 'react-toastify'
-import { ProductSelect } from '../product/select'
-import { ProductType } from '../product/type'
+import { ProductModelSelect } from '../product-model/select'
+import { ProductModelType } from '../product-model/type'
 import CardWrapper from '../ui/card-wrapper'
 import PageTitle from '../ui/page-title'
 import { PriceType } from './type'
-import MoneyInput from '@/components/ui/money-input'
 
 interface PriceFormProps {
-    dataProduct: Array<ProductType>
+    dataProductModel: Array<ProductModelType>
     getID: (id: string) => Promise<PriceType>
 }
 
@@ -46,7 +46,7 @@ export const PriceForm: FunctionComponent<PriceFormProps> = function ({ ...props
         resolver: zodResolver(PriceSchema),
         defaultValues: {
             id: "",
-            productId: "",
+            productModelId: "",
             credit: false,
         }
     })
@@ -67,7 +67,7 @@ export const PriceForm: FunctionComponent<PriceFormProps> = function ({ ...props
         if (data) {
 
             form.setValue('id', data.id as string)
-            form.setValue('productId', data.productId as string)
+            form.setValue('productModelId', data.productModelId as string)
             form.setValue('price', Number(data.price))
             form.setValue('credit', Boolean(data.credit))
             form.setValue('tenor', Number(data.tenor))
@@ -168,15 +168,15 @@ export const PriceForm: FunctionComponent<PriceFormProps> = function ({ ...props
                                                 >
                                                     <FormField
                                                         control={form.control}
-                                                        name="productId"
+                                                        name="productModelId"
                                                         render={({ field }) => (
                                                             <FormItem>
-                                                                <FormLabel>Produk</FormLabel>
+                                                                <FormLabel>Produk Model</FormLabel>
                                                                 <FormControl>
-                                                                    <ProductSelect
-                                                                        data={props.dataProduct}
+                                                                    <ProductModelSelect
+                                                                        data={props.dataProductModel}
                                                                         disabled={isPending}
-                                                                        placeholder="Masukan Nama Produk"
+                                                                        placeholder="Masukan Nama Produk Model"
                                                                         {...field}
                                                                     />
                                                                 </FormControl>
@@ -228,11 +228,11 @@ export const PriceForm: FunctionComponent<PriceFormProps> = function ({ ...props
                                                         render={({ field }) => (
                                                             <FormItem>
                                                                 <FormLabel>Kredit</FormLabel>
-                                                                <FormControl>
-                                                                    <Checkbox checked={field.value} onCheckedChange={field.onChange} />
-                                                                </FormControl>
                                                                 <div className="space-y-1 leading-none">
-                                                                    <FormLabel className="text-md cursor-pointer select-none">Angemeldet bleiben</FormLabel>
+                                                                    <FormControl>
+                                                                        <Checkbox checked={field.value} onCheckedChange={field.onChange} />
+                                                                    </FormControl>
+                                                                    <FormLabel className="text-md cursor-pointer select-none ml-2">{field.value ? 'Ya' : 'Tidak'}</FormLabel>
                                                                 </div>
                                                                 <FormMessage />
                                                             </FormItem>

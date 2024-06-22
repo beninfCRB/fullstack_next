@@ -13,24 +13,24 @@ import {
     AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
 import { Button } from '@/components/ui/button'
-import { formattedPrice } from '@/utils/format-price'
 import { CheckIcon, Cross2Icon, Pencil2Icon, TrashIcon } from '@radix-ui/react-icons'
 import { ColumnDef } from '@tanstack/react-table'
 import { motion } from 'framer-motion'
 import { ArrowUpDown } from 'lucide-react'
+import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { FunctionComponent, startTransition, useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
 import { DataTable } from '../ui/data-table'
-import { PriceType } from './type'
+import { CarouselImageType } from './type'
 
 
-interface PriceTable {
-    data: Array<PriceType> | []
+interface CarouselImageTable {
+    data: Array<CarouselImageType> | []
     onDelete: (id: string) => Promise<any>
 }
 
-export const PriceTable: FunctionComponent<PriceTable> = function ({ ...props }) {
+export const CarouselImageTable: FunctionComponent<CarouselImageTable> = function ({ ...props }) {
     const [id, setId] = useState<string | undefined>(undefined)
     const router = useRouter()
 
@@ -60,140 +60,45 @@ export const PriceTable: FunctionComponent<PriceTable> = function ({ ...props })
         router.refresh()
     }, [success, error])
 
-    const columns: ColumnDef<PriceType>[] = [
+    const columns: ColumnDef<CarouselImageType>[] = [
         {
-            accessorKey: "product_model.product.name",
+            accessorKey: "name",
             header: ({ column }) => {
                 return (
                     <Button
                         variant="ghost"
                         onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
                     >
-                        Nama Produk
+                        Nama Carousel
                         <ArrowUpDown className="ml-2 h-4 w-4" />
                     </Button>
                 )
             }
         },
         {
-            accessorKey: "product_model.type.name",
-            header: ({ column }) => {
+            accessorKey: "path",
+            header: "Gambar",
+            cell: ({ row }) => {
+                const product_image = row.original
+
                 return (
-                    <Button
-                        variant="ghost"
-                        onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-                    >
-                        Tipe Produk
-                        <ArrowUpDown className="ml-2 h-4 w-4" />
-                    </Button>
+                    <Image
+                        className='rounded-lg border-2 border-red-500 size-auto'
+                        src={product_image?.path as string}
+                        about={`${product_image.name}`}
+                        alt=''
+                        width={150}
+                        height={150}
+                        priority={false}
+                    />
                 )
             }
-        },
-        {
-            accessorKey: "price",
-            header: ({ column }) => {
-                return (
-                    <Button
-                        variant="ghost"
-                        onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-                    >
-                        Harga
-                        <ArrowUpDown className="ml-2 h-4 w-4" />
-                    </Button>
-                )
-            },
-            cell: ({ row }) => {
-                const price = row.original
-
-                return (
-                    <>
-                        {
-                            formattedPrice(Number(price.price))
-                        }
-                    </>
-                )
-            },
-        },
-        {
-            accessorKey: "dp",
-            header: ({ column }) => {
-                return (
-                    <Button
-                        variant="ghost"
-                        onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-                    >
-                        DP
-                        <ArrowUpDown className="ml-2 h-4 w-4" />
-                    </Button>
-                )
-            },
-            cell: ({ row }) => {
-                const price = row.original
-
-                return (
-                    <>
-                        {
-                            formattedPrice(Number(price.dp))
-                        }
-                    </>
-                )
-            },
-        },
-        {
-            accessorKey: "credit",
-            header: ({ column }) => {
-                return (
-                    <Button
-                        variant="ghost"
-                        onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-                    >
-                        Kredit
-                        <ArrowUpDown className="ml-2 h-4 w-4" />
-                    </Button>
-                )
-            },
-            cell: ({ row }) => {
-                const price = row.original
-
-                return (
-                    <>
-                        {
-                            price.credit ? 'YA' : 'TIDAK'
-                        }
-                    </>
-                )
-            },
-        },
-        {
-            accessorKey: "tenor",
-            header: ({ column }) => {
-                return (
-                    <Button
-                        variant="ghost"
-                        onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-                    >
-                        Tenor
-                        <ArrowUpDown className="ml-2 h-4 w-4" />
-                    </Button>
-                )
-            },
-            cell: ({ row }) => {
-                const price = row.original
-
-                return (
-                    <>
-                        {`
-                            ${price.tenor} Bulan
-                        `}
-                    </>
-                )
-            },
         },
         {
             id: "actions",
             enableHiding: false,
             cell: ({ row }) => {
-                const price = row.original
+                const carouselimage = row.original
 
                 return (
                     <div
@@ -201,7 +106,7 @@ export const PriceTable: FunctionComponent<PriceTable> = function ({ ...props })
                     >
                         <ButtonMain
                             className="w-full rounded-full"
-                            onClick={() => onUpdate(price.id as string)}
+                            onClick={() => onUpdate(carouselimage.id as string)}
                             variant={'default'}
                         >
                             <Pencil2Icon />
@@ -209,7 +114,7 @@ export const PriceTable: FunctionComponent<PriceTable> = function ({ ...props })
                         <AlertDialogTrigger>
                             <ButtonMain
                                 className="w-full rounded-full"
-                                onClick={() => setId(price.id as string)}
+                                onClick={() => setId(carouselimage.id as string)}
                                 variant={'secondary'}
                             >
                                 <TrashIcon />
@@ -225,7 +130,7 @@ export const PriceTable: FunctionComponent<PriceTable> = function ({ ...props })
         <div className='w-full shadow-xl'>
             <motion.div
                 animate={{ y: [-10, 0] }}
-                transition={{ price: "spring", stiffness: 100 }}
+                transition={{ carouselimage: "spring", stiffness: 100 }}
             >
                 <AlertDialog>
                     <DataTable

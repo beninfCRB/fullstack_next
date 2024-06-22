@@ -1,6 +1,15 @@
-import { Resend } from "resend"
+import { createTransport } from "nodemailer";
 
-const resend = new Resend(process.env.RESEND_API_KEY)
+const transporter = createTransport({
+    service: "Gmail",
+    host: "smtp.gmail.com",
+    port: 465,
+    secure: true,
+    auth: {
+        user: "bfauzi09@gmail.com",
+        pass: "qluxpakwaapmaboy",
+    },
+});
 
 export async function sendVerificationEmail(
     email: string,
@@ -8,12 +17,12 @@ export async function sendVerificationEmail(
 ) {
     const confirmLink = `${process.env.URL_SERVER}/auth/new-verification?token=${token}`
 
-    await resend.emails.send({
-        from: "onboarding@resend.dev",
+    await transporter.sendMail({
+        from: "no-reply@dianrejekitoyota.com",
         to: email,
         subject: "Confirm Your Email",
         html: `<p>Click <a href=${confirmLink}>here</a> to consfirm email.</p>`
-    })
+    });
 }
 
 export async function sendPasswordResetEmail(
@@ -22,8 +31,8 @@ export async function sendPasswordResetEmail(
 ) {
     const resetPasswordLink = `${process.env.URL_SERVER}/auth/new-password?token=${token}`
 
-    await resend.emails.send({
-        from: "onboarding@resend.dev",
+    await transporter.sendMail({
+        from: "no-reply@dianrejekitoyota.com",
         to: email,
         subject: "Confirm Your Email",
         html: `<p>Click <a href=${resetPasswordLink}>here</a> to reset email.</p>`

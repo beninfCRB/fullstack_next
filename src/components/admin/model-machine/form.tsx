@@ -300,14 +300,12 @@ export const ModelMachineForm: FunctionComponent<ModelMachineFormProps> = functi
                                                             <FormItem>
                                                                 <FormLabel>Bahan Bakar</FormLabel>
                                                                 <FormControl>
-                                                                    <div className="relative w-full">
-                                                                        <Input
-                                                                            disabled={isPending}
-                                                                            placeholder="Masukan Bahan Bakar"
-                                                                            {...field}
-                                                                        />
-                                                                        <div className='flex absolute items-center right-8 top-0 m-2.5 h-4 w-4 text-muted-foreground'>LITER</div>
-                                                                    </div>
+                                                                    <FuelSelect
+                                                                        data={props.dataFuel}
+                                                                        disabled={isPending}
+                                                                        placeholder="Masukan Bahan Bakar"
+                                                                        {...field}
+                                                                    />
                                                                 </FormControl>
                                                                 <FormMessage />
                                                             </FormItem>
@@ -320,13 +318,14 @@ export const ModelMachineForm: FunctionComponent<ModelMachineFormProps> = functi
                                                             <FormItem>
                                                                 <FormLabel>Kapasitas Bahan Bakar</FormLabel>
                                                                 <FormControl>
-                                                                    <Input
-                                                                        disabled={isPending}
-                                                                        placeholder="Masukan Kapasitas Bahan Bakar"
-                                                                        type='number'
-                                                                        {...field}
-                                                                        onChange={e => field.onChange(Number(e.target.value))}
-                                                                    />
+                                                                    <div className="relative w-full">
+                                                                        <Input
+                                                                            disabled={isPending}
+                                                                            placeholder="Masukan Bahan Bakar"
+                                                                            {...field}
+                                                                        />
+                                                                        <div className='flex absolute items-center right-8 top-0 m-2.5 h-4 w-4 text-muted-foreground'>LITER</div>
+                                                                    </div>
                                                                 </FormControl>
                                                                 <FormMessage />
                                                             </FormItem>

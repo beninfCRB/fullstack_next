@@ -94,6 +94,12 @@ export const private_links: Array<PrivateLinksProps> =
             variant: "ghost"
         },
         {
+            title: "Carousel",
+            href: "/admin/carousel-image",
+            icon: LayoutDashboard,
+            variant: "ghost"
+        },
+        {
             title: "Settings",
             href: "/admin/settings",
             icon: Settings,

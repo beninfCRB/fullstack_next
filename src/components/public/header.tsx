@@ -1,12 +1,12 @@
 "use client"
 
 import React, { useEffect, useState } from 'react'
-import ThemeToggler from './theme-toggler'
-import Nav from './navigation'
+import ThemeToggler from '../theme-toggler'
+import Nav from '../navigation'
 import Link from 'next/link'
 import { PersonIcon } from '@radix-ui/react-icons'
 import { usePathname } from 'next/navigation'
-import LogoIcon from './logo-icon'
+import LogoIcon from '../logo-icon'
 import MobileNavigation from '@/components/mobile-navigation'
 
 const Header = () => {
@@ -30,14 +30,14 @@ const Header = () => {
         >
             <div className='container mx-auto'>
                 <div className='flex items-center justify-between'>
-                    <LogoIcon href='/' />
+                    <LogoIcon title='DIAN REJEKI TOYOTA' href='/' />
                     <div className='flex items-center gap-x-6'>
                         <Nav
                             containerStyles='hidden xl:flex gap-x-8 items-center'
                             linkStyles='relative hover:text-primary transition-all'
                             underlineStyles='absolute left-0 top-full h-[2px] bg-primary w-full'
                         />
-                        <Link href={'auth/login'}>
+                        <Link href={'/admin'}>
                             <PersonIcon />
                         </Link>
                         <ThemeToggler />
