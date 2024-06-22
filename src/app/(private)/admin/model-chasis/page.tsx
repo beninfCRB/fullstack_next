@@ -19,7 +19,7 @@ export default async function ModelChasisPage() {
     const getData = async (id: string) => {
         "use server"
         const obj = await GetModelChasisID(id)
-        const data: ModelChasisType = { ...obj }
+        const data: Partial<ModelChasisType> = { ...obj }
         return data
     }
 

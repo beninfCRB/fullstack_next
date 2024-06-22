@@ -3,6 +3,7 @@ import { ProductModelType } from "../product-model/type"
 
 export interface ProductType {
     id?: string
+    modelId?: string
     name?: string
     buildUp?: number
     description?: string

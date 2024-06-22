@@ -19,6 +19,12 @@ export const private_links: Array<PrivateLinksProps> =
             variant: "default"
         },
         {
+            name: "Model",
+            path: "/admin/model",
+            icon: LayoutDashboard,
+            variant: "ghost"
+        },
+        {
             name: "Tipe",
             path: "/admin/type",
             icon: LayoutDashboard,

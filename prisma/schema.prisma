@@ -41,6 +41,8 @@ model User {
   color_updated           Color[]          @relation("updated_user_color")
   fuel_created            Fuel[]           @relation("created_user_fuel")
   fuel_updated            Fuel[]           @relation("updated_user_fuel")
+  model_created           Model[]          @relation("created_user_model")
+  model_updated           Model[]          @relation("updated_user_model")
   product_created         Product[]        @relation("created_user_product")
   product_updated         Product[]        @relation("updated_user_product")
   product_color_created   ProductColor[]   @relation("created_user_product_color")
@@ -61,6 +63,8 @@ model User {
   price_detail_updated    PriceDetail[]    @relation("updated_user_price_detail")
   carousel_image_created  CarouselImage[]  @relation("created_user_carousel_image")
   carousel_image_updated  CarouselImage[]  @relation("updated_user_carousel_image")
+  promo_created           Promo[]          @relation("created_user_promo")
+  promo_updated           Promo[]          @relation("updated_user_promo")
 
   @@map("user")
 }
@@ -185,8 +189,24 @@ model Transmition {
   @@map("transmition")
 }
 
+model Model {
+  id        String   @id @default(cuid())
+  name      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  createdBy String?
+  updatedBy String?
+
+  created_user User?     @relation("created_user_model", fields: [createdBy], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  updated_user User?     @relation("updated_user_model", fields: [updatedBy], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  product      Product[] @relation("model_product")
+
+  @@map("model")
+}
+
 model Product {
   id          String   @id @default(cuid())
+  modelId     String
   name        String
   buildUp     Int
   description String
@@ -197,6 +217,7 @@ model Product {
 
   created_user User? @relation("created_user_product", fields: [createdBy], references: [id], onDelete: NoAction, onUpdate: NoAction)
   updated_user User? @relation("updated_user_product", fields: [updatedBy], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  model        Model @relation("model_product", fields: [modelId], references: [id], onDelete: NoAction, onUpdate: NoAction)
 
   product_color ProductColor[] @relation("product_product_color")
   product_model ProductModel[] @relation("product_product_model")
@@ -389,4 +410,22 @@ model CarouselImage {
   updated_user User? @relation("updated_user_carousel_image", fields: [updatedBy], references: [id], onDelete: NoAction, onUpdate: NoAction)
 
   @@map("carousel_image")
+}
+
+model Promo {
+  id          String   @id @default(cuid())
+  name        String
+  path        String
+  description String   @db.Text()
+  startDate   DateTime
+  endDate     DateTime
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  createdBy   String?
+  updatedBy   String?
+
+  created_user User? @relation("created_user_promo", fields: [createdBy], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  updated_user User? @relation("updated_user_promo", fields: [updatedBy], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
+  @@map("promo")
 }

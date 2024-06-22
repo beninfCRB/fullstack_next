@@ -1,12 +1,12 @@
 "use client"
 
-import { PostProduct, PutProduct } from '@/actions/product'
+import { PostModel, PutModel } from '@/actions/model'
 import { ButtonMain } from '@/components/custom-button'
 import FormError from '@/components/form-error'
 import FormSuccess from '@/components/form-success'
 import { FormControl, FormField, FormItem, FormLabel, FormMain, FormMessage } from '@/components/ui/form'
 import { Input } from "@/components/ui/input"
-import { ProductSchema, ProductSchemaType } from '@/schemas/product'
+import { ModelSchema, ModelSchemaType } from '@/schemas/model'
 import { zodResolver } from "@hookform/resolvers/zod"
 import { CrossCircledIcon, PlusCircledIcon, PlusIcon } from '@radix-ui/react-icons'
 import { motion } from 'framer-motion'
@@ -16,18 +16,15 @@ import { useForm } from 'react-hook-form'
 import { toast } from 'react-toastify'
 import CardWrapper from '../ui/card-wrapper'
 import PageTitle from '../ui/page-title'
-import { ProductType } from './type'
-import { Textarea } from '@/components/ui/textarea'
-import { ModelSelect } from '../model/select'
-import { ModelType } from '../model/type'
+import { ModelType } from './type'
 
-interface ProductFormProps {
-    dataModel: Array<ModelType>
-    getID: (id: string) => Promise<ProductType>
+interface ModelFormProps {
+    getID: (id: string) => Promise<ModelType>
 }
 
-export const ProductForm: FunctionComponent<ProductFormProps> = function ({ ...props }) {
+export const ModelForm: FunctionComponent<ModelFormProps> = function ({ ...props }) {
     const [visible, setVisible] = useState<boolean>(false)
+    const [model, setModel] = useState<string>('');
     const router = useRouter()
     const path = usePathname()
 
@@ -36,18 +33,16 @@ export const ProductForm: FunctionComponent<ProductFormProps> = function ({ ...p
     }
 
     const id = useSearchParams().get('id') as string
-    const [data, setData] = useState<ProductType>({})
+    const [data, setData] = useState<ModelType>({})
     const [error, setError] = useState<string | undefined>(undefined)
     const [success, setSuccess] = useState<string | undefined>(undefined)
     const [isPending, startTransition] = useTransition()
 
-    const form = useForm<ProductSchemaType>({
-        resolver: zodResolver(ProductSchema),
+    const form = useForm<ModelSchemaType>({
+        resolver: zodResolver(ModelSchema),
         defaultValues: {
             id: "",
-            modelId: "",
             name: "",
-            description: ""
         }
     })
 
@@ -64,10 +59,7 @@ export const ProductForm: FunctionComponent<ProductFormProps> = function ({ ...p
     useEffect(() => {
         if (data) {
             form.setValue('id', data.id as string)
-            form.setValue('modelId', data.modelId as string)
             form.setValue('name', data.name as string)
-            form.setValue('buildUp', data.buildUp as number)
-            form.setValue('description', data.description as string)
             setVisible(true)
         }
     }, [data, form])
@@ -82,20 +74,20 @@ export const ProductForm: FunctionComponent<ProductFormProps> = function ({ ...p
         router.refresh()
     }, [success, error, form, path, router])
 
-    const onSubmit = (values: ProductSchemaType) => {
+    const onSubmit = (values: ModelSchemaType) => {
         setError(undefined)
         setSuccess(undefined)
 
         if (id) {
             startTransition(async () => {
-                await PutProduct(id, values).then((data) => {
+                await PutModel(id, values).then((data) => {
                     setSuccess(data.success)
                     setError(data.error)
                 })
             })
         } else {
             startTransition(async () => {
-                await PostProduct(values).then((data) => {
+                await PostModel(values).then((data) => {
                     setSuccess(data.success)
                     setError(data.error)
                 })
@@ -106,15 +98,14 @@ export const ProductForm: FunctionComponent<ProductFormProps> = function ({ ...p
     const onCancel = () => {
         form.reset()
         setVisible(false)
-        router.replace(`${path}`)
-        setData({})
+        router.replace(`${path.replace(/\?.*$/, '')}`)
     }
 
     return (
         <div className="gap-6 w-full">
             <div className='flex flex-col gap-4'>
                 <div className='flex items-center justify-between'>
-                    <PageTitle title="Produk" />
+                    <PageTitle title="Model" />
                     <ButtonMain
                         className='rounded-full gap-2'
                         variant="destructive"
@@ -130,11 +121,11 @@ export const ProductForm: FunctionComponent<ProductFormProps> = function ({ ...p
                         <div className="basis-full items-center justify-center">
                             <motion.div
                                 animate={{ y: [-50, 5] }}
-                                transition={{ product: "spring", stiffness: 100 }}
+                                transition={{ type: "spring", stiffness: 100 }}
                             >
                                 <CardWrapper
                                     className='w-full shadow-lg'
-                                    headerLabel='Buat Data Produk'
+                                    headerLabel='Buat Data Model'
                                 >
                                     <FormMain {...form}>
                                         <form
@@ -165,52 +156,15 @@ export const ProductForm: FunctionComponent<ProductFormProps> = function ({ ...p
                                                 >
                                                     <FormField
                                                         control={form.control}
-                                                        name="modelId"
-                                                        render={({ field }) => (
-                                                            <FormItem>
-                                                                <FormLabel>Model</FormLabel>
-                                                                <FormControl>
-                                                                    <ModelSelect
-                                                                        data={props.dataModel}
-                                                                        disabled={isPending}
-                                                                        placeholder="Masukan Model"
-                                                                        {...field}
-                                                                    />
-                                                                </FormControl>
-                                                                <FormMessage />
-                                                            </FormItem>
-                                                        )}
-                                                    />
-                                                    <FormField
-                                                        control={form.control}
                                                         name="name"
                                                         render={({ field }) => (
                                                             <FormItem>
-                                                                <FormLabel>Nama Produk</FormLabel>
+                                                                <FormLabel>Nama Model</FormLabel>
                                                                 <FormControl>
                                                                     <Input
                                                                         disabled={isPending}
-                                                                        placeholder="Masukan Nama Produk"
+                                                                        placeholder="Masukan Nama Model"
                                                                         {...field}
-                                                                    />
-                                                                </FormControl>
-                                                                <FormMessage />
-                                                            </FormItem>
-                                                        )}
-                                                    />
-                                                    <FormField
-                                                        control={form.control}
-                                                        name="buildUp"
-                                                        render={({ field }) => (
-                                                            <FormItem>
-                                                                <FormLabel>Tahun Pembuatan</FormLabel>
-                                                                <FormControl>
-                                                                    <Input
-                                                                        disabled={isPending}
-                                                                        placeholder="Masukan Tahun Pembuatan"
-                                                                        type='number'
-                                                                        {...field}
-                                                                        onChange={e => field.onChange(Number(e.target.value))}
                                                                     />
                                                                 </FormControl>
                                                                 <FormMessage />
@@ -221,24 +175,6 @@ export const ProductForm: FunctionComponent<ProductFormProps> = function ({ ...p
                                                 <div
                                                     className='lg:basis-1/2'
                                                 >
-                                                    <FormField
-                                                        control={form.control}
-                                                        name="description"
-                                                        render={({ field }) => (
-                                                            <FormItem>
-                                                                <FormLabel>Keterangan</FormLabel>
-                                                                <FormControl>
-                                                                    <Textarea
-                                                                        disabled={isPending}
-                                                                        placeholder="Masukan Keterangan"
-                                                                        rows={3}
-                                                                        {...field}
-                                                                    />
-                                                                </FormControl>
-                                                                <FormMessage />
-                                                            </FormItem>
-                                                        )}
-                                                    />
                                                 </div>
                                             </div>
                                             <FormError message={error} />

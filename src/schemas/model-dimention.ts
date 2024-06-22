@@ -2,7 +2,9 @@ import { z } from "zod"
 
 export const ModelDimentionSchema = z.object({
     id: z.string().optional(),
-    productModelId: z.string(),
+    productModelId: z.string().min(1, {
+        message: "Is required",
+    }),
     length: z.coerce.number(),
     width: z.coerce.number(),
     height: z.coerce.number(),

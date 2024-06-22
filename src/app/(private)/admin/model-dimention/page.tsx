@@ -20,7 +20,7 @@ export default async function ModelDimentionPage() {
     const getData = async (id: string) => {
         "use server"
         const obj = await GetModelDimentionID(id)
-        const data: ModelDimentionType = { ...obj }
+        const data: Partial<ModelDimentionType> = { ...obj }
         return data
     }
 
