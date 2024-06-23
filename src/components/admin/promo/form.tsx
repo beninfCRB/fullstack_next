@@ -57,10 +57,10 @@ export const PromoForm: FunctionComponent<PromoFormProps> = function ({ ...props
         const fetchData = async () => {
             if (id) {
                 const obj = await props.getID(id);
-                setData(obj);
+                setData(obj)
             }
         };
-        fetchData();
+        fetchData()
     }, [id, props])
 
     useEffect(() => {

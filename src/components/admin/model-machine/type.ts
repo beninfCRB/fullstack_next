@@ -6,11 +6,11 @@ export interface ModelMachineType {
     id?: string
     productModelId?: string
     machineSerial?: string | null
-    engineType?: string
-    boreStroke?: string
+    engineType?: string | null
+    boreStroke?: string | null
     cylinder?: Decimal
-    maxOutput?: string
-    maxTorq?: string
+    maxOutput?: string | null
+    maxTorq?: string | null
     fuelId?: string
     fuelCapacity?: Decimal
 

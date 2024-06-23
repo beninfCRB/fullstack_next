@@ -103,6 +103,20 @@ export const ModelMachineTable: FunctionComponent<ModelMachineTable> = function 
             }
         },
         {
+            accessorKey: "machineSerial",
+            header: ({ column }) => {
+                return (
+                    <Button
+                        variant="ghost"
+                        onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+                    >
+                        Serial Mesin
+                        <ArrowUpDown className="ml-2 h-4 w-4" />
+                    </Button>
+                )
+            }
+        },
+        {
             accessorKey: "engineType",
             header: ({ column }) => {
                 return (
@@ -115,6 +129,31 @@ export const ModelMachineTable: FunctionComponent<ModelMachineTable> = function 
                     </Button>
                 )
             }
+        },
+        {
+            accessorKey: "boreStroke",
+            header: ({ column }) => {
+                return (
+                    <Button
+                        variant="ghost"
+                        onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+                    >
+                        Diameter Silinder
+                        <ArrowUpDown className="ml-2 h-4 w-4" />
+                    </Button>
+                )
+            },
+            cell: ({ row }) => {
+                const model_machine = row.original
+
+                return (
+                    <>
+                        {`
+                            ${model_machine.boreStroke} MM
+                        `}
+                    </>
+                )
+            },
         },
         {
             accessorKey: "cylinder",
@@ -142,18 +181,29 @@ export const ModelMachineTable: FunctionComponent<ModelMachineTable> = function 
             },
         },
         {
-            accessorKey: "machineSerial",
+            accessorKey: "maxOutput",
             header: ({ column }) => {
                 return (
                     <Button
                         variant="ghost"
                         onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
                     >
-                        Serial Mesin
+                        Tenaga Maksimum
                         <ArrowUpDown className="ml-2 h-4 w-4" />
                     </Button>
                 )
-            }
+            },
+            cell: ({ row }) => {
+                const model_machine = row.original
+
+                return (
+                    <>
+                        {`
+                            ${model_machine.cylinder} CC
+                        `}
+                    </>
+                )
+            },
         },
         {
             id: "actions",

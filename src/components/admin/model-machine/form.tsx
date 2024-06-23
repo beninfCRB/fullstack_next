@@ -21,7 +21,6 @@ import { ProductModelType } from '../product-model/type'
 import CardWrapper from '../ui/card-wrapper'
 import PageTitle from '../ui/page-title'
 import { ModelMachineType } from './type'
-import { Decimal } from '@prisma/client/runtime/library'
 
 interface ModelMachineFormProps {
     dataProductModel: Array<ProductModelType>
@@ -96,7 +95,6 @@ export const ModelMachineForm: FunctionComponent<ModelMachineFormProps> = functi
     const onSubmit = (values: ModelMachineSchemaType) => {
         setError(undefined)
         setSuccess(undefined)
-        values.machineSerial = String(values.machineSerial)
 
         if (id) {
             startTransition(async () => {
@@ -228,6 +226,26 @@ export const ModelMachineForm: FunctionComponent<ModelMachineFormProps> = functi
                                                     />
                                                     <FormField
                                                         control={form.control}
+                                                        name="boreStroke"
+                                                        render={({ field }) => (
+                                                            <FormItem>
+                                                                <FormLabel>Diamater X Langkah</FormLabel>
+                                                                <FormControl>
+                                                                    <div className="relative w-full">
+                                                                        <Input
+                                                                            disabled={isPending}
+                                                                            placeholder="Masukan Diameter X Langkah"
+                                                                            {...field}
+                                                                        />
+                                                                        <div className='flex absolute items-center right-4 top-0 m-2.5 h-4 w-4 text-muted-foreground'>MM</div>
+                                                                    </div>
+                                                                </FormControl>
+                                                                <FormMessage />
+                                                            </FormItem>
+                                                        )}
+                                                    />
+                                                    <FormField
+                                                        control={form.control}
                                                         name="cylinder"
                                                         render={({ field }) => (
                                                             <FormItem>
@@ -321,7 +339,9 @@ export const ModelMachineForm: FunctionComponent<ModelMachineFormProps> = functi
                                                                         <Input
                                                                             disabled={isPending}
                                                                             placeholder="Masukan Bahan Bakar"
+                                                                            type='number'
                                                                             {...field}
+                                                                            onChange={e => field.onChange(Number(e.target.value))}
                                                                         />
                                                                         <div className='flex absolute items-center right-8 top-0 m-2.5 h-4 w-4 text-muted-foreground'>LITER</div>
                                                                     </div>

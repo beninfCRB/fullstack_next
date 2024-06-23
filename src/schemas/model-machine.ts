@@ -6,19 +6,11 @@ export const ModelMachineSchema = z.object({
         message: "Is required",
     }),
     machineSerial: z.string().optional(),
-    engineType: z.string().min(1, {
-        message: "Is required",
-    }),
-    boreStroke: z.string().min(1, {
-        message: "Is required",
-    }),
+    engineType: z.string().optional(),
+    boreStroke: z.string().optional(),
     cylinder: z.coerce.number(),
-    maxOutput: z.string().min(1, {
-        message: "Is required",
-    }),
-    maxTorq: z.string().min(1, {
-        message: "Is required",
-    }),
+    maxOutput: z.string().optional(),
+    maxTorq: z.string().optional(),
     fuelId: z.string().min(1, {
         message: "Is required",
     }),

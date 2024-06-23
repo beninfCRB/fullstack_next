@@ -290,11 +290,11 @@ model ModelMachine {
   id             String   @id @default(cuid())
   productModelId String
   machineSerial  String?
-  engineType     String
-  boreStroke     String
+  engineType     String?
+  boreStroke     String?
   cylinder       Decimal  @db.Decimal(6, 2)
-  maxOutput      String
-  maxTorq        String
+  maxOutput      String?
+  maxTorq        String?
   fuelId         String
   fuelCapacity   Decimal  @db.Decimal(6, 2)
   createdAt      DateTime @default(now())
