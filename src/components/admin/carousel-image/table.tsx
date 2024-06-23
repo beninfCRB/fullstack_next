@@ -23,6 +23,7 @@ import { FunctionComponent, startTransition, useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
 import { DataTable } from '../ui/data-table'
 import { CarouselImageType } from './type'
+import { tableVariants } from '@/utils/animate'
 
 
 interface CarouselImageTable {
@@ -129,8 +130,9 @@ export const CarouselImageTable: FunctionComponent<CarouselImageTable> = functio
     return (
         <div className='w-full shadow-xl'>
             <motion.div
-                animate={{ y: [-10, 0] }}
-                transition={{ carouselimage: "spring", stiffness: 100 }}
+                initial="offscreen"
+                whileInView={"onscreen"}
+                variants={tableVariants}
             >
                 <AlertDialog>
                     <DataTable

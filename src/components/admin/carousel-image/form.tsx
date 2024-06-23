@@ -19,6 +19,7 @@ import imageDefault from '../../../../public/image/image.png'
 import CardWrapper from '../ui/card-wrapper'
 import PageTitle from '../ui/page-title'
 import { CarouselImageType } from './type'
+import { formVariants } from '@/utils/animate'
 
 interface CarouselImageFormProps {
     getID: (id: string) => Promise<CarouselImageType>
@@ -127,8 +128,9 @@ export const CarouselImageForm: FunctionComponent<CarouselImageFormProps> = func
                     {visible && (
                         <div className="basis-full items-center justify-center">
                             <motion.div
-                                animate={{ y: [-50, 5] }}
-                                transition={{ type: "spring", stiffness: 100 }}
+                                initial="offscreen"
+                                whileInView={"onscreen"}
+                                variants={formVariants}
                             >
                                 <CardWrapper
                                     className='w-full shadow-lg'

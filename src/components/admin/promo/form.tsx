@@ -21,6 +21,7 @@ import PageTitle from '../ui/page-title'
 import { PromoType } from './type'
 import { Textarea } from '@/components/ui/textarea'
 import { DatePicker } from '@/components/ui/date-picker'
+import { formVariants } from '@/utils/animate'
 
 interface PromoFormProps {
     getID: (id: string) => Promise<PromoType>
@@ -138,8 +139,9 @@ export const PromoForm: FunctionComponent<PromoFormProps> = function ({ ...props
                     {visible && (
                         <div className="basis-full items-center justify-center">
                             <motion.div
-                                animate={{ y: [-50, 5] }}
-                                transition={{ type: "spring", stiffness: 100 }}
+                                initial="offscreen"
+                                whileInView={"onscreen"}
+                                variants={formVariants}
                             >
                                 <CardWrapper
                                     className='w-full shadow-lg'

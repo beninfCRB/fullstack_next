@@ -7,10 +7,11 @@ interface PrivateLinksProps {
     name: string
     path: string
     icon: any
-    variant: any
+    variant: any,
+    child?: PrivateLinksProps[]
 }
 
-export const private_links: Array<PrivateLinksProps> =
+export const private_links: PrivateLinksProps[] =
     [
         {
             name: "Dashboard",
@@ -20,79 +21,79 @@ export const private_links: Array<PrivateLinksProps> =
         },
         {
             name: "Model",
-            path: "/admin/model",
+            path: "/admin/master/model",
             icon: LayoutDashboard,
             variant: "ghost"
         },
         {
             name: "Tipe",
-            path: "/admin/type",
+            path: "/admin/master/type",
             icon: LayoutDashboard,
             variant: "ghost"
         },
         {
             name: "Warna",
-            path: "/admin/color",
+            path: "/admin/master/color",
             icon: LayoutDashboard,
             variant: "ghost"
         },
         {
             name: "Bahan Bakar",
-            path: "/admin/fuel",
+            path: "/admin/master/fuel",
             icon: LayoutDashboard,
             variant: "ghost"
         },
         {
             name: "Transmisi",
-            path: "/admin/transmition",
+            path: "/admin/master/transmition",
             icon: LayoutDashboard,
             variant: "ghost"
         },
         {
             name: "Produk",
-            path: "/admin/product",
+            path: "/admin/product/product-main",
             icon: LayoutDashboard,
             variant: "ghost"
         },
         {
             name: "Warna Produk",
-            path: "/admin/product-color",
+            path: "/admin/product/product-color",
             icon: LayoutDashboard,
             variant: "ghost"
         },
         {
             name: "Gambar Produk",
-            path: "/admin/product-image",
+            path: "/admin/product/product-image",
             icon: LayoutDashboard,
             variant: "ghost"
         },
         {
             name: "Model Produk",
-            path: "/admin/product-model",
+            path: "/admin/model/product-model",
             icon: LayoutDashboard,
             variant: "ghost"
         },
         {
             name: "Model Mesin",
-            path: "/admin/model-machine",
+            path: "/admin/model/model-machine",
             icon: LayoutDashboard,
             variant: "ghost"
         },
         {
             name: "Model Rangka",
-            path: "/admin/model-chasis",
+            path: "/admin/model/model-chasis",
             icon: LayoutDashboard,
             variant: "ghost"
         },
         {
             name: "Model Dimensi",
-            path: "/admin/model-dimention",
+            path: "/admin/model/model-dimention",
             icon: LayoutDashboard,
             variant: "ghost"
         },
         {
             name: "Harga",
-            path: "/admin/price",
+            path: "/admin/price/price-main",
             icon: LayoutDashboard,
             variant: "ghost"
         },

@@ -1,7 +1,7 @@
 import { DeleteTransmition } from '@/actions/transmition'
-import { TransmitionForm } from '@/components/admin/transmition/form'
-import { TransmitionTable } from '@/components/admin/transmition/table'
-import { TransmitionType } from '@/components/admin/transmition/type'
+import { TransmitionForm } from '@/components/admin/master/transmition/form'
+import { TransmitionTable } from '@/components/admin/master/transmition/table'
+import { TransmitionType } from '@/components/admin/master/transmition/type'
 import { GetTransmition, GetTransmitionID } from '@/data/transmition'
 
 

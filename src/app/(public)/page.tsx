@@ -3,6 +3,7 @@ import { CarouselProductComponent } from "@/components/public/carousel-product";
 import { GetCarouselImage } from "@/data/carousel-image";
 import { GetProduct } from "@/data/product";
 
+
 export default async function Home() {
   const carousel = await GetCarouselImage() || []
   const product = await GetProduct() || []
@@ -18,5 +19,5 @@ export default async function Home() {
         data={product}
       />
     </div>
-  );
+  )
 }

@@ -21,6 +21,7 @@ interface Props {
 
 const Nav = ({ containerStyles, linkStyles, underlineStyles, data }: Props) => {
     const path = usePathname()
+
     return (
         <nav className={`${containerStyles}`}>
             {
@@ -31,7 +32,7 @@ const Nav = ({ containerStyles, linkStyles, underlineStyles, data }: Props) => {
                             key={index}
                             className={`uppercase ${linkStyles}`}
                         >
-                            {link.path === path && (
+                            {link?.path === path && (
                                 <motion.span
                                     initial={{ y: '-100%' }}
                                     animate={{ y: 0 }}

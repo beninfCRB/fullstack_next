@@ -37,7 +37,7 @@ export default function Sidebar() {
 
 
     return (
-        <div className="relative min-w-[80px] border-r h-svh px-3 pb-10 pt-24">
+        <aside className="relative min-w-[80px] border-r h-svh px-3 pb-10 pt-24">
             {!mobileWidth && (
                 <div className="absolute right-[-20px] top-7">
                     <Button
@@ -54,6 +54,6 @@ export default function Sidebar() {
                 isCollapsed={mobileWidth ? true : isCollapsed}
                 links={private_links}
             />
-        </div>
+        </aside>
     );
 }
