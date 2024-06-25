@@ -64,7 +64,7 @@ export const CarouselProductComponent: FunctionComponent<CarouselProductProps> =
                                 ))}
                             </CarouselThumbsContainer>
                         </div>
-                        <div className="relative basis-3/4 h-[34rem] size-auto">
+                        <div className="relative basis-3/4 h-[25rem] lg:size-auto">
                             <CarouselMainContainer className="h-[44rem]">
                                 {props.data?.map((item, index) => (
                                     <SliderMainItem
