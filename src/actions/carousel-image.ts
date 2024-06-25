@@ -4,6 +4,7 @@ import { auth } from "@/auth";
 import { db } from "@/lib/db";
 import { CarouselImageSchema } from "@/schemas/carousel-image";
 import { ResponseStatic } from "@/static/reponse";
+import { formattedDate } from "@/utils/format-date";
 import { mkdir, stat, unlink, writeFile } from "fs/promises";
 import mime from 'mime';
 import { join } from "path";
@@ -22,13 +23,7 @@ export async function PostCarouselImage(values: FormData) {
         const image = validatedFields.data.image as File || null;
 
         const buffer = Buffer.from(await image.arrayBuffer());
-        const relativeUploadDir = `/uploads/${new Date(Date.now())
-            .toLocaleDateString("id-ID", {
-                day: "2-digit",
-                month: "2-digit",
-                year: "numeric",
-            })
-            .replace(/\//g, "-")}`;
+        const relativeUploadDir = `/uploads/${formattedDate(new Date(Date.now())).replace(/\//g, "-")}`;
 
         const uploadDir = join(process.cwd(), "public", relativeUploadDir);
 
@@ -83,13 +78,7 @@ export async function PutCarouselImage(id: string, values: FormData) {
         const image = validatedFields.data.image as File || null;
 
         const buffer = Buffer.from(await image.arrayBuffer());
-        const relativeUploadDir = `/uploads/${new Date(Date.now())
-            .toLocaleDateString("id-ID", {
-                day: "2-digit",
-                month: "2-digit",
-                year: "numeric",
-            })
-            .replace(/\//g, "-")}`;
+        const relativeUploadDir = `/uploads/${formattedDate(new Date(Date.now())).replace(/\//g, "-")}`;
 
         const uploadDir = join(process.cwd(), "public", relativeUploadDir);
 

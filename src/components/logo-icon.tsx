@@ -22,7 +22,7 @@ const LogoIcon = (props: LogoProps) => {
                 height={30}
                 alt=''
             />
-            <p className='basis-1/2 text-center font-bold italic decoration-red-500 text-wrap lg:text-nowrap text-2xl'>
+            <p className='basis-1/2 text-center font-bold italic decoration-red-500 text-wrap lg:text-nowrap text-xs lg:text-2xl'>
                 {props.title}
             </p>
         </Link>

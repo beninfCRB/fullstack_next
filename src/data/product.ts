@@ -29,6 +29,18 @@ export async function GetProduct() {
     }
 }
 
+export async function GetProductGroup() {
+    try {
+        const data = await db.product.groupBy({
+            by: ['id']
+        })
+
+        return data
+    } catch (error) {
+        return null
+    }
+}
+
 export async function GetProductID(id: string) {
     try {
         const data = await db.product.findFirst({

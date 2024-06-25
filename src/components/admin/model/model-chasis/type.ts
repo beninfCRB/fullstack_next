@@ -1,4 +1,3 @@
-import { Decimal } from "@prisma/client/runtime/library"
 import { ProductModelType } from "../../product/product-model/type"
 
 export interface ModelChasisType {

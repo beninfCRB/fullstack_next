@@ -24,6 +24,7 @@ import { toast } from 'react-toastify'
 import { DataTable } from '../ui/data-table'
 import { PromoType } from './type'
 import { tableVariants } from '@/utils/animate'
+import { formattedDate } from '@/utils/format-date'
 
 
 interface PromoTable {
@@ -115,7 +116,7 @@ export const PromoTable: FunctionComponent<PromoTable> = function ({ ...props })
             cell: ({ row }) => {
                 const startDate = row.original.startDate;
                 return (
-                    <span>{new Date(String(startDate)).toLocaleDateString('id-ID')}</span>
+                    <span>{formattedDate(startDate)}</span>
                 );
             }
         },
@@ -135,7 +136,7 @@ export const PromoTable: FunctionComponent<PromoTable> = function ({ ...props })
             cell: ({ row }) => {
                 const endDate = row.original.endDate;
                 return (
-                    <span>{new Date(String(endDate)).toLocaleDateString('id-ID')}</span>
+                    <span>{formattedDate(endDate)}</span>
                 );
             }
         },
