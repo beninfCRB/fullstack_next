@@ -32,9 +32,9 @@ export const CarouselProductComponent: FunctionComponent<CarouselProductProps> =
                     variants={produkVariants}
                     className="w-full"
                 >
-                    <Carousel orientation="vertical" className="flex flex-col lg:flex-row items-center justify-center gap-2 px-10 py-8 ">
+                    <Carousel orientation="vertical" className="flex flex-col items-center justify-center gap-2 px-10 py-8 ">
                         <div
-                            className="block text-center lg:hidden"
+                            className="block text-center"
                         >
                             <span className="text-lg italic font-bold decoration-red-500 mb-8">Pilih Produk</span>
                             <CarouselThumbsContainer className="h-60 basis-1/4 flex flex-row flex-wrap">
@@ -141,7 +141,7 @@ export const CarouselProductComponent: FunctionComponent<CarouselProductProps> =
                                 ))}
                             </CarouselMainContainer>
                         </div>
-                        <div
+                        {/* <div
                             className="text-center hidden lg:block"
                         >
                             <span className="text-lg italic font-bold decoration-red-500 mb-8">Pilih Produk</span>
@@ -171,7 +171,7 @@ export const CarouselProductComponent: FunctionComponent<CarouselProductProps> =
                                     </SliderThumbItem>
                                 ))}
                             </CarouselThumbsContainer>
-                        </div>
+                        </div> */}
                     </Carousel>
                 </motion.div>
             </section>
