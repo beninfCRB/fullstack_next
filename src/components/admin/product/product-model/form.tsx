@@ -65,7 +65,7 @@ export const ProductModelForm: FunctionComponent<ProductModelFormProps> = functi
             }
         };
         fetchData()
-    }, [id, props])
+    }, [id])
 
     useEffect(() => {
         if (data) {

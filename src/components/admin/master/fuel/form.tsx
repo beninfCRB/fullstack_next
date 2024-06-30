@@ -54,7 +54,7 @@ export const FuelForm: FunctionComponent<FuelFormProps> = function ({ ...props }
             }
         };
         fetchData()
-    }, [id, props])
+    }, [id])
 
     useEffect(() => {
         if (data) {

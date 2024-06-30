@@ -60,7 +60,7 @@ export const ProductImageForm: FunctionComponent<ProductImageFormProps> = functi
             }
         };
         fetchData()
-    }, [id, props])
+    }, [id])
 
     useEffect(() => {
         if (data) {

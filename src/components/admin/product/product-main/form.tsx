@@ -60,7 +60,7 @@ export const ProductForm: FunctionComponent<ProductFormProps> = function ({ ...p
             }
         };
         fetchData()
-    }, [id, props])
+    }, [id])
 
     useEffect(() => {
         if (data) {

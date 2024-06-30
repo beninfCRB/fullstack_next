@@ -54,7 +54,7 @@ export const TransmitionForm: FunctionComponent<TransmitionFormProps> = function
             }
         };
         fetchData()
-    }, [id, props])
+    }, [id])
 
     useEffect(() => {
         if (data) {

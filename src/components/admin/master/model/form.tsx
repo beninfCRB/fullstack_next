@@ -55,7 +55,7 @@ export const ModelForm: FunctionComponent<ModelFormProps> = function ({ ...props
             }
         };
         fetchData()
-    }, [id, props])
+    }, [id])
 
     useEffect(() => {
         if (data) {

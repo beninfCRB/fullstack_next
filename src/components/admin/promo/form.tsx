@@ -62,7 +62,7 @@ export const PromoForm: FunctionComponent<PromoFormProps> = function ({ ...props
             }
         };
         fetchData()
-    }, [id, props])
+    }, [id])
 
     useEffect(() => {
         if (data) {

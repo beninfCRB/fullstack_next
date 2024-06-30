@@ -58,7 +58,7 @@ export const ColorForm: FunctionComponent<ColorFormProps> = function ({ ...props
             }
         };
         fetchData()
-    }, [id, props])
+    }, [id])
 
     useEffect(() => {
         if (data) {

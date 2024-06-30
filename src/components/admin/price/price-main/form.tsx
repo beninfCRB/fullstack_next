@@ -60,7 +60,7 @@ export const PriceForm: FunctionComponent<PriceFormProps> = function ({ ...props
             }
         };
         fetchData()
-    }, [id, props])
+    }, [id])
 
     useEffect(() => {
         if (data) {

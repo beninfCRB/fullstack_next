@@ -57,7 +57,7 @@ export const CarouselImageForm: FunctionComponent<CarouselImageFormProps> = func
             }
         };
         fetchData()
-    }, [id, props])
+    }, [id])
 
     useEffect(() => {
         if (data) {

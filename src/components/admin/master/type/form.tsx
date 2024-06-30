@@ -54,7 +54,7 @@ export const TypeForm: FunctionComponent<TypeFormProps> = function ({ ...props }
             }
         };
         fetchData()
-    }, [id, props])
+    }, [id])
 
     useEffect(() => {
         if (data) {

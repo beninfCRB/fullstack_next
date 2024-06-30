@@ -65,7 +65,7 @@ export const ModelChasisForm: FunctionComponent<ModelChasisFormProps> = function
             }
         };
         fetchData()
-    }, [id, props])
+    }, [id])
 
     useEffect(() => {
         if (data) {

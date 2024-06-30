@@ -60,7 +60,7 @@ export const ModelDimentionForm: FunctionComponent<ModelDimentionFormProps> = fu
             }
         };
         fetchData()
-    }, [id, props])
+    }, [id])
 
     useEffect(() => {
         if (data) {

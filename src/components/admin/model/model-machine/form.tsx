@@ -66,7 +66,7 @@ export const ModelMachineForm: FunctionComponent<ModelMachineFormProps> = functi
             }
         }
         fetchData();
-    }, [id, props])
+    }, [id])
 
     useEffect(() => {
         if (data) {

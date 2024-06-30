@@ -61,7 +61,7 @@ export const ProductColorForm: FunctionComponent<ProductColorFormProps> = functi
             }
         };
         fetchData()
-    }, [id, props])
+    }, [id])
 
     useEffect(() => {
         if (data) {
