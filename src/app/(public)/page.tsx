@@ -3,13 +3,15 @@ import { CarouselComponent } from "@/components/public/carousel";
 import { CarouselProductComponent } from "@/components/public/carousel-product";
 import { PromoComponent } from "@/components/public/promo";
 import { GetCarouselImage } from "@/data/carousel-image";
-import { GetProduct } from "@/data/product";
+import { GetProduct, GetProductGroup } from "@/data/product";
 import { GetPromo } from "@/data/promo";
 
 
 export default async function Home() {
   const carousel = await GetCarouselImage() || []
   const product = await GetProduct() || []
+  console.log('product=====>', product);
+
   const promo = await GetPromo() || []
 
   return (

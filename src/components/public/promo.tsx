@@ -7,6 +7,7 @@ import Image from 'next/image'
 import { FunctionComponent } from 'react'
 import { PromoType } from '../admin/promo/type'
 import { ArrowBigRightIcon } from 'lucide-react'
+import { SkeletonCard } from '../skeleton-card'
 
 interface PromoPrpops {
     data: Array<PromoType> | []
@@ -14,7 +15,7 @@ interface PromoPrpops {
 
 export const PromoComponent: FunctionComponent<PromoPrpops> = function ({ ...props }) {
     return (
-        props.data?.length > 0 && (
+        props.data?.length > 0 ? (
             <section id='promo' className='flex flex-col items-center justify-center border-2 p-4 w-full mt-8'>
                 <motion.h1
                     initial="offscreen"
@@ -63,6 +64,6 @@ export const PromoComponent: FunctionComponent<PromoPrpops> = function ({ ...pro
                     </div>
                 </motion.div>
             </section>
-        )
+        ) : <SkeletonCard />
     )
 }

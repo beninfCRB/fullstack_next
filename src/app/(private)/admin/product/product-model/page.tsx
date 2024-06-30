@@ -10,8 +10,6 @@ import { GetType } from '@/data/type'
 
 export default async function ProductModelPage() {
     const data = await GetProductModel() || []
-    console.log('------------>data', data);
-
     const product = await GetProduct() || []
     const type = await GetType() || []
     const transmition = await GetTransmition() || []

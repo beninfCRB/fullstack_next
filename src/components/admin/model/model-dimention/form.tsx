@@ -90,12 +90,8 @@ export const ModelDimentionForm: FunctionComponent<ModelDimentionFormProps> = fu
     const onSubmit = (values: ModelDimentionSchemaType) => {
         setError(undefined)
         setSuccess(undefined)
-        console.log('id====>', id);
-
 
         if (id) {
-            console.log('masuk update');
-
             startTransition(async () => {
                 await PutModelDimention(id, values).then((data) => {
                     setSuccess(data.success)
@@ -103,7 +99,6 @@ export const ModelDimentionForm: FunctionComponent<ModelDimentionFormProps> = fu
                 })
             })
         } else {
-            console.log('masuk add');
             startTransition(async () => {
                 await PostModelDimention(values).then((data) => {
                     setSuccess(data.success)

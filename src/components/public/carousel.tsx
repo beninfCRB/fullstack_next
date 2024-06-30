@@ -7,6 +7,7 @@ import { FunctionComponent, useRef } from "react";
 import { CarouselImageType } from "../admin/carousel-image/type";
 import { Carousel, CarouselIndicator, CarouselMainContainer, CarouselThumbsContainer, SliderMainItem } from "../ui/carousel-extension";
 import { bannerVariants } from "@/utils/animate";
+import { SkeletonCard } from "../skeleton-card";
 
 interface CarouselProps {
     data: Array<CarouselImageType> | []
@@ -18,7 +19,7 @@ export const CarouselComponent: FunctionComponent<CarouselProps> = function ({ .
     )
 
     return (
-        props.data.length > 0 && (
+        props.data.length > 0 ? (
             <motion.div
                 initial="offscreen"
                 whileInView={"onscreen"}
@@ -69,5 +70,5 @@ export const CarouselComponent: FunctionComponent<CarouselProps> = function ({ .
                     </Carousel>
                 </section>
             </motion.div>
-        ))
+        ) : <SkeletonCard />)
 }

@@ -9,6 +9,7 @@ import { ButtonMain } from "../custom-button";
 import { Carousel, CarouselMainContainer, CarouselThumbsContainer, SliderMainItem, SliderThumbItem } from "../ui/carousel-extension";
 import { formattedPrice } from '@/utils/format-price';
 import { produkVariants, titleVariants } from '@/utils/animate';
+import { SkeletonCard } from '../skeleton-card';
 
 interface CarouselProductProps {
     data: Array<ProductType> | []
@@ -16,7 +17,7 @@ interface CarouselProductProps {
 
 export const CarouselProductComponent: FunctionComponent<CarouselProductProps> = function ({ ...props }) {
     return (
-        props.data.length > 0 && (
+        props.data.length > 0 ? (
             <section id="product" className='flex flex-col items-center justify-start'>
                 <motion.h1
                     initial="offscreen"
@@ -176,5 +177,5 @@ export const CarouselProductComponent: FunctionComponent<CarouselProductProps> =
                 </motion.div>
             </section>
         )
-    )
+            : <SkeletonCard />)
 }

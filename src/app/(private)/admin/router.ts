@@ -69,7 +69,7 @@ export const private_links: PrivateLinksProps[] =
         },
         {
             name: "Model Produk",
-            path: "/admin/model/product-model",
+            path: "/admin/product/product-model",
             icon: LayoutDashboard,
             variant: "ghost"
         },

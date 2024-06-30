@@ -1,8 +1,6 @@
-import React from 'react'
-import { Button } from './ui/button'
-import { signOut, useSession } from 'next-auth/react'
-import { OutdentIcon } from 'lucide-react'
 import { ExitIcon } from '@radix-ui/react-icons'
+import { signOut, useSession } from 'next-auth/react'
+import { Button } from './ui/button'
 
 export default function ButtonSignout() {
     const { data: session } = useSession()
