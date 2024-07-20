@@ -1,9 +1,7 @@
 export const publicRoutes = [
     "/",
-    "/about",
-    "/contact",
     "/product",
-    "/promo",
+    "/product/*",
     "/auth/login",
     "/auth/error",
     "/auth/new-verification",

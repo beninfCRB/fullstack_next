@@ -44,12 +44,12 @@ export const CarouselProductComponent: FunctionComponent<CarouselProductProps> =
                     variants={produkVariants}
                     className="w-full"
                 >
-                    <Carousel orientation="vertical" className="flex flex-col items-center justify-center gap-2 px-10 py-8 ">
+                    <Carousel orientation="vertical" className="flex flex-col items-center justify-center gap-2 px-10 pt-8 ">
                         <div
                             className="block text-center"
                         >
                             <span className="text-lg italic font-bold decoration-red-500 mb-8">Pilih Produk</span>
-                            <CarouselThumbsContainer className="h-60 basis-1/4 flex flex-row flex-wrap">
+                            <CarouselThumbsContainer className="h-50 basis-1/4 flex flex-row flex-wrap">
                                 {props.data?.map((item, index) => (
                                     <SliderThumbItem
                                         key={index}
@@ -76,8 +76,8 @@ export const CarouselProductComponent: FunctionComponent<CarouselProductProps> =
                                 ))}
                             </CarouselThumbsContainer>
                         </div>
-                        <div className="relative basis-3/4 h-[25rem] lg:size-auto">
-                            <CarouselMainContainer className="h-[44rem]">
+                        <div className="relative basis-3/4 h-[25rem] lg:h-[15rem]">
+                            <CarouselMainContainer className="h-[30rem] lg:h-[37rem]">
                                 {props.data?.map((item, index) => (
                                     <SliderMainItem
                                         key={index}
@@ -104,7 +104,7 @@ export const CarouselProductComponent: FunctionComponent<CarouselProductProps> =
                                                 />
                                                 <h1 className="font-bold text-4xl">{item?.name}</h1>
                                                 <div
-                                                    className="flex flex-col lg:flex-row gap-6"
+                                                    className="flex flex-col lg:flex-row gap-4"
                                                 >
                                                     <div
                                                         className="basis-1/4 flex md:flex-col items-center justify-center gap-4"
