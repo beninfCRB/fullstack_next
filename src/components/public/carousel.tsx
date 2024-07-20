@@ -3,7 +3,7 @@
 import Autoplay from "embla-carousel-autoplay";
 import { motion } from 'framer-motion';
 import Image from "next/image";
-import { FunctionComponent, useRef } from "react";
+import { FunctionComponent, useEffect, useRef, useState } from "react";
 import { CarouselImageType } from "../admin/carousel-image/type";
 import { Carousel, CarouselIndicator, CarouselMainContainer, CarouselThumbsContainer, SliderMainItem } from "../ui/carousel-extension";
 import { bannerVariants } from "@/utils/animate";
@@ -17,6 +17,15 @@ export const CarouselComponent: FunctionComponent<CarouselProps> = function ({ .
     const plugin = useRef(
         Autoplay({ delay: 2000, stopOnInteraction: true })
     )
+
+    const [skeleton, setSkeleton] = useState<boolean>(true)
+
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setSkeleton(false);
+        }, 5000);
+        return () => clearTimeout(timer);
+    }, [])
 
     return (
         props.data.length > 0 ? (
@@ -70,5 +79,5 @@ export const CarouselComponent: FunctionComponent<CarouselProps> = function ({ .
                     </Carousel>
                 </section>
             </motion.div>
-        ) : <SkeletonCard />)
+        ) : skeleton ? <SkeletonCard /> : null)
 }

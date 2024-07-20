@@ -29,20 +29,66 @@ export async function GetProduct() {
     }
 }
 
-export async function GetProductGroup() {
+export async function GetProductSearch(filter?: {
+    modelId?: string,
+    priceStart?: number,
+    priceEnd?: number,
+    transmitionId?: string,
+}) {
     try {
-        const data = await db.$queryRaw<any>`SELECT * FROM product
-        LEFT JOIN product_model ON product.id = product_model.productId
-        LEFT JOIN price ON product_model.id = price.productModelId
-        LEFT JOIN transmition ON product_model.id = transmition.productModelId
-        LEFT JOIN model_machine ON product_model.id = model_machine.productModelId
-        LEFT JOIN fuel ON model_machine.id = fuel.modelMachineId
-        LEFT JOIN product_color ON product.id = product_color.productId
-        LEFT JOIN product_image ON product_color.id = product_image.productColorId
-        GROUP BY product.id
-        `
-
-        console.log(data);
+        let whereAnd = []
+        if (filter?.modelId) whereAnd.push({ modelId: filter?.modelId })
+        if (filter?.priceStart || filter?.priceEnd || filter?.transmitionId) {
+            whereAnd.push({
+                product_model: {
+                    some: {
+                        OR: [
+                            {
+                                price: {
+                                    OR: [
+                                        {
+                                            price: filter?.priceStart ? {
+                                                gte: filter?.priceStart
+                                            } : undefined
+                                        },
+                                        {
+                                            price: filter?.priceEnd ? {
+                                                lte: filter?.priceEnd
+                                            } : undefined
+                                        }
+                                    ]
+                                }
+                            },
+                            { transmitionId: filter?.transmitionId ? filter?.transmitionId : undefined }
+                        ]
+                    }
+                }
+            })
+        }
+        const data = await db.product.findMany({
+            where: filter ? {
+                AND: whereAnd
+            } : undefined,
+            include: {
+                model: true,
+                product_model: {
+                    include: {
+                        price: true,
+                        transmition: true,
+                        model_machine: {
+                            include: {
+                                fuel: true
+                            }
+                        }
+                    }
+                },
+                product_color: {
+                    include: {
+                        product_image: true
+                    }
+                }
+            }
+        })
 
         return data
     } catch (error) {

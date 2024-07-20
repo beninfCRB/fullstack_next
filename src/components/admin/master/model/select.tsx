@@ -1,3 +1,5 @@
+"use client"
+
 import React, { FunctionComponent } from 'react'
 import { ModelType } from './type'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'

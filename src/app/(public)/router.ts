@@ -8,5 +8,6 @@ export const public_links: Array<PublicLinksProps> = [
     { path: '#product', name: 'produk' },
     { path: '#promo', name: 'promo' },
     { path: '#about', name: 'tentang kami' },
+    { path: 'product', name: 'semua produk' },
     // { path: '#contact', name: 'kontak' },
 ]

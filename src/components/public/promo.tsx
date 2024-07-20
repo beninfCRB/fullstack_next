@@ -4,7 +4,7 @@ import { promoVariants, titleVariants } from '@/utils/animate'
 import { formattedDateText } from '@/utils/format-date'
 import { motion } from 'framer-motion'
 import Image from 'next/image'
-import { FunctionComponent } from 'react'
+import { FunctionComponent, useEffect, useState } from 'react'
 import { PromoType } from '../admin/promo/type'
 import { ArrowBigRightIcon } from 'lucide-react'
 import { SkeletonCard } from '../skeleton-card'
@@ -14,6 +14,15 @@ interface PromoPrpops {
 }
 
 export const PromoComponent: FunctionComponent<PromoPrpops> = function ({ ...props }) {
+    const [skeleton, setSkeleton] = useState<boolean>(true)
+
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setSkeleton(false);
+        }, 5000);
+        return () => clearTimeout(timer);
+    }, [])
+
     return (
         props.data?.length > 0 ? (
             <section id='promo' className='flex flex-col items-center justify-center border-2 p-4 w-full mt-8'>
@@ -64,6 +73,6 @@ export const PromoComponent: FunctionComponent<PromoPrpops> = function ({ ...pro
                     </div>
                 </motion.div>
             </section>
-        ) : <SkeletonCard />
+        ) : skeleton ? <SkeletonCard /> : null
     )
 }

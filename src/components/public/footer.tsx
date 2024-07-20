@@ -1,17 +1,28 @@
+"use client"
+
 import { public_links } from '@/app/(public)/router'
 import { MapPinIcon, PhoneCallIcon } from 'lucide-react'
 import Link from 'next/link'
-import React from 'react'
+import { usePathname } from 'next/navigation'
+import { FunctionComponent } from 'react'
 
-const Footer = () => {
+interface FooterProps {
+
+}
+
+const Footer: FunctionComponent<FooterProps> = ({ ...props }) => {
+    const path = usePathname()
+
+    const fixed = 'xl:fixed lg:relative md:relative'
+
     return (
         <div
-            className='flex flex-col lg:flex-row bg-red-500 items-stretch justify-center relative bottom-0 mt-8 h-max text-white p-8 gap-12'
+            className={`flex flex-col lg:flex-row bg-red-500 items-stretch justify-center relative bottom-0 mt-auto h-max text-white p-8 gap-12`}
         >
             <div
                 className='basis-2/5'
             >
-                <h1 className='font-bold text-2xl italic underline text-black decoration-white mb-8'>TENTANG:</h1>
+                <h1 className='font-bold text-2xl italic underline text-white decoration-gray-500 mb-8'>TENTANG:</h1>
                 <p className='text-justify'>
                     Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor, ut accusamus? Ratione similique dolorum repellendus nam provident iure, animi ab delectus illum, a suscipit inventore dignissimos eum vitae excepturi optio.
                 </p>
@@ -19,7 +30,7 @@ const Footer = () => {
             <div
                 className='basis-1/5'
             >
-                <h1 className='font-bold text-2xl italic underline text-black decoration-white mb-8'>NAVIGASI:</h1>
+                <h1 className='font-bold text-2xl italic underline text-white decoration-gray-500 mb-8'>NAVIGASI:</h1>
                 <div
                     className='flex flex-col'
                 >
@@ -38,13 +49,13 @@ const Footer = () => {
             <div
                 className='basis-1/5'
             >
-                <h1 className='font-bold text-2xl italic underline text-black decoration-white mb-8'>JAM KERJA:</h1>
+                <h1 className='font-bold text-2xl italic underline text-white decoration-gray-500 mb-8'>JAM KERJA:</h1>
                 <div></div>
             </div>
             <div
                 className='basis-1/5'
             >
-                <h1 className='font-bold text-2xl italic underline text-black decoration-white mb-8'>ALAMAT:</h1>
+                <h1 className='font-bold text-2xl italic underline text-white decoration-gray-500 mb-8'>ALAMAT:</h1>
                 <div
                     className='flex flex-col'
                 >

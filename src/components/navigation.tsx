@@ -2,7 +2,7 @@
 
 import React from 'react'
 import { motion } from 'framer-motion'
-import { usePathname } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 import Link from 'next/link'
 
 interface linkType {
@@ -21,14 +21,16 @@ interface Props {
 
 const Nav = ({ containerStyles, linkStyles, underlineStyles, data }: Props) => {
     const path = usePathname()
+    const router = useRouter()
 
     return (
         <nav className={`${containerStyles}`}>
             {
                 data.map((link, index) => {
+                    const adjustedPath = path === '/product' ? `/${link.path}` : link.path;
                     return (
                         <Link
-                            href={link.path}
+                            href={adjustedPath}
                             key={index}
                             className={`uppercase ${linkStyles}`}
                         >

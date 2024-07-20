@@ -3,19 +3,30 @@
 import { motion } from 'framer-motion';
 import { BadgeDollarSignIcon, CalendarDaysIcon, FuelIcon, GaugeIcon } from "lucide-react";
 import Image from "next/image";
-import { FunctionComponent } from "react";
+import { FunctionComponent, useEffect, useState } from "react";
 import { ProductType } from "../admin/product/product-main/type";
 import { ButtonMain } from "../custom-button";
 import { Carousel, CarouselMainContainer, CarouselThumbsContainer, SliderMainItem, SliderThumbItem } from "../ui/carousel-extension";
 import { formattedPrice } from '@/utils/format-price';
 import { produkVariants, titleVariants } from '@/utils/animate';
 import { SkeletonCard } from '../skeleton-card';
+import Link from 'next/link';
 
 interface CarouselProductProps {
     data: Array<ProductType> | []
 }
 
 export const CarouselProductComponent: FunctionComponent<CarouselProductProps> = function ({ ...props }) {
+    const [skeleton, setSkeleton] = useState<boolean>(true)
+
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setSkeleton(false);
+        }, 5000);
+        return () => clearTimeout(timer);
+    }, [])
+
+
     return (
         props.data.length > 0 ? (
             <section id="product" className='flex flex-col items-center justify-start'>
@@ -126,14 +137,18 @@ export const CarouselProductComponent: FunctionComponent<CarouselProductProps> =
                                                     </div>
                                                 </div>
                                                 <div
-                                                    className="flex items-center justify-center"
+                                                    className="flex items-center justify-center gap-4"
                                                 >
                                                     <ButtonMain
                                                         size={"lg"}
                                                         type="submit"
                                                         className="rounded-full"
                                                     >
-                                                        Explore
+                                                        <Link
+                                                            href={'product'}
+                                                        >
+                                                            SELENGKAPNYA
+                                                        </Link>
                                                     </ButtonMain>
                                                 </div>
                                             </div>
@@ -142,40 +157,9 @@ export const CarouselProductComponent: FunctionComponent<CarouselProductProps> =
                                 ))}
                             </CarouselMainContainer>
                         </div>
-                        {/* <div
-                            className="text-center hidden lg:block"
-                        >
-                            <span className="text-lg italic font-bold decoration-red-500 mb-8">Pilih Produk</span>
-                            <CarouselThumbsContainer className="h-60 basis-1/4">
-                                {props.data?.map((item, index) => (
-                                    <SliderThumbItem
-                                        key={index}
-                                        index={index}
-                                        className="rounded-md"
-                                    >
-                                        <span className="border border-muted flex items-center justify-center h-full w-full rounded-md cursor-pointer shadow-2xl shadow-red-500">
-                                            <div
-                                                className="flex flex-col text-center p-2"
-                                            >
-                                                <Image
-                                                    className='size-auto object-cover'
-                                                    src={item?.product_color?.at(0)?.product_image?.at(0)?.path as string}
-                                                    about={`${item.name}`}
-                                                    alt=''
-                                                    width={50}
-                                                    height={50}
-                                                    priority={false}
-                                                />
-                                                <h1 className="font-bold text-xs">{item?.name}</h1>
-                                            </div>
-                                        </span>
-                                    </SliderThumbItem>
-                                ))}
-                            </CarouselThumbsContainer>
-                        </div> */}
                     </Carousel>
                 </motion.div>
             </section>
         )
-            : <SkeletonCard />)
+            : skeleton ? <SkeletonCard /> : null)
 }
