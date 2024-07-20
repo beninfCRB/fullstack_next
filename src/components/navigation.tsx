@@ -27,7 +27,7 @@ const Nav = ({ containerStyles, linkStyles, underlineStyles, data }: Props) => {
         <nav className={`${containerStyles}`}>
             {
                 data.map((link, index) => {
-                    const adjustedPath = path === '/product' ? `/${link.path}` : link.path;
+                    const adjustedPath = path.includes('/product') ? `/${link.path}` : link.path;
                     return (
                         <Link
                             href={adjustedPath}

@@ -3,9 +3,11 @@ import { ButtonMain } from '@/components/custom-button'
 import { SkeletonCard } from '@/components/skeleton-card'
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
 import { formattedPrice } from '@/utils/format-price'
-import Image from 'next/image'
-import { FunctionComponent, useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
+import Image from 'next/image'
+import Link from 'next/link'
+import { usePathname } from 'next/navigation'
+import { FunctionComponent, useEffect, useState } from 'react'
 
 interface AllProductProps {
     data: Array<ProductModelType> | []
@@ -15,6 +17,7 @@ interface AllProductProps {
 
 export const AllProduct: FunctionComponent<AllProductProps> = function ({ data, next, count }) {
     const [skeleton, setSkeleton] = useState<boolean>(true)
+    const path = usePathname()
 
     useEffect(() => {
         const timer = setTimeout(() => {
@@ -25,10 +28,10 @@ export const AllProduct: FunctionComponent<AllProductProps> = function ({ data, 
 
     return (
         <div
-            className='flex flex-col gap-8'
+            className='flex w-full flex-col gap-8'
         >
             <div
-                className='xl:flex xl:flex-wrap grid grid-cols-2 items-center justify-stretch gap-2'
+                className='xl:flex xl:flex-wrap grid grid-cols-2 w-full items-center justify-stretch gap-2'
             >
                 {
                     data.length > 0 ?
@@ -38,7 +41,9 @@ export const AllProduct: FunctionComponent<AllProductProps> = function ({ data, 
                                     key={index}
                                     whileHover={{ scale: 1.2 }}
                                 >
-                                    <Card>
+                                    <Card
+                                        className='shadow-md shadow-red-500'
+                                    >
                                         <CardHeader>
                                             <CardTitle>{item.product?.name}</CardTitle>
                                             <CardDescription className='flex flex-col'>
@@ -66,7 +71,11 @@ export const AllProduct: FunctionComponent<AllProductProps> = function ({ data, 
                                                 type="submit"
                                                 className="rounded-full"
                                             >
-                                                Explore
+                                                <Link
+                                                    href={`${path}/${item?.id as string}`}
+                                                >
+                                                    Explore
+                                                </Link>
                                             </ButtonMain>
                                         </CardFooter>
                                     </Card>
@@ -77,7 +86,7 @@ export const AllProduct: FunctionComponent<AllProductProps> = function ({ data, 
                 }
             </div>
             <div
-                className='flex flex-col items-center justify-center gap-2'
+                className='flex w-full flex-col items-center justify-center gap-2'
             >
                 <div>==== Menampilkan Sebanyak {count} Produk ====</div>
                 <ButtonMain

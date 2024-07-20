@@ -69,7 +69,7 @@ export const CarouselProductComponent: FunctionComponent<CarouselProductProps> =
                                                     height={50}
                                                     priority={false}
                                                 />
-                                                <h1 className="font-bold text-xs ml-2">{item?.name}</h1>
+                                                <h1 className="font-bold text-xs ml-2 text-red-500">{item?.name}</h1>
                                             </div>
                                         </span>
                                     </SliderThumbItem>

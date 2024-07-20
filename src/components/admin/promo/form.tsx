@@ -66,9 +66,12 @@ export const PromoForm: FunctionComponent<PromoFormProps> = function ({ ...props
 
     useEffect(() => {
         if (data) {
-
             form.setValue('id', data.id as string)
             form.setValue('name', data.name as string)
+            if (data.path) {
+                const file = new File([data.path], data.path, { type: 'image/jpeg' });
+                form.setValue('image', file)
+            }
             form.setValue('description', data.description as string)
             form.setValue('startDate', data.startDate as Date)
             form.setValue('endDate', data.endDate as Date)

@@ -72,13 +72,14 @@ export const ColorTable: FunctionComponent<ColorTable> = function ({ ...props })
                     <ColorPicker
                         onChange={() => { }}
                         value={color.color as string}
+                        disabled
                     />
                 )
             }
         },
         {
             accessorKey: "code",
-            header: "Warna"
+            header: "Kode Warna"
         },
         {
             accessorKey: "name",
@@ -88,7 +89,7 @@ export const ColorTable: FunctionComponent<ColorTable> = function ({ ...props })
                         variant="ghost"
                         onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
                     >
-                        Warna
+                        Nama Warna
                         <ArrowUpDown className="ml-2 h-4 w-4" />
                     </Button>
                 )

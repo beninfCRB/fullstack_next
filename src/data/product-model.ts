@@ -109,7 +109,16 @@ export async function GetProductModelID(id: string) {
                 id
             },
             include: {
-                product: true,
+                product: {
+                    include: {
+                        product_color: {
+                            include: {
+                                product_image: true,
+                                color: true
+                            }
+                        }
+                    }
+                },
                 type: true,
                 transmition: true
             }
