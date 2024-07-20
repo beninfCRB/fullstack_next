@@ -16,16 +16,26 @@ import { ProductType } from '../../admin/product/product-main/type'
 import { ProductModelType } from '../../admin/product/product-model/type'
 import { AllProduct } from './all-product'
 
+interface ProductModelResponse {
+    data: Array<ProductModelType>
+    count: number
+}
 interface FilterProductProps {
     model: Array<ModelType> | []
     transmition: Array<TransmitionType> | []
-    dataFunc: (v: any) => Promise<ProductType[]>
+    dataFunc: (v: any) => Promise<ProductModelResponse | null>
 }
 
+
 export const FilterProduct: FunctionComponent<FilterProductProps> = function ({ ...props }) {
+    const tot = 10
     const [filter, setFilter] = useState<boolean>(true)
-    const [data, setData] = useState<ProductModelType[] | []>([])
+    const [data, setData] = useState<ProductModelResponse | null>(null)
+    const [skip, setSkip] = useState<number>(1)
+    const [take, setTake] = useState<number>(tot)
     const [isPending, startTransition] = useTransition()
+    console.log('data===>', data);
+
 
     const form = useForm<FilterProductModelSchemaType>({
         resolver: zodResolver(FilterProductModelSchema),
@@ -39,6 +49,9 @@ export const FilterProduct: FunctionComponent<FilterProductProps> = function ({ 
 
     const onFetch = (value?: any) => {
         startTransition(() => {
+            value.skip = Number(skip)
+            value.take = Number(take)
+
             if (value) {
                 props.dataFunc(value).then((v) => {
                     setData(v)
@@ -56,29 +69,32 @@ export const FilterProduct: FunctionComponent<FilterProductProps> = function ({ 
         form.resetField('transmitionId')
         form.resetField('priceStart')
         form.resetField('priceEnd')
-        await onFetch()
+        await onFetch({ skip, take })
+    }
+
+    const nextTake = () => {
+        setSkip(skip + 1)
+        setTake(take + tot)
     }
 
     useEffect(() => {
-        onFetch()
+        onFetch({ skip, take })
     }, [])
 
-    useEffect(() => {
-        const { modelId, transmitionId, priceEnd, priceStart } = form.getValues()
-        if (modelId || transmitionId || priceEnd || priceStart) {
-            setFilter(true)
-        } else {
-            setFilter(false)
-        }
-    }, [startTransition])
+    // useEffect(() => {
+    //     const { modelId, transmitionId, priceEnd, priceStart } = form.getValues()
+    //     if (modelId || transmitionId || priceEnd || priceStart) {
+    //         setFilter(true)
+    //     } else {
+    //         setFilter(false)
+    //     }
+    // }, [startTransition])
 
     return (
         <div
-            className='flex flex-row w-full p-8 gap-4'
+            className='flex xl:flex-row flex-col w-full p-8 gap-4'
         >
-            <div
-                className='basis-1/6'
-            >
+            <div>
                 <div className='flex flex-col gap-2'>
                     <FormMain {...form}>
                         <form
@@ -155,11 +171,11 @@ export const FilterProduct: FunctionComponent<FilterProductProps> = function ({ 
                     </FormMain>
                 </div>
             </div>
-            <div
-                className='basis-5/6'
-            >
+            <div>
                 <AllProduct
-                    data={data}
+                    data={data?.data || []}
+                    next={nextTake}
+                    count={data?.count}
                 />
             </div>
         </div>

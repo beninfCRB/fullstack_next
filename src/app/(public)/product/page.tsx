@@ -7,9 +7,9 @@ export default async function ProductPage() {
     const fetch = async (v?: any) => {
         "use server"
         if (v) {
-            return await GetProductModelSearch(v) || []
+            return await GetProductModelSearch(v)
         }
-        return await GetProductModelSearch({}) || []
+        return await GetProductModelSearch({})
     }
     const model = await GetModel() || []
     const transmition = await GetTransmition() || []

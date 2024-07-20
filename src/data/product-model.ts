@@ -21,6 +21,8 @@ export async function GetProductModelSearch(filter?: {
     priceStart?: number,
     priceEnd?: number,
     transmitionId?: string,
+    skip?: number,
+    take?: number
 }) {
     try {
         let whereAnd = []
@@ -66,6 +68,13 @@ export async function GetProductModelSearch(filter?: {
                 })
             }
         }
+        const count = await db.productModel.count({
+            where: filter ? {
+                AND: whereAnd
+            } : undefined,
+            // skip: filter?.skip,
+            take: filter?.take
+        })
         const data = await db.productModel.findMany({
             where: filter ? {
                 AND: whereAnd
@@ -82,10 +91,12 @@ export async function GetProductModelSearch(filter?: {
                     }
                 },
                 price: true
-            }
+            },
+            // skip: filter?.skip,
+            take: filter?.take
         })
 
-        return data
+        return { data, count }
     } catch (error) {
         return null
     }
