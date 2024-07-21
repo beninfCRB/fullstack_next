@@ -7,6 +7,7 @@ import ThemeToggler from '../../theme-toggler'
 import { MobileNavigation } from '@/components/mobile-navigation'
 import Nav from '@/components/navigation'
 import { private_links } from '@/app/(private)/admin/router'
+import { NavItem, NavItemChild } from './nav-item'
 
 interface HeadNavBarProps {
     title: string
@@ -14,7 +15,7 @@ interface HeadNavBarProps {
 
 export const MobileNavBar: FunctionComponent<HeadNavBarProps> = function ({ ...props }) {
     const [header, setHeader] = useState(false)
-    const pathName = usePathname()
+    const path = usePathname()
 
     return (
         <div>
@@ -22,7 +23,7 @@ export const MobileNavBar: FunctionComponent<HeadNavBarProps> = function ({ ...p
                 className={
                     `${header ? 'py-4 bg-tertiary shadow-lg dark:bg-accent'
                         : 'py-6 dark:bg-transparent'
-                    } top-0 z-30 transition-all ${pathName === '/admin' && 'bg-[#fff]'}`
+                    } top-0 z-30 transition-all ${path === '/admin' && 'bg-[#fff]'}`
                 }
             >
                 <div className='flex flex-col gap-y-4 mr-auto'>
@@ -31,11 +32,29 @@ export const MobileNavBar: FunctionComponent<HeadNavBarProps> = function ({ ...p
                             <MobileNavigation
                                 title={props.title}
                             >
-                                <Nav
-                                    data={private_links}
-                                    containerStyles='flex flex-col items-center gap-y-4'
-                                    linkStyles='text-1xl font-semibold'
-                                />
+                                <nav className="grid gap-1 px-2 group-[[data-collapsed=true]]:justify-center group-[[data-collapsed=true]]:px-2">
+                                    {
+                                        private_links.map((head, ih) => {
+                                            const adjustedPath = path.startsWith('/product') ? `/${head.path}` : head.path;
+                                            return head?.child ? (
+                                                <NavItemChild
+                                                    index={ih}
+                                                    link={head}
+                                                    path={path}
+                                                    linkStyles="flex flex-row items-center justify-start gap-2"
+                                                />
+                                            ) :
+                                                (
+                                                    <NavItem
+                                                        index={ih}
+                                                        link={head}
+                                                        path={path}
+                                                        linkStyles="flex flex-row items-center justify-start gap-2"
+                                                    />
+                                                )
+                                        })
+                                    }
+                                </nav>
                             </MobileNavigation>
                         </div>
                         <ButtonSignout />

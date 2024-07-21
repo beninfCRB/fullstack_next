@@ -34,14 +34,14 @@ export const FilterProduct: FunctionComponent<FilterProductProps> = function ({ 
     const [skip, setSkip] = useState<number>(1)
     const [take, setTake] = useState<number>(tot)
     const [isPending, startTransition] = useTransition()
-    console.log('data===>', data);
-
 
     const form = useForm<FilterProductModelSchemaType>({
         resolver: zodResolver(FilterProductModelSchema),
         defaultValues: {
             modelId: "",
-            transmitionId: ""
+            transmitionId: "",
+            priceStart: Number(""),
+            priceEnd: Number("")
         }
     })
     const router = useRouter()
@@ -65,10 +65,7 @@ export const FilterProduct: FunctionComponent<FilterProductProps> = function ({ 
     }
 
     const onCancel = async () => {
-        form.resetField('modelId')
-        form.resetField('transmitionId')
-        form.resetField('priceStart')
-        form.resetField('priceEnd')
+        form.reset()
         await onFetch({ skip, take })
     }
 

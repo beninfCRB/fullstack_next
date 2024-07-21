@@ -31,79 +31,89 @@ export const private_links: PrivateLinksProps[] =
                     icon: LayoutDashboard,
                     variant: "ghost"
                 },
+                {
+                    name: "Tipe",
+                    path: "/admin/master/type",
+                    icon: LayoutDashboard,
+                    variant: "ghost"
+                },
+                {
+                    name: "Warna",
+                    path: "/admin/master/color",
+                    icon: LayoutDashboard,
+                    variant: "ghost"
+                },
+                {
+                    name: "Bahan Bakar",
+                    path: "/admin/master/fuel",
+                    icon: LayoutDashboard,
+                    variant: "ghost"
+                },
+                {
+                    name: "Transmisi",
+                    path: "/admin/master/transmition",
+                    icon: LayoutDashboard,
+                    variant: "ghost"
+                },
             ]
-        },
-        {
-            name: "Model",
-            path: "/admin/master/model",
-            icon: LayoutDashboard,
-            variant: "ghost"
-        },
-        {
-            name: "Tipe",
-            path: "/admin/master/type",
-            icon: LayoutDashboard,
-            variant: "ghost"
-        },
-        {
-            name: "Warna",
-            path: "/admin/master/color",
-            icon: LayoutDashboard,
-            variant: "ghost"
-        },
-        {
-            name: "Bahan Bakar",
-            path: "/admin/master/fuel",
-            icon: LayoutDashboard,
-            variant: "ghost"
-        },
-        {
-            name: "Transmisi",
-            path: "/admin/master/transmition",
-            icon: LayoutDashboard,
-            variant: "ghost"
         },
         {
             name: "Produk",
             path: "/admin/product/product-main",
             icon: LayoutDashboard,
-            variant: "ghost"
+            variant: "ghost",
+            child: [
+                {
+                    name: "Produk",
+                    path: "/admin/product/product-main",
+                    icon: LayoutDashboard,
+                    variant: "ghost"
+                },
+                {
+                    name: "Warna Produk",
+                    path: "/admin/product/product-color",
+                    icon: LayoutDashboard,
+                    variant: "ghost"
+                },
+                {
+                    name: "Gambar Produk",
+                    path: "/admin/product/product-image",
+                    icon: LayoutDashboard,
+                    variant: "ghost"
+                },
+                {
+                    name: "Model Produk",
+                    path: "/admin/product/product-model",
+                    icon: LayoutDashboard,
+                    variant: "ghost"
+                },
+            ]
         },
         {
-            name: "Warna Produk",
-            path: "/admin/product/product-color",
-            icon: LayoutDashboard,
-            variant: "ghost"
-        },
-        {
-            name: "Gambar Produk",
-            path: "/admin/product/product-image",
-            icon: LayoutDashboard,
-            variant: "ghost"
-        },
-        {
-            name: "Model Produk",
-            path: "/admin/product/product-model",
-            icon: LayoutDashboard,
-            variant: "ghost"
-        },
-        {
-            name: "Model Mesin",
+            name: "Spesifikasi",
             path: "/admin/model/model-machine",
             icon: LayoutDashboard,
-            variant: "ghost"
-        },
-        {
-            name: "Model Rangka",
-            path: "/admin/model/model-chasis",
-            icon: LayoutDashboard,
-            variant: "ghost"
-        },
-        {
-            name: "Model Dimensi",
-            path: "/admin/model/model-dimention",
-            icon: LayoutDashboard,
-            variant: "ghost"
+            variant: "ghost",
+            child: [
+                {
+                    name: "Model Mesin",
+                    path: "/admin/model/model-machine",
+                    icon: LayoutDashboard,
+                    variant: "ghost"
+                },
+                {
+                    name: "Model Rangka",
+                    path: "/admin/model/model-chasis",
+                    icon: LayoutDashboard,
+                    variant: "ghost"
+                },
+                {
+                    name: "Model Dimensi",
+                    path: "/admin/model/model-dimention",
+                    icon: LayoutDashboard,
+                    variant: "ghost"
+                },
+            ]
         },
         {
             name: "Harga",
