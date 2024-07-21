@@ -20,6 +20,20 @@ export const private_links: PrivateLinksProps[] =
             variant: "default"
         },
         {
+            name: "Master",
+            path: "/admin/master",
+            icon: LayoutDashboard,
+            variant: "ghost",
+            child: [
+                {
+                    name: "Model",
+                    path: "/admin/master/model",
+                    icon: LayoutDashboard,
+                    variant: "ghost"
+                },
+            ]
+        },
+        {
             name: "Model",
             path: "/admin/master/model",
             icon: LayoutDashboard,
