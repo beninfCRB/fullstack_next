@@ -1,3 +1,4 @@
+import { ProductType } from "@/components/admin/product/product-main/type"
 import { db } from "@/lib/db"
 
 export async function GetProduct() {
@@ -22,6 +23,25 @@ export async function GetProduct() {
                 }
             }
         })
+
+        return data
+    } catch (error) {
+        return null
+    }
+}
+
+export async function GetProductCarousel() {
+    try {
+        const data = await db.$queryRaw<any[]>`SELECT product.buildUp,product.name, CAST(price.price AS DECIMAL) AS price, transmition.name AS transmition, fuel.name AS fuel, product_image.path FROM product 
+        LEFT JOIN product_model ON product.id = product_model.productId 
+        LEFT JOIN price ON product_model.id = price.productModelId 
+        LEFT JOIN transmition ON product_model.transmitionId = transmition.id 
+        LEFT JOIN model_machine ON product_model.id = model_machine.productModelId 
+        LEFT JOIN fuel ON model_machine.fuelId = fuel.id 
+        LEFT JOIN product_color ON product.id = product_color.productId 
+        LEFT JOIN product_image ON product_color.id = product_image.productColorId 
+        GROUP BY product.id
+        ORDER BY CAST(price.price AS DECIMAL) ASC`
 
         return data
     } catch (error) {

@@ -13,7 +13,7 @@ import { SkeletonCard } from '../skeleton-card';
 import Link from 'next/link';
 
 interface CarouselProductProps {
-    data: Array<ProductType> | []
+    data: Array<any> | []
 }
 
 export const CarouselProductComponent: FunctionComponent<CarouselProductProps> = function ({ ...props }) {
@@ -62,7 +62,7 @@ export const CarouselProductComponent: FunctionComponent<CarouselProductProps> =
                                             >
                                                 <Image
                                                     className='size-auto object-cover'
-                                                    src={item?.product_color?.at(0)?.product_image?.at(0)?.path as string}
+                                                    src={item?.path as string}
                                                     about={`${item.name}`}
                                                     alt=''
                                                     width={50}
@@ -95,7 +95,7 @@ export const CarouselProductComponent: FunctionComponent<CarouselProductProps> =
                                             >
                                                 <Image
                                                     className='lg:size-full object-cover rounded-lg'
-                                                    src={item?.product_color?.at(0)?.product_image?.at(0)?.path as string}
+                                                    src={item?.path as string}
                                                     about={`${item.name}`}
                                                     alt=''
                                                     width={600}
@@ -110,13 +110,13 @@ export const CarouselProductComponent: FunctionComponent<CarouselProductProps> =
                                                         className="basis-1/4 flex md:flex-col items-center justify-center gap-4"
                                                     >
                                                         <FuelIcon />
-                                                        <span className="text-red-500 font-bold text-lg">{item?.product_model?.at(0)?.model_machine?.at(0)?.fuel?.name ? item?.product_model?.at(0)?.model_machine?.at(0)?.fuel?.name : 'Tidak Ada Data'}</span>
+                                                        <span className="text-red-500 font-bold text-lg">{item?.fuel ? item?.fuel : 'Tidak Ada Data'}</span>
                                                     </div>
                                                     <div
                                                         className="basis-1/4 flex md:flex-col items-center justify-center gap-4"
                                                     >
                                                         <GaugeIcon />
-                                                        <span className="text-red-500 font-bold text-lg">{item?.product_model?.at(0)?.transmition?.name ? item?.product_model?.at(0)?.transmition?.name : 'Tidak Ada Data'}</span>
+                                                        <span className="text-red-500 font-bold text-lg">{item?.transmition ? item?.transmition : 'Tidak Ada Data'}</span>
                                                     </div>
                                                     <div
                                                         className="basis-1/4 flex md:flex-col items-center justify-center gap-4"
@@ -132,7 +132,7 @@ export const CarouselProductComponent: FunctionComponent<CarouselProductProps> =
                                                             className="flex flex-row items-center justify-center gap-1"
                                                         >
                                                             <span className="basis-1/2 text-nowrap">Mulai dari</span>
-                                                            <span className="basis-1/2 text-red-500 font-bold text-sm">{formattedPrice(item?.product_model?.at(0)?.price?.price ? item?.product_model?.at(0)?.price?.price : 0)}</span>
+                                                            <span className="basis-1/2 text-red-500 font-bold text-sm">{formattedPrice(item?.price ? item?.price : 0)}</span>
                                                         </div>
                                                     </div>
                                                 </div>
