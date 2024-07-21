@@ -37,20 +37,24 @@ export const MobileNavBar: FunctionComponent<HeadNavBarProps> = function ({ ...p
                                         private_links.map((head, ih) => {
                                             const adjustedPath = path.startsWith('/product') ? `/${head.path}` : head.path;
                                             return head?.child ? (
-                                                <NavItemChild
-                                                    index={ih}
-                                                    link={head}
-                                                    path={path}
-                                                    linkStyles="flex flex-row items-center justify-start gap-2"
-                                                />
-                                            ) :
-                                                (
-                                                    <NavItem
+                                                <div key={ih}>
+                                                    <NavItemChild
                                                         index={ih}
                                                         link={head}
                                                         path={path}
                                                         linkStyles="flex flex-row items-center justify-start gap-2"
                                                     />
+                                                </div>
+                                            ) :
+                                                (
+                                                    <div key={ih}>
+                                                        <NavItem
+                                                            index={ih}
+                                                            link={head}
+                                                            path={path}
+                                                            linkStyles="flex flex-row items-center justify-start gap-2"
+                                                        />
+                                                    </div>
                                                 )
                                         })
                                     }

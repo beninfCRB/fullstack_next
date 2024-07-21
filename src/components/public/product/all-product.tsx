@@ -50,7 +50,7 @@ export const AllProduct: FunctionComponent<AllProductProps> = function ({ data, 
                                             <CardDescription className='flex flex-col gap-1'>
                                                 {item.type?.name && <div className='flex flex-row items-center gap-1'><BookTypeIcon className="w-4 h-4" /> {item.type?.name}</div>}
                                                 {item.product?.description && <div className='flex flex-row items-center gap-1'><CircleGaugeIcon className="w-4 h-4" />{item.product?.description}</div>}
-                                                {item.price?.price && <div className='flex flex-row items-center gap-1'><DollarSignIcon className="w-4 h-4" />Rp. {formattedPrice(item.price?.price)}</div>}
+                                                {item.price?.price && <div className='flex flex-row items-center gap-1'><DollarSignIcon className="w-4 h-4" />{formattedPrice(item.price?.price)}</div>}
                                             </CardDescription>
                                         </CardHeader>
                                         <CardContent

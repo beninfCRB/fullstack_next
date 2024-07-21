@@ -77,7 +77,7 @@ export const CarouselProductComponent: FunctionComponent<CarouselProductProps> =
                             </CarouselThumbsContainer>
                         </div>
                         <div className="relative basis-3/4 h-[25rem] lg:h-[15rem]">
-                            <CarouselMainContainer className="h-[30rem] lg:h-[37rem]">
+                            <CarouselMainContainer className="h-[32rem] lg:h-[37rem]">
                                 {props.data?.map((item, index) => (
                                     <SliderMainItem
                                         key={index}
@@ -132,7 +132,7 @@ export const CarouselProductComponent: FunctionComponent<CarouselProductProps> =
                                                             className="flex flex-row items-center justify-center gap-1"
                                                         >
                                                             <span className="basis-1/2 text-nowrap">Mulai dari</span>
-                                                            <span className="basis-1/2 text-red-500 font-bold text-lg">{formattedPrice(item?.product_model?.at(0)?.price?.price ? item?.product_model?.at(0)?.price?.price : 0)}</span>
+                                                            <span className="basis-1/2 text-red-500 font-bold text-sm">{formattedPrice(item?.product_model?.at(0)?.price?.price ? item?.product_model?.at(0)?.price?.price : 0)}</span>
                                                         </div>
                                                     </div>
                                                 </div>
