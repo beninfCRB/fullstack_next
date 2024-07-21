@@ -1,6 +1,18 @@
 import {
+    BarChart4,
+    BrainCircuit,
+    Car,
+    Cpu,
+    DollarSign,
+    Images,
     LayoutDashboard,
-    Settings
+    Palette,
+    PencilRuler,
+    Puzzle,
+    Sailboat,
+    Settings,
+    TicketSlash,
+    TicketX
 } from "lucide-react";
 
 interface PrivateLinksProps {
@@ -16,7 +28,7 @@ export const private_links: PrivateLinksProps[] =
         {
             name: "Dashboard",
             path: "/admin",
-            icon: LayoutDashboard,
+            icon: BarChart4,
             variant: "default"
         },
         {
@@ -60,31 +72,31 @@ export const private_links: PrivateLinksProps[] =
         {
             name: "Produk",
             path: "/admin/product/product-main",
-            icon: LayoutDashboard,
+            icon: Car,
             variant: "ghost",
             child: [
                 {
                     name: "Produk",
                     path: "/admin/product/product-main",
-                    icon: LayoutDashboard,
+                    icon: Car,
                     variant: "ghost"
                 },
                 {
                     name: "Warna Produk",
                     path: "/admin/product/product-color",
-                    icon: LayoutDashboard,
+                    icon: Palette,
                     variant: "ghost"
                 },
                 {
                     name: "Gambar Produk",
                     path: "/admin/product/product-image",
-                    icon: LayoutDashboard,
+                    icon: Images,
                     variant: "ghost"
                 },
                 {
                     name: "Model Produk",
                     path: "/admin/product/product-model",
-                    icon: LayoutDashboard,
+                    icon: Puzzle,
                     variant: "ghost"
                 },
             ]
@@ -92,25 +104,25 @@ export const private_links: PrivateLinksProps[] =
         {
             name: "Spesifikasi",
             path: "/admin/model/model-machine",
-            icon: LayoutDashboard,
+            icon: Cpu,
             variant: "ghost",
             child: [
                 {
                     name: "Model Mesin",
                     path: "/admin/model/model-machine",
-                    icon: LayoutDashboard,
+                    icon: BrainCircuit,
                     variant: "ghost"
                 },
                 {
                     name: "Model Rangka",
                     path: "/admin/model/model-chasis",
-                    icon: LayoutDashboard,
+                    icon: Sailboat,
                     variant: "ghost"
                 },
                 {
                     name: "Model Dimensi",
                     path: "/admin/model/model-dimention",
-                    icon: LayoutDashboard,
+                    icon: PencilRuler,
                     variant: "ghost"
                 },
             ]
@@ -118,19 +130,19 @@ export const private_links: PrivateLinksProps[] =
         {
             name: "Harga",
             path: "/admin/price/price-main",
-            icon: LayoutDashboard,
+            icon: DollarSign,
             variant: "ghost"
         },
         {
             name: "Carousel",
             path: "/admin/carousel-image",
-            icon: LayoutDashboard,
+            icon: TicketX,
             variant: "ghost"
         },
         {
             name: "Promo",
             path: "/admin/promo",
-            icon: LayoutDashboard,
+            icon: TicketSlash,
             variant: "ghost"
         },
         {

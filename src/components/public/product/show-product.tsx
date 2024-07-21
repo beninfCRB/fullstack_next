@@ -92,7 +92,7 @@ export const FilterProduct: FunctionComponent<FilterProductProps> = function ({ 
         <div
             className='flex xl:flex-row flex-col w-full p-8 gap-4'
         >
-            <div className='border-r-2 border-slate-500 pr-2'>
+            <div className='border-b-2 lg:border-r-2 border-slate-500 pb-2 lg:pr-2'>
                 <div className='flex flex-col gap-2'>
                     <FormMain {...form}>
                         <form

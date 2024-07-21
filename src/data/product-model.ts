@@ -94,7 +94,12 @@ export async function GetProductModelSearch(filter?: {
                 type: true
             },
             // skip: filter?.skip,
-            take: filter?.take
+            take: filter?.take,
+            orderBy: {
+                product: {
+                    name: 'asc'
+                }
+            }
         })
 
         return { data, count }
