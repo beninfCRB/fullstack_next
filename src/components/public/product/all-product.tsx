@@ -4,6 +4,7 @@ import { SkeletonCard } from '@/components/skeleton-card'
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
 import { formattedPrice } from '@/utils/format-price'
 import { motion } from 'framer-motion'
+import { BookTypeIcon, CircleGaugeIcon, DollarSignIcon } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
@@ -45,14 +46,16 @@ export const AllProduct: FunctionComponent<AllProductProps> = function ({ data, 
                                         className='shadow-md shadow-red-500'
                                     >
                                         <CardHeader>
-                                            <CardTitle>{item.product?.name}</CardTitle>
-                                            <CardDescription className='flex flex-col'>
-                                                <div>{item?.type?.name}</div>
-                                                {item.product?.description && <div>{item.product?.description}</div>}
-                                                {item.price?.price && <div>Rp. {formattedPrice(item.price?.price)}</div>}
+                                            <CardTitle className='flex items-center justify-center text-red-500 text-2xl font-semibold'>{item.product?.name?.toUpperCase()}</CardTitle>
+                                            <CardDescription className='flex flex-col gap-1'>
+                                                {item.type?.name && <div className='flex flex-row items-center gap-1'><BookTypeIcon className="w-4 h-4" /> {item.type?.name}</div>}
+                                                {item.product?.description && <div className='flex flex-row items-center gap-1'><CircleGaugeIcon className="w-4 h-4" />{item.product?.description}</div>}
+                                                {item.price?.price && <div className='flex flex-row items-center gap-1'><DollarSignIcon className="w-4 h-4" />Rp. {formattedPrice(item.price?.price)}</div>}
                                             </CardDescription>
                                         </CardHeader>
-                                        <CardContent>
+                                        <CardContent
+                                            className='flex items-center justify-end '
+                                        >
                                             <Image
                                                 className='size-auto object-cover'
                                                 src={item?.product?.product_color?.at(0)?.product_image?.at(0)?.path as string}

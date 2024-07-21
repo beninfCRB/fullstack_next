@@ -90,7 +90,8 @@ export async function GetProductModelSearch(filter?: {
                         }
                     }
                 },
-                price: true
+                price: true,
+                type: true
             },
             // skip: filter?.skip,
             take: filter?.take
@@ -120,7 +121,10 @@ export async function GetProductModelID(id: string) {
                     }
                 },
                 type: true,
-                transmition: true
+                transmition: true,
+                model_dimention: true,
+                model_machine: true,
+                model_chasis: true
             }
         })
 

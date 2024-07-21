@@ -115,23 +115,73 @@ export const ProductDetail: FunctionComponent<ProductDetailProps> = function ({ 
                     <CardContent>
                         <Accordion type="single" collapsible className="w-full">
                             <AccordionItem value="item-1">
-                                <AccordionTrigger>Is it accessible?</AccordionTrigger>
-                                <AccordionContent>
-                                    Yes. It adheres to the WAI-ARIA design pattern.
+                                <AccordionTrigger className='text-xl'>DIMENSI</AccordionTrigger>
+                                <AccordionContent
+                                    className='flex flex-col gap-2'
+                                >
+                                    {
+                                        data?.model_dimention?.length ?
+                                            data?.model_dimention?.map((item, index) => (
+                                                <ul className='flex flex-col text-md uppercase space-y-1'>
+                                                    <li className='flex items-center justify-between bg-slate-500 text-white p-2 rounded-lg'>Overall Panjang / Length <span>{item?.length ? Number(item?.length).toFixed(2) : 'Tidak ada data'}</span></li>
+                                                    <li className='flex items-center justify-between bg-red-500 text-white p-2 rounded-lg'>Overall Lebar / Width <span>{item?.width ? Number(item?.width).toFixed(2) : 'Tidak ada data'}</span></li>
+                                                    <li className='flex items-center justify-between bg-slate-500 text-white p-2 rounded-lg'>Overall Tinggi / Height <span>{item?.height ? Number(item?.height).toFixed(2) : 'Tidak ada data'}</span></li>
+                                                    <li className='flex items-center justify-between bg-red-500 text-white p-2 rounded-lg'>Jarak Poros Roda / Wheelbase <span>{item?.wheelBase ? Number(item?.wheelBase).toFixed(2) : 'Tidak ada data'}</span></li>
+                                                    <li className='flex items-center justify-between bg-slate-500 text-white p-2 rounded-lg'>Jarak Pijak / Tread (Depan/Front) <span>{item?.frontThread ? Number(item?.frontThread).toFixed(2) : 'Tidak ada data'}</span></li>
+                                                    <li className='flex items-center justify-between bg-red-500 text-white p-2 rounded-lg'>Jarak Pijak / Tread (Belakang / Rear) <span>{item?.rearThread ? Number(item?.rearThread).toFixed(2) : 'Tidak ada data'}</span></li>
+                                                    <li className='flex items-center justify-between bg-slate-500 text-white p-2 rounded-lg'>Jarak Terendah / Ground Clearance <span>{item?.groundClearance ? Number(item?.groundClearance).toFixed(2) : 'Tidak ada data'}</span></li>
+                                                </ul>
+                                            )) :
+                                            (
+                                                <div className='flex items-center justify-center font-bold'>Tidak ada data</div>
+                                            )
+                                    }
                                 </AccordionContent>
                             </AccordionItem>
                             <AccordionItem value="item-2">
-                                <AccordionTrigger>Is it styled?</AccordionTrigger>
-                                <AccordionContent>
-                                    Yes. It comes with default styles that matches the other
-                                    components&apos; aesthetic.
+                                <AccordionTrigger className='text-xl'>MESIN</AccordionTrigger>
+                                <AccordionContent
+                                    className='flex flex-col gap-2'
+                                >
+                                    {
+                                        data?.model_machine?.length ?
+                                            data?.model_machine?.map((item, index) => (
+                                                <ul className='flex flex-col text-md uppercase space-y-1'>
+                                                    <li className='flex items-center justify-between bg-slate-500 text-white p-2 rounded-lg'>Tipe Mesin / Engine Type <span>{item?.engineType ? item?.engineType : 'Tidak ada data'}</span></li>
+                                                    <li className='flex items-center justify-between bg-red-500 text-white p-2 rounded-lg'>Isi Silinder / Displacement (Cc) <span>{item?.cylinder ? Number(item?.cylinder).toFixed(2) : 'Tidak ada data'}</span></li>
+                                                    <li className='flex items-center justify-between bg-slate-500 text-white p-2 rounded-lg'>Daya Maksimum / Maximum Output (Ps/Rpm) <span>{item?.maxOutput ? Number(item?.maxOutput).toFixed(2) : 'Tidak ada data'}</span></li>
+                                                    <li className='flex items-center justify-between bg-red-500 text-white p-2 rounded-lg'>Torsi Maksimum / Maximum Torque (Kgm/Rpm) <span>{item?.maxTorq ? Number(item?.maxTorq).toFixed(2) : 'Tidak ada data'}</span></li>
+                                                    <li className='flex items-center justify-between bg-slate-500 text-white p-2 rounded-lg'>Sistem Pemasukan Bahan Bakar / Fuel System <span>{item?.fuel?.name ? item?.fuel?.name : 'Tidak ada data'}</span></li>
+                                                    <li className='flex items-center justify-between bg-red-500 text-white p-2 rounded-lg'>Kapasitas Tangki / Fuel Capacity (Liter) <span>{item?.fuelCapacity ? Number(item?.fuelCapacity).toFixed(2) : 'Tidak ada data'}</span></li>
+                                                </ul>
+                                            )) :
+                                            (
+                                                <div className='flex items-center justify-center font-bold'>Tidak ada data</div>
+                                            )
+                                    }
                                 </AccordionContent>
                             </AccordionItem>
                             <AccordionItem value="item-3">
-                                <AccordionTrigger>Is it animated?</AccordionTrigger>
-                                <AccordionContent>
-                                    Yes. It&apos;s animated by default, but you can disable it if you
-                                    prefer.
+                                <AccordionTrigger className='text-xl'>SASIS</AccordionTrigger>
+                                <AccordionContent
+                                    className='flex flex-col gap-2'
+                                >
+                                    {
+                                        data?.model_chasis?.length ?
+                                            data?.model_chasis?.map((item, index) => (
+                                                <ul className='flex flex-col text-md uppercase space-y-1'>
+                                                    <li className='flex items-center justify-between bg-slate-500 text-white p-2 rounded-lg'>Transmisi / Transmission Type <span>{item?.transmitionType ? item?.transmitionType : 'Tidak ada data'}</span></li>
+                                                    <li className='flex items-center justify-between bg-red-500 text-white p-2 rounded-lg'>Suspensi Depan / Front Suspension <span>{item?.frontSuspension ? item?.frontSuspension : 'Tidak ada data'}</span></li>
+                                                    <li className='flex items-center justify-between bg-slate-500 text-white p-2 rounded-lg'>Suspensi Belakang / Rear Suspension <span>{item?.rearSuspension ? item?.rearSuspension : 'Tidak ada data'}</span></li>
+                                                    <li className='flex items-center justify-between bg-red-500 text-white p-2 rounded-lg'>Rem Depan / Front Brake <span>{item?.frontBrake ? item?.frontBrake : 'Tidak ada data'}</span></li>
+                                                    <li className='flex items-center justify-between bg-slate-500 text-white p-2 rounded-lg'>Rem Belakang / Rear Brake <span>{item?.rearBrake ? item?.rearBrake : 'Tidak ada data'}</span></li>
+                                                    <li className='flex items-center justify-between bg-red-500 text-white p-2 rounded-lg'>Ukuran Ban / Tires Size <span>{item?.tireSize ? item?.tireSize : 'Tidak ada data'}</span></li>
+                                                </ul>
+                                            )) :
+                                            (
+                                                <div className='flex items-center justify-center font-bold'>Tidak ada data</div>
+                                            )
+                                    }
                                 </AccordionContent>
                             </AccordionItem>
                         </Accordion>
