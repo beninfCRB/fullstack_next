@@ -15,6 +15,7 @@ import { TransmitionType } from '../../admin/master/transmition/type'
 import { ProductType } from '../../admin/product/product-main/type'
 import { ProductModelType } from '../../admin/product/product-model/type'
 import { AllProduct } from './all-product'
+import { Separator } from '@/components/ui/separator'
 
 interface ProductModelResponse {
     data: Array<ProductModelType>
@@ -91,7 +92,7 @@ export const FilterProduct: FunctionComponent<FilterProductProps> = function ({ 
         <div
             className='flex xl:flex-row flex-col w-full p-8 gap-4'
         >
-            <div>
+            <div className='border-r-2 border-slate-500 pr-2'>
                 <div className='flex flex-col gap-2'>
                     <FormMain {...form}>
                         <form
