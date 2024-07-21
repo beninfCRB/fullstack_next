@@ -17,7 +17,6 @@ interface ProductDetailProps {
 
 export const ProductDetail: FunctionComponent<ProductDetailProps> = function ({ ...props }) {
     const { data } = props
-    console.log('data====>', data);
 
     return (
         <div
@@ -49,7 +48,7 @@ export const ProductDetail: FunctionComponent<ProductDetailProps> = function ({ 
                                         </div>
                                         <div className="flex items-center justify-center border cursor-pointer w-full p-2 rounded-xl">
                                             <ColorPicker
-                                                className='border-red-500'
+                                                className='border-red-500 rounded-full'
                                                 onChange={() => { }}
                                                 value={item?.color?.color as string}
                                                 disabled
