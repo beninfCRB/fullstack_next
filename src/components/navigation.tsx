@@ -8,7 +8,7 @@ import Link from 'next/link'
 interface linkType {
     path: string
     name: string
-    icon?: any
+    icon: any
     variant?: any
 }
 
@@ -32,7 +32,7 @@ const Nav = ({ containerStyles, linkStyles, underlineStyles, data }: Props) => {
                         <Link
                             href={adjustedPath}
                             key={index}
-                            className={`uppercase ${linkStyles}`}
+                            className={`flex flex-row items-center gap-1 justify-start uppercase ${linkStyles}`}
                         >
                             {link?.path === path && (
                                 <motion.span
@@ -43,6 +43,7 @@ const Nav = ({ containerStyles, linkStyles, underlineStyles, data }: Props) => {
                                     className={`${underlineStyles}`}
                                 />
                             )}
+                            <link.icon className="h-4 w-4" />
                             {link.name}
                         </Link>
                     )

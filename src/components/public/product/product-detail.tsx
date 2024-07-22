@@ -10,6 +10,8 @@ import { ColorPicker } from '@/components/ui/color-picker-input'
 import { Separator } from '@/components/ui/separator'
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'
 import { Card, CardContent, CardHeader } from '@/components/ui/card'
+import { formattedPrice } from '@/utils/format-price'
+import { BetweenHorizonalEndIcon, BrainCircuitIcon, GalleryThumbnailsIcon, PaletteIcon, PencilRulerIcon } from 'lucide-react'
 
 interface ProductDetailProps {
     data?: ProductModelType
@@ -23,6 +25,8 @@ export const ProductDetail: FunctionComponent<ProductDetailProps> = function ({ 
             className='flex flex-col items-center justify-center w-full mt-10 space-y-4'
         >
             <div className='text-4xl font-bold font-sans text-red-500 w-full text-center'>{data?.product?.name?.toUpperCase()}</div>
+            <div className='text-2xl font-bold font-sans text-slate-500 w-full text-center'>{data?.product?.buildUp}</div>
+            {data?.price?.price ? <div className='text-2xl font-bold font-sans text-slate-500 w-full text-center'>{formattedPrice(data?.price?.price)}</div> : null}
             <motion.div
                 initial="offscreen"
                 whileInView={"onscreen"}
@@ -33,7 +37,7 @@ export const ProductDetail: FunctionComponent<ProductDetailProps> = function ({ 
                     <div
                         className="block text-center bg-red-500 w-full rounded-lg"
                     >
-                        <span className="text-2xl italic font-bold decoration-red-500 text-white mb-8">WARNA</span>
+                        <span className="flex flex-row items-center justify-center text-2xl italic font-bold decoration-red-500 text-white mb-8"><PaletteIcon /> <span>WARNA</span></span>
                         <CarouselThumbsContainer className="h-50 basis-1/4 flex flex-row flex-wrap">
                             {data?.product?.product_color?.map((item, index) => {
                                 return item?.product_image?.map((detail_item, detail_index) =>
@@ -114,7 +118,7 @@ export const ProductDetail: FunctionComponent<ProductDetailProps> = function ({ 
                     <CardContent>
                         <Accordion type="single" collapsible className="w-full">
                             <AccordionItem value="item-1">
-                                <AccordionTrigger className='text-xl'>DIMENSI</AccordionTrigger>
+                                <AccordionTrigger className='text-xl'><PencilRulerIcon /> DIMENSI</AccordionTrigger>
                                 <AccordionContent
                                     className='flex flex-col gap-2'
                                 >
@@ -138,7 +142,7 @@ export const ProductDetail: FunctionComponent<ProductDetailProps> = function ({ 
                                 </AccordionContent>
                             </AccordionItem>
                             <AccordionItem value="item-2">
-                                <AccordionTrigger className='text-xl'>MESIN</AccordionTrigger>
+                                <AccordionTrigger className='text-xl'><GalleryThumbnailsIcon /> MESIN</AccordionTrigger>
                                 <AccordionContent
                                     className='flex flex-col gap-2'
                                 >
@@ -161,7 +165,7 @@ export const ProductDetail: FunctionComponent<ProductDetailProps> = function ({ 
                                 </AccordionContent>
                             </AccordionItem>
                             <AccordionItem value="item-3">
-                                <AccordionTrigger className='text-xl'>SASIS</AccordionTrigger>
+                                <AccordionTrigger className='text-xl'><BetweenHorizonalEndIcon /> SASIS</AccordionTrigger>
                                 <AccordionContent
                                     className='flex flex-col gap-2'
                                 >

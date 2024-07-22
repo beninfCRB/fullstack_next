@@ -125,6 +125,7 @@ export async function GetProductModelID(id: string) {
                         }
                     }
                 },
+                price: true,
                 type: true,
                 transmition: true,
                 model_dimention: true,
