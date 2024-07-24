@@ -125,7 +125,7 @@ export const ProductDetail: FunctionComponent<ProductDetailProps> = function ({ 
                                     {
                                         data?.model_dimention?.length ?
                                             data?.model_dimention?.map((item, index) => (
-                                                <ul className='flex flex-col text-md uppercase space-y-1'>
+                                                <ul key={index} className='flex flex-col text-md uppercase space-y-1'>
                                                     <li className='flex items-center justify-between bg-slate-500 text-white p-2 rounded-lg'>Overall Panjang / Length <span>{item?.length ? Number(item?.length).toFixed(2) : 'Tidak ada data'}</span></li>
                                                     <li className='flex items-center justify-between bg-red-500 text-white p-2 rounded-lg'>Overall Lebar / Width <span>{item?.width ? Number(item?.width).toFixed(2) : 'Tidak ada data'}</span></li>
                                                     <li className='flex items-center justify-between bg-slate-500 text-white p-2 rounded-lg'>Overall Tinggi / Height <span>{item?.height ? Number(item?.height).toFixed(2) : 'Tidak ada data'}</span></li>
@@ -149,7 +149,7 @@ export const ProductDetail: FunctionComponent<ProductDetailProps> = function ({ 
                                     {
                                         data?.model_machine?.length ?
                                             data?.model_machine?.map((item, index) => (
-                                                <ul className='flex flex-col text-md uppercase space-y-1'>
+                                                <ul key={index} className='flex flex-col text-md uppercase space-y-1'>
                                                     <li className='flex items-center justify-between bg-slate-500 text-white p-2 rounded-lg'>Tipe Mesin / Engine Type <span>{item?.engineType ? item?.engineType : 'Tidak ada data'}</span></li>
                                                     <li className='flex items-center justify-between bg-red-500 text-white p-2 rounded-lg'>Isi Silinder / Displacement (Cc) <span>{item?.cylinder ? Number(item?.cylinder).toFixed(2) : 'Tidak ada data'}</span></li>
                                                     <li className='flex items-center justify-between bg-slate-500 text-white p-2 rounded-lg'>Daya Maksimum / Maximum Output (Ps/Rpm) <span>{item?.maxOutput ? Number(item?.maxOutput).toFixed(2) : 'Tidak ada data'}</span></li>
@@ -172,7 +172,7 @@ export const ProductDetail: FunctionComponent<ProductDetailProps> = function ({ 
                                     {
                                         data?.model_chasis?.length ?
                                             data?.model_chasis?.map((item, index) => (
-                                                <ul className='flex flex-col text-md uppercase space-y-1'>
+                                                <ul key={index} className='flex flex-col text-md uppercase space-y-1'>
                                                     <li className='flex items-center justify-between bg-slate-500 text-white p-2 rounded-lg'>Transmisi / Transmission Type <span>{item?.transmitionType ? item?.transmitionType : 'Tidak ada data'}</span></li>
                                                     <li className='flex items-center justify-between bg-red-500 text-white p-2 rounded-lg'>Suspensi Depan / Front Suspension <span>{item?.frontSuspension ? item?.frontSuspension : 'Tidak ada data'}</span></li>
                                                     <li className='flex items-center justify-between bg-slate-500 text-white p-2 rounded-lg'>Suspensi Belakang / Rear Suspension <span>{item?.rearSuspension ? item?.rearSuspension : 'Tidak ada data'}</span></li>

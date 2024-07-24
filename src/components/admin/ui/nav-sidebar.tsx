@@ -25,6 +25,7 @@ export function NavSideBar({ links, isCollapsed }: NavProps) {
                             return head?.child ? (
                                 <div key={ih}>
                                     <NavItemChild
+                                        key={ih}
                                         index={ih}
                                         link={head}
                                         isCollapsed={isCollapsed}
@@ -36,6 +37,7 @@ export function NavSideBar({ links, isCollapsed }: NavProps) {
                                 (
                                     <div key={ih}>
                                         <NavItem
+                                            key={ih}
                                             index={ih}
                                             link={head}
                                             isCollapsed={isCollapsed}

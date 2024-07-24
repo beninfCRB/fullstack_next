@@ -1,4 +1,3 @@
-import { Decimal } from "@prisma/client/runtime/library"
 import { FuelType } from "../../master/fuel/type"
 import { ProductModelType } from "../../product/product-model/type"
 
@@ -8,11 +7,11 @@ export interface ModelMachineType {
     machineSerial?: string | null
     engineType?: string | null
     boreStroke?: string | null
-    cylinder?: Decimal
+    cylinder?: number | any
     maxOutput?: string | null
     maxTorq?: string | null
     fuelId?: string
-    fuelCapacity?: Decimal
+    fuelCapacity?: number | any
 
     product_model?: ProductModelType
     fuel?: FuelType

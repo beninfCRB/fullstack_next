@@ -100,6 +100,7 @@ const NavItem: FunctionComponent<NavItemProps> = ({ index, link, isCollapsed, pa
 const NavItemChild: FunctionComponent<NavItemProps> = ({ index, link, path, isCollapsed, linkStyles, containerStyles, underlineStyles }) => {
     return (
         <div
+            key={index}
             className='w-full'
         >
             {isCollapsed ?
@@ -127,6 +128,7 @@ const NavItemChild: FunctionComponent<NavItemProps> = ({ index, link, path, isCo
                         {
                             link?.child?.map((link_child, ic) =>
                                 <Link
+                                    key={index}
                                     href={link_child.path}
                                     className={cn(
                                         buttonVariants({

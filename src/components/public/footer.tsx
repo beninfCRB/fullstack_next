@@ -64,7 +64,7 @@ const Footer: FunctionComponent<FooterProps> = ({ ...props }) => {
                         <p className='text-justify'>
                             Jl. Mayor Abdurahman No.130, Kotakaler, Kec. Sumedang Utara, Kabupaten Sumedang, Jawa Barat 45322
                         </p>
-                        <p className='flex flex-row'><PhoneCallIcon />  &nbsp; (0261) 209 500</p>
+                        <span className='flex flex-row'><PhoneCallIcon />  &nbsp; (0261) 209 500</span>
                     </div>
                 </div>
             </div>
