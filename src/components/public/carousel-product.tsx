@@ -77,7 +77,7 @@ export const CarouselProductComponent: FunctionComponent<CarouselProductProps> =
                             </CarouselThumbsContainer>
                         </div>
                         <div className="relative basis-3/4 h-[25rem] lg:h-[15rem]">
-                            <CarouselMainContainer className="h-[32rem] lg:h-[37rem]">
+                            <CarouselMainContainer className="h-[32rem] lg:h-[40rem]">
                                 {props.data?.map((item, index) => (
                                     <SliderMainItem
                                         key={index}
