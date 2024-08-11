@@ -132,7 +132,7 @@ export const CarouselProductComponent: FunctionComponent<CarouselProductProps> =
                                                             className="flex flex-row items-center justify-center gap-1"
                                                         >
                                                             <span className="basis-1/2 text-nowrap">Mulai dari</span>
-                                                            <span className="basis-1/2 text-red-500 font-bold text-sm">{item?.price ? Number(formattedPrice(item?.price)) : 0}</span>
+                                                            <span className="basis-1/2 text-red-500 font-bold text-sm">{formattedPrice(item?.price ? item?.price : 0)}</span>
                                                         </div>
                                                     </div>
                                                 </div>
