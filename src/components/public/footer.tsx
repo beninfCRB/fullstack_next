@@ -1,9 +1,6 @@
-"use client"
-
 import { public_links } from '@/app/(public)/router'
 import { MapPinIcon, PhoneCallIcon } from 'lucide-react'
 import Link from 'next/link'
-import { usePathname } from 'next/navigation'
 import { FunctionComponent } from 'react'
 
 interface FooterProps {
@@ -11,10 +8,6 @@ interface FooterProps {
 }
 
 const Footer: FunctionComponent<FooterProps> = ({ ...props }) => {
-    const path = usePathname()
-
-    const fixed = 'xl:fixed lg:relative md:relative'
-
     return (
         <div
             className={`flex flex-col lg:flex-row bg-red-500 items-stretch justify-center relative bottom-0 mt-auto h-max text-white p-8 gap-12`}
@@ -64,7 +57,7 @@ const Footer: FunctionComponent<FooterProps> = ({ ...props }) => {
                         <p className='text-justify'>
                             Jl. Mayor Abdurahman No.130, Kotakaler, Kec. Sumedang Utara, Kabupaten Sumedang, Jawa Barat 45322
                         </p>
-                        <span className='flex flex-row'><PhoneCallIcon />  &nbsp; (0261) 209 500</span>
+                        <div className='flex flex-row'><PhoneCallIcon />  &nbsp; ( 0261 ) 209 500</div>
                     </div>
                 </div>
             </div>
