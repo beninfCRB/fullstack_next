@@ -8,5 +8,5 @@ export const formattedPrice = (price: number | bigint | any) => {
         maximumFractionDigits: 2,
     }).format(price);
 
-    return Number(format.replace('Rp', 'Rp. '));
+    return format.replace('Rp', 'Rp.').toString();
 } 
