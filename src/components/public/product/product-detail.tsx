@@ -1,17 +1,16 @@
 "use client"
 
 import { ProductModelType } from '@/components/admin/product/product-model/type'
-import Image from 'next/image'
-import React, { FunctionComponent } from 'react'
-import { motion } from 'framer-motion'
-import { produkVariants } from '@/utils/animate'
-import { Carousel, CarouselMainContainer, CarouselThumbsContainer, SliderMainItem, SliderThumbItem } from '@/components/ui/carousel-extension'
-import { ColorPicker } from '@/components/ui/color-picker-input'
-import { Separator } from '@/components/ui/separator'
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'
 import { Card, CardContent, CardHeader } from '@/components/ui/card'
+import { Carousel, CarouselMainContainer, CarouselThumbsContainer, SliderMainItem, SliderThumbItem } from '@/components/ui/carousel-extension'
+import { ColorPicker } from '@/components/ui/color-picker-input'
+import { produkVariants } from '@/utils/animate'
 import { formattedPrice } from '@/utils/format-price'
-import { BetweenHorizonalEndIcon, BrainCircuitIcon, GalleryThumbnailsIcon, PaletteIcon, PencilRulerIcon } from 'lucide-react'
+import { motion } from 'framer-motion'
+import { BetweenHorizonalEndIcon, GalleryThumbnailsIcon, PaletteIcon, PencilRulerIcon } from 'lucide-react'
+import Image from 'next/image'
+import { FunctionComponent } from 'react'
 
 interface ProductDetailProps {
     data?: ProductModelType

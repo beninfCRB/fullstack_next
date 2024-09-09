@@ -4,8 +4,8 @@ export const formattedPrice = (price: number | bigint | any) => {
     const format = new Intl.NumberFormat("id-ID", {
         style: "currency",
         currency: "IDR",
-        minimumFractionDigits: 2,
-        maximumFractionDigits: 2,
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 0,
     }).format(price);
 
     return format.replace('Rp', 'Rp.').toString();
