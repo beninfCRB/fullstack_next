@@ -45,7 +45,7 @@ export const CarouselImageForm: FunctionComponent<CarouselImageFormProps> = func
         defaultValues: {
             id: "",
             name: "",
-            image: new File([], '')
+            image: undefined
         }
     })
 
@@ -84,7 +84,7 @@ export const CarouselImageForm: FunctionComponent<CarouselImageFormProps> = func
 
         let formData = new FormData();
         formData.append('name', values.name);
-        formData.append('image', values?.image as File);
+        formData.append('image', values?.image);
 
         if (id) {
             startTransition(async () => {

@@ -47,7 +47,7 @@ export const PromoForm: FunctionComponent<PromoFormProps> = function ({ ...props
         defaultValues: {
             id: "",
             name: "",
-            image: new File([], ''),
+            image: undefined,
             description: "",
             startDate: new Date(),
             endDate: new Date(),
@@ -95,7 +95,7 @@ export const PromoForm: FunctionComponent<PromoFormProps> = function ({ ...props
 
         let formData = new FormData();
         formData.append('name', values.name);
-        formData.append('image', values?.image as File);
+        formData.append('image', values?.image);
         formData.append('description', values.description);
         formData.append('startDate', String(values.startDate));
         formData.append('endDate', String(values.endDate));

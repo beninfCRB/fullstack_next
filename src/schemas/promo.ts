@@ -8,9 +8,12 @@ export const PromoSchema = z.object({
     name: z.string().min(1, {
         message: "Is required",
     }),
-    image: z.instanceof(File)
-        .refine((file) => file.size <= MAX_UPLOAD_SIZE, "Ukuran gambar harus kurang dari 1MB.")
-        .refine((file) => ACCEPTED_FILE_TYPES.includes(file.type), "Tipe file tidak valid. Hanya JPEG dan PNG yang diperbolehkan."),
+    image: z.any().refine((file) => {
+        if (!(file instanceof File)) return false;
+        return file.size <= MAX_UPLOAD_SIZE && ACCEPTED_FILE_TYPES.includes(file.type);
+    }, {
+        message: "Ukuran gambar harus kurang dari 1MB dan hanya JPEG dan PNG yang diperbolehkan.",
+    }),
     description: z.string().min(1, {
         message: "Is required",
     }),

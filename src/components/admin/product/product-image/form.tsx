@@ -48,7 +48,7 @@ export const ProductImageForm: FunctionComponent<ProductImageFormProps> = functi
         defaultValues: {
             id: "",
             productColorId: "",
-            image: new File([], '')
+            image: undefined
         }
     })
 
@@ -86,7 +86,7 @@ export const ProductImageForm: FunctionComponent<ProductImageFormProps> = functi
 
         let formData = new FormData();
         formData.append('productColorId', values.productColorId);
-        formData.append('image', values?.image as File);
+        formData.append('image', values?.image);
 
         if (id) {
             startTransition(async () => {
