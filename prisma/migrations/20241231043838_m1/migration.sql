@@ -128,8 +128,21 @@ CREATE TABLE `transmition` (
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
+CREATE TABLE `model` (
+    `id` VARCHAR(191) NOT NULL,
+    `name` VARCHAR(191) NOT NULL,
+    `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+    `updatedAt` DATETIME(3) NOT NULL,
+    `createdBy` VARCHAR(191) NULL,
+    `updatedBy` VARCHAR(191) NULL,
+
+    PRIMARY KEY (`id`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- CreateTable
 CREATE TABLE `product` (
     `id` VARCHAR(191) NOT NULL,
+    `modelId` VARCHAR(191) NOT NULL,
     `name` VARCHAR(191) NOT NULL,
     `buildUp` INTEGER NOT NULL,
     `description` VARCHAR(191) NOT NULL,
@@ -169,15 +182,28 @@ CREATE TABLE `product_model` (
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
+CREATE TABLE `product_image` (
+    `id` VARCHAR(191) NOT NULL,
+    `productColorId` VARCHAR(191) NOT NULL,
+    `path` VARCHAR(191) NOT NULL,
+    `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+    `updatedAt` DATETIME(3) NOT NULL,
+    `createdBy` VARCHAR(191) NULL,
+    `updatedBy` VARCHAR(191) NULL,
+
+    PRIMARY KEY (`id`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- CreateTable
 CREATE TABLE `model_machine` (
     `id` VARCHAR(191) NOT NULL,
     `productModelId` VARCHAR(191) NOT NULL,
     `machineSerial` VARCHAR(191) NULL,
-    `engineType` VARCHAR(191) NOT NULL,
-    `boreStroke` VARCHAR(191) NOT NULL,
+    `engineType` VARCHAR(191) NULL,
+    `boreStroke` VARCHAR(191) NULL,
     `cylinder` DECIMAL(6, 2) NOT NULL,
-    `maxOutput` VARCHAR(191) NOT NULL,
-    `maxTorq` VARCHAR(191) NOT NULL,
+    `maxOutput` VARCHAR(191) NULL,
+    `maxTorq` VARCHAR(191) NULL,
     `fuelId` VARCHAR(191) NOT NULL,
     `fuelCapacity` DECIMAL(6, 2) NOT NULL,
     `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
@@ -230,11 +256,26 @@ CREATE TABLE `model_chasis` (
 -- CreateTable
 CREATE TABLE `price` (
     `id` VARCHAR(191) NOT NULL,
-    `productId` VARCHAR(191) NOT NULL,
-    `price` DECIMAL(8, 2) NOT NULL DEFAULT 0,
+    `productModelId` VARCHAR(191) NOT NULL,
+    `price` DECIMAL(16, 2) NOT NULL DEFAULT 0,
     `credit` BOOLEAN NOT NULL DEFAULT false,
     `tenor` INTEGER NOT NULL,
-    `dp` DECIMAL(8, 2) NOT NULL DEFAULT 0,
+    `dp` DECIMAL(16, 2) NOT NULL DEFAULT 0,
+    `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+    `updatedAt` DATETIME(3) NOT NULL,
+    `createdBy` VARCHAR(191) NULL,
+    `updatedBy` VARCHAR(191) NULL,
+
+    UNIQUE INDEX `price_productModelId_key`(`productModelId`),
+    PRIMARY KEY (`id`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- CreateTable
+CREATE TABLE `price_detail` (
+    `id` VARCHAR(191) NOT NULL,
+    `priceId` VARCHAR(191) NOT NULL,
+    `count` INTEGER NOT NULL,
+    `amount` DECIMAL(16, 2) NOT NULL DEFAULT 0,
     `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `updatedAt` DATETIME(3) NOT NULL,
     `createdBy` VARCHAR(191) NULL,
@@ -244,11 +285,26 @@ CREATE TABLE `price` (
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
-CREATE TABLE `price_detail` (
+CREATE TABLE `carousel_image` (
     `id` VARCHAR(191) NOT NULL,
-    `priceId` VARCHAR(191) NOT NULL,
-    `count` INTEGER NOT NULL,
-    `amount` DECIMAL(8, 2) NOT NULL DEFAULT 0,
+    `name` VARCHAR(191) NOT NULL,
+    `path` VARCHAR(191) NOT NULL,
+    `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+    `updatedAt` DATETIME(3) NOT NULL,
+    `createdBy` VARCHAR(191) NULL,
+    `updatedBy` VARCHAR(191) NULL,
+
+    PRIMARY KEY (`id`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- CreateTable
+CREATE TABLE `promo` (
+    `id` VARCHAR(191) NOT NULL,
+    `name` VARCHAR(191) NOT NULL,
+    `path` VARCHAR(191) NOT NULL,
+    `description` TEXT NOT NULL,
+    `startDate` DATETIME(3) NOT NULL,
+    `endDate` DATETIME(3) NOT NULL,
     `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `updatedAt` DATETIME(3) NOT NULL,
     `createdBy` VARCHAR(191) NULL,
@@ -288,10 +344,19 @@ ALTER TABLE `transmition` ADD CONSTRAINT `transmition_createdBy_fkey` FOREIGN KE
 ALTER TABLE `transmition` ADD CONSTRAINT `transmition_updatedBy_fkey` FOREIGN KEY (`updatedBy`) REFERENCES `user`(`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 -- AddForeignKey
+ALTER TABLE `model` ADD CONSTRAINT `model_createdBy_fkey` FOREIGN KEY (`createdBy`) REFERENCES `user`(`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- AddForeignKey
+ALTER TABLE `model` ADD CONSTRAINT `model_updatedBy_fkey` FOREIGN KEY (`updatedBy`) REFERENCES `user`(`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- AddForeignKey
 ALTER TABLE `product` ADD CONSTRAINT `product_createdBy_fkey` FOREIGN KEY (`createdBy`) REFERENCES `user`(`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 -- AddForeignKey
 ALTER TABLE `product` ADD CONSTRAINT `product_updatedBy_fkey` FOREIGN KEY (`updatedBy`) REFERENCES `user`(`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- AddForeignKey
+ALTER TABLE `product` ADD CONSTRAINT `product_modelId_fkey` FOREIGN KEY (`modelId`) REFERENCES `model`(`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 -- AddForeignKey
 ALTER TABLE `product_color` ADD CONSTRAINT `product_color_createdBy_fkey` FOREIGN KEY (`createdBy`) REFERENCES `user`(`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
@@ -319,6 +384,15 @@ ALTER TABLE `product_model` ADD CONSTRAINT `product_model_typeId_fkey` FOREIGN K
 
 -- AddForeignKey
 ALTER TABLE `product_model` ADD CONSTRAINT `product_model_transmitionId_fkey` FOREIGN KEY (`transmitionId`) REFERENCES `transmition`(`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- AddForeignKey
+ALTER TABLE `product_image` ADD CONSTRAINT `product_image_createdBy_fkey` FOREIGN KEY (`createdBy`) REFERENCES `user`(`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- AddForeignKey
+ALTER TABLE `product_image` ADD CONSTRAINT `product_image_updatedBy_fkey` FOREIGN KEY (`updatedBy`) REFERENCES `user`(`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- AddForeignKey
+ALTER TABLE `product_image` ADD CONSTRAINT `product_image_productColorId_fkey` FOREIGN KEY (`productColorId`) REFERENCES `product_color`(`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 -- AddForeignKey
 ALTER TABLE `model_machine` ADD CONSTRAINT `model_machine_createdBy_fkey` FOREIGN KEY (`createdBy`) REFERENCES `user`(`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
@@ -357,7 +431,7 @@ ALTER TABLE `price` ADD CONSTRAINT `price_createdBy_fkey` FOREIGN KEY (`createdB
 ALTER TABLE `price` ADD CONSTRAINT `price_updatedBy_fkey` FOREIGN KEY (`updatedBy`) REFERENCES `user`(`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 -- AddForeignKey
-ALTER TABLE `price` ADD CONSTRAINT `price_productId_fkey` FOREIGN KEY (`productId`) REFERENCES `product`(`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE `price` ADD CONSTRAINT `price_productModelId_fkey` FOREIGN KEY (`productModelId`) REFERENCES `product_model`(`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 -- AddForeignKey
 ALTER TABLE `price_detail` ADD CONSTRAINT `price_detail_createdBy_fkey` FOREIGN KEY (`createdBy`) REFERENCES `user`(`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
@@ -367,3 +441,15 @@ ALTER TABLE `price_detail` ADD CONSTRAINT `price_detail_updatedBy_fkey` FOREIGN 
 
 -- AddForeignKey
 ALTER TABLE `price_detail` ADD CONSTRAINT `price_detail_priceId_fkey` FOREIGN KEY (`priceId`) REFERENCES `price`(`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- AddForeignKey
+ALTER TABLE `carousel_image` ADD CONSTRAINT `carousel_image_createdBy_fkey` FOREIGN KEY (`createdBy`) REFERENCES `user`(`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- AddForeignKey
+ALTER TABLE `carousel_image` ADD CONSTRAINT `carousel_image_updatedBy_fkey` FOREIGN KEY (`updatedBy`) REFERENCES `user`(`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- AddForeignKey
+ALTER TABLE `promo` ADD CONSTRAINT `promo_createdBy_fkey` FOREIGN KEY (`createdBy`) REFERENCES `user`(`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- AddForeignKey
+ALTER TABLE `promo` ADD CONSTRAINT `promo_updatedBy_fkey` FOREIGN KEY (`updatedBy`) REFERENCES `user`(`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
