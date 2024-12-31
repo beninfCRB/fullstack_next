@@ -7,6 +7,7 @@ import FormSuccess from '@/components/form-success'
 import { FormControl, FormField, FormItem, FormLabel, FormMain, FormMessage } from '@/components/ui/form'
 import { Input } from "@/components/ui/input"
 import { ProductImageSchema, ProductImageSchemaType } from '@/schemas/product-image'
+import { formVariants } from '@/utils/animate'
 import { zodResolver } from "@hookform/resolvers/zod"
 import { CrossCircledIcon, PlusCircledIcon, PlusIcon } from '@radix-ui/react-icons'
 import { motion } from 'framer-motion'
@@ -15,13 +16,12 @@ import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { FunctionComponent, useEffect, useState, useTransition } from 'react'
 import { useForm } from 'react-hook-form'
 import { toast } from 'react-toastify'
-import { ProductColorSelect } from '../product-color/select'
-import { ProductColorType } from '../product-color/type'
+import imageDefaultPng from '../../../../../public/image/image.png'
 import CardWrapper from '../../ui/card-wrapper'
 import PageTitle from '../../ui/page-title'
+import { ProductColorSelect } from '../product-color/select'
+import { ProductColorType } from '../product-color/type'
 import { ProductImageType } from './type'
-import imageDefaultPng from '../../../../../public/image/image.png'
-import { formVariants } from '@/utils/animate'
 
 interface ProductImageFormProps {
     dataProductColor: Array<ProductColorType>
@@ -86,7 +86,7 @@ export const ProductImageForm: FunctionComponent<ProductImageFormProps> = functi
 
         let formData = new FormData();
         formData.append('productColorId', values.productColorId);
-        formData.append('image', values?.image);
+        formData.append('image', values?.image as any);
 
         if (id) {
             startTransition(async () => {

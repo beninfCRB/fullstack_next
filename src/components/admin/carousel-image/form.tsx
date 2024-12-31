@@ -84,7 +84,7 @@ export const CarouselImageForm: FunctionComponent<CarouselImageFormProps> = func
 
         let formData = new FormData();
         formData.append('name', values.name);
-        formData.append('image', values?.image);
+        formData.append('image', values?.image as any);
 
         if (id) {
             startTransition(async () => {
